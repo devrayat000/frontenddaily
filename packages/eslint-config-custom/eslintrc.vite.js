@@ -12,6 +12,7 @@ module.exports = {
     "turbo",
     "plugin:prettier/recommended",
   ],
+  ignorePatterns: ["*.cjs"],
   overrides: [],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -39,6 +40,7 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "jsx-a11y/accessible-emoji": "off",
+    "jsx-a11y/alt-text": "warn",
     "react/prop-types": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/consistent-type-imports": "warn",

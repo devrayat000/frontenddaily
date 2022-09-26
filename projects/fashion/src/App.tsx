@@ -1,6 +1,12 @@
 import clsx from "clsx";
 
 import { ReactComponent as BlobIcon } from "./assets/blob.svg";
+import amazon from "./assets/brands/amazon.png";
+import hnm from "./assets/brands/hnm.png";
+import lacoste from "./assets/brands/lacoste.png";
+import levis from "./assets/brands/levis.png";
+import obey from "./assets/brands/obey.png";
+import shopify from "./assets/brands/shopify.png";
 import heroImage from "./assets/hero-image.png";
 import { ReactComponent as Logo } from "./assets/logo.svg";
 
@@ -27,6 +33,33 @@ const links = [
     props: {
       className: "bg-black !text-white",
     },
+  },
+];
+
+const brands = [
+  {
+    alt: "Brand H&M",
+    src: hnm,
+  },
+  {
+    alt: "Brand OBEY",
+    src: obey,
+  },
+  {
+    alt: "Brand Shopify",
+    src: shopify,
+  },
+  {
+    alt: "Brand LACOSTE",
+    src: lacoste,
+  },
+  {
+    alt: "Brand Levi's",
+    src: levis,
+  },
+  {
+    alt: "Brand Amazon",
+    src: amazon,
   },
 ];
 
@@ -86,6 +119,13 @@ function App() {
           alt="Hero"
           className="absolute bottom-0 right-2 h-5/6 my-0"
         />
+      </section>
+
+      <section className="flex bg-primary justify-between items-center px-28 py-10">
+        {brands.map((b) => (
+          // eslint-disable-next-line
+          <img key={b.alt} {...b} className="mix-blend-multiply h-1/4 w-auto" />
+        ))}
       </section>
     </main>
   );
