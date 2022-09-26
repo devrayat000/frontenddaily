@@ -54,8 +54,8 @@ const BrowserMockup: React.FC<MockupProps> = ({ children }) => {
             stroke="white"
             strokeOpacity="0.7"
             stroke-width="1.25"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <g>
             <path

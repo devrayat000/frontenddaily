@@ -1,12 +1,7 @@
-import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { reactConfig } from "vite-config";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  server: {
-    cors: {
-      origin: "http://localhost:3000",
-    },
-  },
+  ...reactConfig,
 });
