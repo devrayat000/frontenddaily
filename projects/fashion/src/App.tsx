@@ -63,7 +63,7 @@ function App() {
           <h1 className="uppercase text-6xl font-black leading-snug break-words max-w-title relative isolate">
             <span className="absolute top-0 -left-6 w-full h-mark bg-white -z-10 -rotate-2" />
             <span className="absolute top-1/2 -left-6 w-full h-mark bg-primary -z-10 -rotate-2" />
-            LET’S EXPLORE UNIQUE CLOTHES.
+            Let’s Explore Unique Clothes.
           </h1>
 
           <p className="tracking-tight text-xl mb-0 mt-6">
