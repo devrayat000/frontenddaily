@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
   },
   item: {
     all: "unset",
-    padding: "12px 16px",
+    padding: "8px 12px",
     backgroundColor: "white",
     display: "flex",
     fontSize: 15,
@@ -39,19 +39,19 @@ const FilterToggle = () => {
   return (
     <ToggleGroupRoot type="single" className={classes.root} defaultValue="all">
       <ToggleItem value="all" className={classes.item}>
-        <IconAll height={32} width={32} />
+        <IconAll height={28} width={28} />
       </ToggleItem>
       <ToggleItem value="react" className={classes.item}>
-        <IconReact height={32} width={32} />
+        <IconReact height={28} width={28} />
       </ToggleItem>
       <ToggleItem value="svelte" className={classes.item}>
-        <IconSvelte height={32} width={32} />
+        <IconSvelte height={28} width={28} />
       </ToggleItem>
       <ToggleItem value="next.js" className={classes.item}>
-        <IconNextJs height={32} width={32} />
+        <IconNextJs height={28} width={28} />
       </ToggleItem>
       <ToggleItem value="vanilla" className={classes.item}>
-        <IconVanillaJavascript height={32} width={32} />
+        <IconVanillaJavascript height={28} width={28} />
       </ToggleItem>
     </ToggleGroupRoot>
   );

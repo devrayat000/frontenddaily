@@ -1,13 +1,11 @@
-import { Container, Group } from "@mantine/core";
+import { Container } from "@mantine/core";
 
-import FilterToggle from "~/components/home/FilterToggle";
+import Toolbar from "~/components/home/Toolbar";
 
 export default function Web() {
   return (
-    <Container>
-      <Group position="apart">
-        <FilterToggle />
-      </Group>
+    <Container fluid px="xl">
+      <Toolbar />
     </Container>
   );
 }
