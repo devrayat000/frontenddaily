@@ -1,0 +1,58 @@
+query Project($slug: String!) {
+  project(where: { slug: $slug }) {
+    id
+    title
+    image {
+      id
+      height
+      width
+      url
+    }
+    description {
+      raw
+      markdown
+    }
+    framework
+    sourceCode
+    preview
+    tags {
+      ... on Tag {
+        id
+        name
+        slug
+      }
+    }
+    publishedAt
+  }
+}
+
+query Projects(
+  $after: String
+  $before: String
+  $first: Int
+  $last: Int
+  $skip: Int
+  $where: ProjectWhereInput
+) {
+  projects(
+    after: $after
+    before: $before
+    first: $first
+    last: $last
+    skip: $skip
+    where: $where
+  ) {
+    id
+    title
+    slug
+    image {
+      id
+      height
+      width
+      url
+    }
+    framework
+    preview
+    publishedAt
+  }
+}

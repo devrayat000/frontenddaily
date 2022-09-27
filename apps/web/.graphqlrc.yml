@@ -1,0 +1,30 @@
+schema: 
+  - ${NEXT_PUBLIC_API_URL:./schema.graphql}:
+      headers:
+        Authorization: "Bearer ${NEXT_PUBLIC_API_TOKEN}"
+documents: src/graphql/**/*.{gql,graphql}
+
+extensions:
+  codegen:
+    overwrite: true
+    schema: 
+      - ${NEXT_PUBLIC_API_URL:./schema.graphql}:
+          headers:
+            Authorization: "Bearer ${NEXT_PUBLIC_API_TOKEN}"
+    documents: src/graphql/**/*.{gql,graphql}
+
+    generates:
+      schema.graphql:
+        plugins:
+          - schema-ast
+
+      src/graphql/generated.ts:
+        plugins:
+          - typescript
+          - typescript-operations
+          - typescript-urql
+        config:
+          gqlImport: urql#gql
+          dedupeFragments: true
+          useTypeImports: true
+          constEnums: true
