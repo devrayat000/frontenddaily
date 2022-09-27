@@ -1,6 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "globalEnv": ["NODE_ENV"],
+  "globalEnv": ["NODE_ENV", "NEXT_PUBLIC_API_URL"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
