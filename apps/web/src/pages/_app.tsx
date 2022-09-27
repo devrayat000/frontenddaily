@@ -1,4 +1,4 @@
-import { MantineProvider } from "@mantine/core";
+import { DEFAULT_THEME, MantineProvider } from "@mantine/core";
 import type { AppProps } from "next/app";
 import { Provider } from "urql";
 
@@ -12,7 +12,21 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
   }
 
   return (
-    <MantineProvider withCSSVariables withGlobalStyles withNormalizeCSS>
+    <MantineProvider
+      withCSSVariables
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        fontFamily: `Poppins, ${DEFAULT_THEME.fontFamily}`,
+        components: {
+          Button: {
+            styles: {
+              root: { fontWeight: 500 },
+            },
+          },
+        },
+      }}
+    >
       <Shell>
         <Provider value={urqlClient}>
           <Component {...pageProps} />
