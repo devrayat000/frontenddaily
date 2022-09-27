@@ -3,6 +3,9 @@ import {
   Item as ToggleItem,
   Root as ToggleGroupRoot,
 } from "@radix-ui/react-toggle-group";
+import { useState } from "react";
+
+import { Framework } from "~/graphql/generated";
 
 import IconAll from "../icons/all";
 import IconNextJs from "../icons/nextjs";
@@ -33,26 +36,52 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const frameworks = [
+  {
+    name: Framework.Vanilla,
+    icon: IconVanillaJavascript,
+  },
+  {
+    name: Framework.Svelte,
+    icon: IconSvelte,
+  },
+  {
+    name: Framework.React,
+    icon: IconReact,
+  },
+  {
+    name: Framework.Next,
+    icon: IconNextJs,
+  },
+];
+
 const FilterToggle = () => {
+  const [value, setValue] = useState("all");
   const { classes } = useStyles();
 
   return (
-    <ToggleGroupRoot type="single" className={classes.root} defaultValue="all">
+    <ToggleGroupRoot
+      type="single"
+      className={classes.root}
+      defaultValue="all"
+      value={value}
+      onValueChange={(value) => {
+        if (value) setValue(value);
+      }}
+    >
       <ToggleItem value="all" className={classes.item}>
         <IconAll height={28} width={28} />
       </ToggleItem>
-      <ToggleItem value="react" className={classes.item}>
-        <IconReact height={28} width={28} />
-      </ToggleItem>
-      <ToggleItem value="svelte" className={classes.item}>
-        <IconSvelte height={28} width={28} />
-      </ToggleItem>
-      <ToggleItem value="next.js" className={classes.item}>
-        <IconNextJs height={28} width={28} />
-      </ToggleItem>
-      <ToggleItem value="vanilla" className={classes.item}>
-        <IconVanillaJavascript height={28} width={28} />
-      </ToggleItem>
+
+      {frameworks.map((framework) => (
+        <ToggleItem
+          key={framework.name}
+          value={framework.name}
+          className={classes.item}
+        >
+          <framework.icon height={28} width={28} />
+        </ToggleItem>
+      ))}
     </ToggleGroupRoot>
   );
 };
