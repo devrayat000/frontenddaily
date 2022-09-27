@@ -7,10 +7,10 @@ import {
   IconDeviceTablet,
 } from "@tabler/icons";
 
-import BrowserMockup from "../components/mockups/browser";
-import PhoneMockup from "../components/mockups/phone";
-import TabletMockup from "../components/mockups/tablet";
-import useCycle from "../hooks/use-cycle";
+import BrowserMockup from "~/components/mockups/browser";
+import PhoneMockup from "~/components/mockups/phone";
+import TabletMockup from "~/components/mockups/tablet";
+import useCycle from "~/hooks/use-cycle";
 
 const enum Device {
   LAPTOP,
@@ -24,7 +24,7 @@ const devices = [
   { id: Device.MOBILE, icon: IconDeviceMobile },
 ];
 
-export default function Web() {
+const PreviewPage = () => {
   const theme = useMantineTheme();
   const { width: x } = useViewportSize();
 
@@ -40,7 +40,7 @@ export default function Web() {
 
   return (
     <div>
-      {/* <Group position="center" spacing="xl" mb="lg">
+      <Group position="center" spacing="xl" mb="lg">
         {devices.map((d) => (
           <ActionIcon
             key={d.id}
@@ -54,7 +54,9 @@ export default function Web() {
 
       {device === Device.MOBILE && <PhoneMockup>{frame}</PhoneMockup>}
       {device === Device.TABLET && <TabletMockup>{frame}</TabletMockup>}
-      {device === Device.LAPTOP && <BrowserMockup>{frame}</BrowserMockup>} */}
+      {device === Device.LAPTOP && <BrowserMockup>{frame}</BrowserMockup>}
     </div>
   );
-}
+};
+
+export default PreviewPage;

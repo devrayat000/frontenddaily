@@ -2,6 +2,8 @@ import { MantineProvider } from "@mantine/core";
 import type { AppProps } from "next/app";
 import { Provider } from "urql";
 
+import Shell from "~/components/common/shell";
+
 import urqlClient, { ssr } from "../services/urql-client";
 
 const MyApp = ({ Component, pageProps }: MyAppProps) => {
@@ -11,9 +13,11 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
 
   return (
     <MantineProvider withCSSVariables withGlobalStyles withNormalizeCSS>
-      <Provider value={urqlClient}>
-        <Component {...pageProps} />
-      </Provider>
+      <Shell>
+        <Provider value={urqlClient}>
+          <Component {...pageProps} />
+        </Provider>
+      </Shell>
     </MantineProvider>
   );
 };
