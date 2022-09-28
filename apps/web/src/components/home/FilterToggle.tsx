@@ -1,4 +1,4 @@
-import { createStyles } from "@mantine/core";
+import { createStyles, Tooltip } from "@mantine/core";
 import {
   Item as ToggleItem,
   Root as ToggleGroupRoot,
@@ -74,13 +74,16 @@ const FilterToggle = () => {
       </ToggleItem>
 
       {frameworks.map((framework) => (
-        <ToggleItem
+        <Tooltip
           key={framework.name}
-          value={framework.name}
-          className={classes.item}
+          label={framework.name}
+          withArrow
+          transition="pop"
         >
-          <framework.icon height={28} width={28} />
-        </ToggleItem>
+          <ToggleItem value={framework.name} className={classes.item}>
+            <framework.icon height={28} width={28} />
+          </ToggleItem>
+        </Tooltip>
       ))}
     </ToggleGroupRoot>
   );
