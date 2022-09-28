@@ -7427,6 +7427,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-cool-inview@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "react-cool-inview@npm:3.0.1"
+  peerDependencies:
+    react: ">= 16.8.0"
+  checksum: 10fd6a288c7320e8abc33a17776a650d98fce4bf523d3745303388b78a01342da76876b5e7debd7c1eef44f00ab7b450af9eaf55881f37576b952ab49c3a6eb3
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:18.2.0, react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -8937,6 +8946,7 @@ __metadata:
     next: 12.3.0
     next-transpile-modules: 9.0.0
     react: 18.2.0
+    react-cool-inview: ^3.0.1
     react-dom: 18.2.0
     react-spring: ^9.5.5
     tsconfig: "*"
