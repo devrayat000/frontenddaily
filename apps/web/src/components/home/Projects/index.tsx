@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@mantine/core";
+import { Center, Loader, SimpleGrid } from "@mantine/core";
 import { useState } from "react";
 import { useInView } from "react-cool-inview";
 
@@ -7,18 +7,19 @@ import ProjectCard from "./ProjectCard";
 
 const Projects = () => {
   const [projects, setProjects] = useState(initialProjects);
+
   const { observe } = useInView<HTMLDivElement>({
     rootMargin: "200px",
     onEnter: async ({ unobserve }) => {
       unobserve();
-      await new Promise((res) => setTimeout(res, 2000));
+      await new Promise((res) => setTimeout(res, 1000));
       setProjects((prev) => [...prev, ...initialProjects]);
       observe();
     },
   });
 
   return (
-    <>
+    <section>
       <SimpleGrid
         cols={3}
         breakpoints={[
@@ -30,12 +31,15 @@ const Projects = () => {
           margin: `${theme.spacing.xl * 2}px ${theme.spacing.xl * 3}px`,
         })}
       >
-        {projects.map((project, i) => (
-          <ProjectCard key={project.id + i} project={project} />
-        ))}
+        {projects.map((project, i) => {
+          return <ProjectCard key={project.id + i} project={project} />;
+        })}
       </SimpleGrid>
-      <div ref={observe} />
-    </>
+
+      <Center ref={observe}>
+        <Loader variant="bars" color="cyan" size="lg" />
+      </Center>
+    </section>
   );
 };
 

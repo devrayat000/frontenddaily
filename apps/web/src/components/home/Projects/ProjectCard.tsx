@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import Image from "next/future/image";
+import { forwardRef } from "react";
 
 import { frameworks } from "~/utils/frameworks";
 
@@ -31,52 +32,56 @@ const useStyles = createStyles((theme) => ({
   framework: { borderColor: "#E0E0E0" },
 }));
 
-const ProjectCard = ({ project }: ProjectCardProps) => {
-  const { classes } = useStyles();
+const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
+  ({ project }, ref) => {
+    const { classes } = useStyles();
 
-  const framework = frameworks.find((f) => f.name == project.framework)!;
+    const framework = frameworks.find((f) => f.name == project.framework)!;
 
-  return (
-    <Card
-      key={project.id}
-      component={NextLink}
-      href="/posts/[slug]"
-      as={`/projects/${project.slug}`}
-      title={project.title}
-      className={classes.card}
-      p="xl"
-      radius="md"
-    >
-      <Card.Section component="figure" className={classes.section}>
-        <Image src={project.image.url} alt={project.title} fill />
-      </Card.Section>
+    return (
+      <Card
+        key={project.id}
+        component={NextLink}
+        href="/posts/[slug]"
+        as={`/projects/${project.slug}`}
+        title={project.title}
+        className={classes.card}
+        p="xl"
+        radius="md"
+        ref={ref}
+      >
+        <Card.Section component="figure" className={classes.section}>
+          <Image src={project.image.url} alt={project.title} fill />
+        </Card.Section>
 
-      <div>
-        <Group position="apart">
-          <Title order={3} weight={600}>
-            {project.title}
-          </Title>
+        <article>
+          <Group position="apart">
+            <Title order={3} weight={600}>
+              {project.title}
+            </Title>
 
-          <Tooltip label={project.framework} withArrow transition="pop">
-            <ActionIcon
-              variant="outline"
-              size="xl"
-              radius="xl"
-              className={classes.framework}
-            >
-              <framework.icon height={28} width={28} />
-            </ActionIcon>
-          </Tooltip>
-        </Group>
+            <Tooltip label={project.framework} withArrow transition="pop">
+              <ActionIcon
+                variant="outline"
+                size="xl"
+                radius="xl"
+                className={classes.framework}
+              >
+                <framework.icon height={28} width={28} />
+              </ActionIcon>
+            </Tooltip>
+          </Group>
 
-        <Text mt="lg" size="lg" component="time" dateTime={project.createdAt}>
-          {new Intl.DateTimeFormat(["en-UK", "en-US"], {
-            dateStyle: "medium",
-          }).format(new Date(project.createdAt))}
-        </Text>
-      </div>
-    </Card>
-  );
-};
+          <Text mt="lg" size="lg" component="time" dateTime={project.createdAt}>
+            {new Intl.DateTimeFormat(["en-UK", "en-US"], {
+              dateStyle: "medium",
+            }).format(new Date(project.createdAt))}
+          </Text>
+        </article>
+      </Card>
+    );
+  }
+);
 
+ProjectCard.displayName = "ProjectCard";
 export default ProjectCard;

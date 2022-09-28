@@ -1,4 +1,5 @@
 import { Box, Button, Chip, Group, Paper, Text } from "@mantine/core";
+import { forwardRef } from "react";
 import shallow from "zustand/shallow";
 
 import { useTagStore } from "~/stores/chip";
@@ -28,31 +29,34 @@ type TagGroupProps = {
   tags: string[];
 };
 
-export function TagGroup({ label, tags }: TagGroupProps) {
-  const { add, remove } = useTagStore(
-    (store) => ({ add: store.add, remove: store.remove }),
-    shallow
-  );
+export const TagGroup = forwardRef<HTMLDivElement, TagGroupProps>(
+  ({ label, tags }, ref) => {
+    const { add, remove } = useTagStore(
+      (store) => ({ add: store.add, remove: store.remove }),
+      shallow
+    );
 
-  return (
-    <Box key={label}>
-      <Text size="xl" component="p" weight={500}>
-        {label}
-      </Text>
-      <Group spacing="xs">
-        {tags.map((tag) => (
-          <FilterChip
-            key={tag}
-            value={tag}
-            onChange={(checked) => (checked ? add(tag) : remove(tag))}
-          >
-            {tag}
-          </FilterChip>
-        ))}
-      </Group>
-    </Box>
-  );
-}
+    return (
+      <Box key={label} ref={ref}>
+        <Text size="xl" component="p" weight={500}>
+          {label}
+        </Text>
+        <Group spacing="xs">
+          {tags.map((tag) => (
+            <FilterChip
+              key={tag}
+              value={tag}
+              onChange={(checked) => (checked ? add(tag) : remove(tag))}
+            >
+              {tag}
+            </FilterChip>
+          ))}
+        </Group>
+      </Box>
+    );
+  }
+);
+TagGroup.displayName = "TagGroup";
 
 type FilterChipProps = {
   value: string;

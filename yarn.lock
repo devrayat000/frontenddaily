@@ -674,7 +674,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.16.7, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9":
   version: 7.19.0
   resolution: "@babel/runtime@npm:7.19.0"
   dependencies:
@@ -7436,6 +7436,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-cool-virtual@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "react-cool-virtual@npm:0.7.0"
+  dependencies:
+    "@babel/runtime": ^7.16.7
+  peerDependencies:
+    react: ">= 16.8.0"
+  checksum: fb05bbf0cae031a3cce7017ba3c6fc6e849766e08e417ce6dfd96581eca9a9993ab99bbc1be38438f724d28a6332bcc6d31cf6e893f71c5d813fdf45f1639fe6
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:18.2.0, react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -8947,6 +8958,7 @@ __metadata:
     next-transpile-modules: 9.0.0
     react: 18.2.0
     react-cool-inview: ^3.0.1
+    react-cool-virtual: ^0.7.0
     react-dom: 18.2.0
     react-spring: ^9.5.5
     tsconfig: "*"
