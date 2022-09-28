@@ -18,6 +18,9 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
       withNormalizeCSS
       theme={{
         fontFamily: `Poppins, ${DEFAULT_THEME.fontFamily}`,
+        headings: {
+          fontFamily: `Poppins, ${DEFAULT_THEME.fontFamily}`,
+        },
         components: {
           Button: {
             styles: {

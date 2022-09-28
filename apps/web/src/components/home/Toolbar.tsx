@@ -2,6 +2,7 @@ import { ActionIcon, createStyles, Group, TextInput } from "@mantine/core";
 import { IconAdjustmentsHorizontal, IconSearch } from "@tabler/icons";
 import React from "react";
 
+import FilterDrawer from "./FilterDrawer";
 import FilterToggle from "./FilterToggle";
 
 const useStyles = createStyles((theme) => ({
@@ -11,14 +12,6 @@ const useStyles = createStyles((theme) => ({
   input: {
     "&:focus": {
       border: "none",
-    },
-  },
-  filter: {
-    backgroundColor: theme.colors.gray[1],
-    height: 48,
-    width: 48,
-    "&:hover": {
-      backgroundColor: theme.fn.rgba(theme.colors.gray[1], 0.85),
     },
   },
 }));
@@ -38,9 +31,7 @@ const Toolbar = () => {
           variant="filled"
           classNames={{ root: classes.inputRoot, input: classes.input }}
         />
-        <ActionIcon className={classes.filter}>
-          <IconAdjustmentsHorizontal />
-        </ActionIcon>
+        <FilterDrawer />
       </Group>
     </Group>
   );
