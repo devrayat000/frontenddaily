@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "urql";
 
 import Shell from "~/components/common/shell";
+import SocialButton from "~/components/common/SocialButton";
 
 import urqlClient, { ssr } from "../services/urql-client";
 
@@ -34,6 +35,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         <Provider value={urqlClient}>
           <Component {...pageProps} />
         </Provider>
+        <SocialButton />
       </Shell>
     </MantineProvider>
   );
