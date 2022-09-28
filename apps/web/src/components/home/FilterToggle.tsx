@@ -5,13 +5,9 @@ import {
 } from "@radix-ui/react-toggle-group";
 import { useState } from "react";
 
-import { Framework } from "~/graphql/generated";
+import { frameworks } from "~/utils/frameworks";
 
 import IconAll from "../icons/all";
-import IconNextJs from "../icons/nextjs";
-import IconReact from "../icons/react";
-import IconSvelte from "../icons/svelte";
-import IconVanillaJavascript from "../icons/vanilla";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -35,25 +31,6 @@ const useStyles = createStyles((theme) => ({
     },
   },
 }));
-
-const frameworks = [
-  {
-    name: Framework.Vanilla,
-    icon: IconVanillaJavascript,
-  },
-  {
-    name: Framework.Svelte,
-    icon: IconSvelte,
-  },
-  {
-    name: Framework.React,
-    icon: IconReact,
-  },
-  {
-    name: Framework.Next,
-    icon: IconNextJs,
-  },
-];
 
 const FilterToggle = () => {
   const [value, setValue] = useState("all");

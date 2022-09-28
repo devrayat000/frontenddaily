@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "lint": "next lint",
     "codegen": "env-cmd -f ./.env.local \"graphql-codegen --config .graphqlrc.yml\""
@@ -35,6 +36,7 @@
     "@graphql-codegen/typescript": "^2.7.3",
     "@graphql-codegen/typescript-operations": "^2.5.3",
     "@graphql-codegen/typescript-urql": "^3.7.0",
+    "@next/bundle-analyzer": "^12.3.1",
     "@types/lodash": "^4.14.185",
     "@types/node": "^17.0.12",
     "@types/react": "18.0.17",

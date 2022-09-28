@@ -1658,6 +1658,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/bundle-analyzer@npm:^12.3.1":
+  version: 12.3.1
+  resolution: "@next/bundle-analyzer@npm:12.3.1"
+  dependencies:
+    webpack-bundle-analyzer: 4.3.0
+  checksum: 2bf2bf9aff9e0fc9fbeefae83be3f12e4c3aa8a689b49ba33d1931d42768b317d1da5d45a91835a8cb0bc615afc5e5b48aba5ce63a74089779531648749fe9d7
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:12.3.0":
   version: 12.3.0
   resolution: "@next/env@npm:12.3.0"
@@ -1842,6 +1851,13 @@ __metadata:
     tslib: ^2.4.0
     webcrypto-core: ^1.7.4
   checksum: 3a7a3c8f253170436f353a61b807d2e2e7a686e6a9607487fde6459ddfff34c8000414287a6cd904bd81e002ce4564811b3c7789a0fd932cf015df6c4002fd02
+  languageName: node
+  linkType: hard
+
+"@polka/url@npm:^1.0.0-next.20":
+  version: 1.0.0-next.21
+  resolution: "@polka/url@npm:1.0.0-next.21"
+  checksum: c7654046d38984257dd639eab3dc770d1b0340916097b2fac03ce5d23506ada684e05574a69b255c32ea6a144a957c8cd84264159b545fca031c772289d88788
   languageName: node
   linkType: hard
 
@@ -2775,7 +2791,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn-walk@npm:^8.1.1":
+"acorn-walk@npm:^8.0.0, acorn-walk@npm:^8.1.1":
   version: 8.2.0
   resolution: "acorn-walk@npm:8.2.0"
   checksum: 1715e76c01dd7b2d4ca472f9c58968516a4899378a63ad5b6c2d668bba8da21a71976c14ec5f5b75f887b6317c4ae0b897ab141c831d741dc76024d8745f1ad1
@@ -2791,7 +2807,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.4.1":
+"acorn@npm:^8.0.4, acorn@npm:^8.4.1":
   version: 8.8.0
   resolution: "acorn@npm:8.8.0"
   bin:
@@ -3610,6 +3626,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^6.2.0":
+  version: 6.2.1
+  resolution: "commander@npm:6.2.1"
+  checksum: d7090410c0de6bc5c67d3ca41c41760d6d268f3c799e530aafb73b7437d1826bbf0d2a3edac33f8b57cc9887b4a986dce307fa5557e109be40eadb7c43b21742
+  languageName: node
+  linkType: hard
+
 "common-tags@npm:1.8.2":
   version: 1.8.2
   resolution: "common-tags@npm:1.8.2"
@@ -4004,6 +4027,13 @@ __metadata:
   dependencies:
     readable-stream: ^2.0.2
   checksum: 744961f03c7f54313f90555ac20284a3fb7bf22fdff6538f041a86c22499560eb6eac9d30ab5768054137cb40e6b18b40f621094e0261d7d8c35a37b7a5ad241
+  languageName: node
+  linkType: hard
+
+"duplexer@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "duplexer@npm:0.1.2"
+  checksum: 62ba61a830c56801db28ff6305c7d289b6dc9f859054e8c982abd8ee0b0a14d2e9a8e7d086ffee12e868d43e2bbe8a964be55ddbd8c8957714c87373c7a4f9b0
   languageName: node
   linkType: hard
 
@@ -5379,6 +5409,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gzip-size@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "gzip-size@npm:6.0.0"
+  dependencies:
+    duplexer: ^0.1.2
+  checksum: 2df97f359696ad154fc171dcb55bc883fe6e833bca7a65e457b9358f3cb6312405ed70a8da24a77c1baac0639906cd52358dc0ce2ec1a937eaa631b934c94194
+  languageName: node
+  linkType: hard
+
 "has-bigints@npm:^1.0.1, has-bigints@npm:^1.0.2":
   version: 1.0.2
   resolution: "has-bigints@npm:1.0.2"
@@ -6574,6 +6613,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mrmime@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "mrmime@npm:1.0.1"
+  checksum: cc979da44bbbffebaa8eaf7a45117e851f2d4cb46a3ada6ceb78130466a04c15a0de9a9ce1c8b8ba6f6e1b8618866b1352992bf1757d241c0ddca558b9f28a77
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.0.0":
   version: 2.0.0
   resolution: "ms@npm:2.0.0"
@@ -6937,6 +6983,15 @@ __metadata:
   dependencies:
     mimic-fn: ^2.1.0
   checksum: 2478859ef817fc5d4e9c2f9e5728512ddd1dbc9fb7829ad263765bb6d3b91ce699d6e2332eef6b7dff183c2f490bd3349f1666427eaba4469fba0ac38dfd0d34
+  languageName: node
+  linkType: hard
+
+"opener@npm:^1.5.2":
+  version: 1.5.2
+  resolution: "opener@npm:1.5.2"
+  bin:
+    opener: bin/opener-bin.js
+  checksum: 33b620c0d53d5b883f2abc6687dd1c5fd394d270dbe33a6356f2d71e0a2ec85b100d5bac94694198ccf5c30d592da863b2292c5539009c715a9c80c697b4f6cc
   languageName: node
   linkType: hard
 
@@ -7880,6 +7935,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sirv@npm:^1.0.7":
+  version: 1.0.19
+  resolution: "sirv@npm:1.0.19"
+  dependencies:
+    "@polka/url": ^1.0.0-next.20
+    mrmime: ^1.0.0
+    totalist: ^1.0.0
+  checksum: c943cfc61baf85f05f125451796212ec35d4377af4da90ae8ec1fa23e6d7b0b4d9c74a8fbf65af83c94e669e88a09dc6451ba99154235eead4393c10dda5b07c
+  languageName: node
+  linkType: hard
+
 "slash@npm:^3.0.0":
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
@@ -8318,6 +8384,13 @@ __metadata:
   dependencies:
     is-number: ^7.0.0
   checksum: f76fa01b3d5be85db6a2a143e24df9f60dd047d151062d0ba3df62953f2f697b16fe5dad9b0ac6191c7efc7b1d9dcaa4b768174b7b29da89d4428e64bc0a20ed
+  languageName: node
+  linkType: hard
+
+"totalist@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "totalist@npm:1.1.0"
+  checksum: dfab80c7104a1d170adc8c18782d6c04b7df08352dec452191208c66395f7ef2af7537ddfa2cf1decbdcfab1a47afbbf0dec6543ea191da98c1c6e1599f86adc
   languageName: node
   linkType: hard
 
@@ -8847,6 +8920,7 @@ __metadata:
     "@mantine/core": ^5.4.1
     "@mantine/hooks": ^5.4.1
     "@mantine/next": ^5.4.1
+    "@next/bundle-analyzer": ^12.3.1
     "@radix-ui/react-toggle-group": ^1.0.0
     "@tabler/icons": ^1.100.0
     "@types/lodash": ^4.14.185
@@ -8890,6 +8964,25 @@ __metadata:
   version: 3.0.1
   resolution: "webidl-conversions@npm:3.0.1"
   checksum: c92a0a6ab95314bde9c32e1d0a6dfac83b578f8fa5f21e675bc2706ed6981bc26b7eb7e6a1fab158e5ce4adf9caa4a0aee49a52505d4d13c7be545f15021b17c
+  languageName: node
+  linkType: hard
+
+"webpack-bundle-analyzer@npm:4.3.0":
+  version: 4.3.0
+  resolution: "webpack-bundle-analyzer@npm:4.3.0"
+  dependencies:
+    acorn: ^8.0.4
+    acorn-walk: ^8.0.0
+    chalk: ^4.1.0
+    commander: ^6.2.0
+    gzip-size: ^6.0.0
+    lodash: ^4.17.20
+    opener: ^1.5.2
+    sirv: ^1.0.7
+    ws: ^7.3.1
+  bin:
+    webpack-bundle-analyzer: lib/bin/analyzer.js
+  checksum: 00b7bf4ac9fca17062b66b6897145b94e87153d3ec8815f0e0c05a3b8a1ca75320262db01a5fa634f604ee3d41aecde1ee59838d05b6d03cd5be62eb1addbcf8
   languageName: node
   linkType: hard
 
@@ -8990,6 +9083,21 @@ __metadata:
   version: 1.0.2
   resolution: "wrappy@npm:1.0.2"
   checksum: 159da4805f7e84a3d003d8841557196034155008f817172d4e986bd591f74aa82aa7db55929a54222309e01079a65a92a9e6414da5a6aa4b01ee44a511ac3ee5
+  languageName: node
+  linkType: hard
+
+"ws@npm:^7.3.1":
+  version: 7.5.9
+  resolution: "ws@npm:7.5.9"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: c3c100a181b731f40b7f2fddf004aa023f79d64f489706a28bc23ff88e87f6a64b3c6651fbec3a84a53960b75159574d7a7385709847a62ddb7ad6af76f49138
   languageName: node
   linkType: hard
 
