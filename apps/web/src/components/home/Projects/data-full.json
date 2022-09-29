@@ -1,0 +1,163 @@
+[
+    {
+        "id": "cl8lvgd5e25i30do53kdxlmo4",
+        "slug": "sneakers",
+        "title": "Sneakers",
+        "image": {
+            "id": "cl8lve3g125jr0bpnmuvf3jti",
+            "height": 1056,
+            "width": 1440,
+            "url": "https://media.graphassets.com/Td6f8l7ZSDK8M3sCFmun"
+        },
+        "description": {
+            "raw": {
+                "children": [
+                    {
+                        "type": "paragraph",
+                        "children": [
+                            {
+                                "text": "Sneakers is a project by "
+                            },
+                            {
+                                "rel": "noreferrer",
+                                "href": "https://www.frontendmentor.io/",
+                                "type": "link",
+                                "title": "Frontend Mentor",
+                                "children": [
+                                    {
+                                        "text": "Frontend Mentor"
+                                    }
+                                ],
+                                "openInNewTab": true
+                            },
+                            {
+                                "text": ".\n⁠A fully responsive single page application by react with slick animations.\n⁠\n⁠Styling is done by tailwindcss, daisyui, headlessui. \n⁠Animations are done by framer-motion. \n⁠Easy-peasy as global state manager."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "markdown": "Sneakers is a project by [Frontend Mentor](https://www.frontendmentor.io/ \"Frontend Mentor\").  \nA fully responsive single page application by react with slick animations.  \n  \nStyling is done by tailwindcss, daisyui, headlessui.  \nAnimations are done by framer-motion.  \nEasy-peasy as global state manager.\n"
+        },
+        "framework": "React",
+        "sourceCode": "https://github.com/devrayat000/productz",
+        "preview": "https://prodamart.netlify.app",
+        "tags": [
+            {
+                "id": "cl8kjmdv81ag70bpnhad4083m",
+                "name": "business",
+                "slug": "business"
+            },
+            {
+                "id": "cl8lvfg9t25h80do5kaaa3bxd",
+                "name": "e-commerce",
+                "slug": "e-commerce"
+            },
+            {
+                "id": "cl8lvfw9b25ng0bpnf70xypgz",
+                "name": "spa",
+                "slug": "spa"
+            }
+        ],
+        "createdAt": "2022-09-28T16:58:46.024115+00:00"
+    },
+    {
+        "id": "cl8lvnii325tp0bpn1c71zs2i",
+        "slug": "amar-vasha",
+        "title": "Amar Vasha",
+        "image": {
+            "id": "cl8lvhkho25k30do53t47loxw",
+            "height": 720,
+            "width": 1280,
+            "url": "https://media.graphassets.com/bpHQObRgR1mmYTCakNE7"
+        },
+        "description": {
+            "raw": {
+                "children": [
+                    {
+                        "type": "paragraph",
+                        "children": [
+                            {
+                                "text": "Amar vasha is a real life bengali language learning platform for children.\n⁠\n⁠Styling is done by tailwindcss, graphql are done by react-vis."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "markdown": "Amar vasha is a real life bengali language learning platform for children.  \n  \nStyling is done by tailwindcss, graphql are done by react-vis.\n"
+        },
+        "framework": "React",
+        "sourceCode": "https://github.com/devrayat000/amar-vasha",
+        "preview": "https://amar-vasha.vercel.app",
+        "tags": [
+            {
+                "id": "cl8kjmdv81ag70bpnhad4083m",
+                "name": "business",
+                "slug": "business"
+            },
+            {
+                "id": "cl8lvkwhl25rv0bpn59ii7xpq",
+                "name": "learning",
+                "slug": "learning"
+            },
+            {
+                "id": "cl8lvncef25no0do5pta5f2bf",
+                "name": "language",
+                "slug": "language"
+            }
+        ],
+        "createdAt": "2022-09-28T17:04:19.560014+00:00"
+    },
+    {
+        "id": "cl8lw121725x80do5re2w1hqu",
+        "slug": "rick-n-morty",
+        "title": "Rick n Morty",
+        "image": {
+            "id": "cl8lvzm6p261g0bpncgw6letr",
+            "height": 650,
+            "width": 1171,
+            "url": "https://media.graphassets.com/mrTEh8oR06dgyIexU6wO"
+        },
+        "description": {
+            "raw": {
+                "children": [
+                    {
+                        "type": "paragraph",
+                        "children": [
+                            {
+                                "text": "A simple graphql data fetching website by Next.js and Mantine,\n⁠featuring Static Site Generation, Pagination, SEO and more."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "markdown": "A simple graphql data fetching website by Next.js and Mantine,  \nfeaturing Static Site Generation, Pagination, SEO and more.\n"
+        },
+        "framework": "Next",
+        "sourceCode": "https://github.com/devrayat000/rick-n-morty",
+        "preview": "https://morty-n-rick.netlify.app",
+        "tags": [
+            {
+                "id": "cl8lw0jqj25w60do58k9zwui6",
+                "name": "fun",
+                "slug": "fun"
+            },
+            {
+                "id": "cl8lw0omr262n0bpn3fvoih3s",
+                "name": "graphql",
+                "slug": "graphql"
+            },
+            {
+                "id": "cl8lw0rms25wq0do5313bc5ng",
+                "name": "seo",
+                "slug": "seo"
+            },
+            {
+                "id": "cl8lw0xpn26360bpnssmf4ydz",
+                "name": "data-fetching",
+                "slug": "data-fetching"
+            }
+        ],
+        "createdAt": "2022-09-28T17:14:51.393729+00:00"
+    }
+]

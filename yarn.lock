@@ -974,6 +974,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphcms/rich-text-react-renderer@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "@graphcms/rich-text-react-renderer@npm:0.6.1"
+  dependencies:
+    "@graphcms/rich-text-types": ^0.5.0
+    escape-html: ^1.0.3
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 116047ddc411e83def97cbef550d03e5f85f68790c881f10d9fee3eb552de9d5183bd13847f71ab332e75ce9adcd4d9c0f7dc975462b8873ee0bb614c09baa58
+  languageName: node
+  linkType: hard
+
+"@graphcms/rich-text-types@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@graphcms/rich-text-types@npm:0.5.0"
+  dependencies:
+    tslib: ^2.0.0
+  checksum: 9e25af76376253a4186d2727dc8cdcab37ee5192e95c9bb804b1e480d80ffaec42595f1c57e1deb0928f9b42b8b82dc3dc94824ea361ae68544999399315712e
+  languageName: node
+  linkType: hard
+
 "@graphql-codegen/cli@npm:^2.12.2":
   version: 2.12.2
   resolution: "@graphql-codegen/cli@npm:2.12.2"
@@ -4424,6 +4446,13 @@ __metadata:
   version: 3.1.1
   resolution: "escalade@npm:3.1.1"
   checksum: a3e2a99f07acb74b3ad4989c48ca0c3140f69f923e56d0cba0526240ee470b91010f9d39001f2a4a313841d237ede70a729e92125191ba5d21e74b106800b133
+  languageName: node
+  linkType: hard
+
+"escape-html@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "escape-html@npm:1.0.3"
+  checksum: 6213ca9ae00d0ab8bccb6d8d4e0a98e76237b2410302cf7df70aaa6591d509a2a37ce8998008cbecae8fc8ffaadf3fb0229535e6a145f3ce0b211d060decbb24
   languageName: node
   linkType: hard
 
@@ -8932,6 +8961,7 @@ __metadata:
   dependencies:
     "@emotion/react": ^11.10.4
     "@emotion/server": ^11.10.0
+    "@graphcms/rich-text-react-renderer": ^0.6.1
     "@graphql-codegen/cli": ^2.12.2
     "@graphql-codegen/schema-ast": ^2.5.1
     "@graphql-codegen/typescript": ^2.7.3

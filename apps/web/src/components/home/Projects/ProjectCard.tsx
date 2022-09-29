@@ -42,7 +42,7 @@ const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
       <Card
         key={project.id}
         component={NextLink}
-        href="/posts/[slug]"
+        href="/projects/[slug]"
         as={`/projects/${project.slug}`}
         title={project.title}
         className={classes.card}
