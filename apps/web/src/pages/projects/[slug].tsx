@@ -21,6 +21,7 @@ import type {
 import Image from "next/future/image";
 
 import projects from "~/components/home/Projects/data-full.json";
+import ShareButton from "~/components/project/ShareButton";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -43,9 +44,7 @@ const PostPage: NextPage<Props> = ({ project, slug }) => {
 
         <Stack style={{ flex: "1 0 0%" }} spacing="xs">
           <Group position="right">
-            <ActionIcon variant="outline" size="xl" radius="xl">
-              <IconShare />
-            </ActionIcon>
+            <ShareButton />
           </Group>
 
           <Title weight={700}>{project.title}</Title>

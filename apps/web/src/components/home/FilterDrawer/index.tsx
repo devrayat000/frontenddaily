@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { useDrawerStyles } from "./drawer";
 
-const Drawer = dynamic(() => import("./drawer"));
+const Drawer = dynamic(() => import("./drawer"), { ssr: false });
 
 const FilterDrawer = () => {
   const [openned, toggle] = useState(false);
