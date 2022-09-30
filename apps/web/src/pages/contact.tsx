@@ -10,26 +10,8 @@ import {
 } from "@mantine/core";
 
 export default function GetInTouchSimple() {
-  //   const form = useForm({
-  //     initialValues: {
-  //       name: '',
-  //       email: '',
-  //       subject: '',
-  //       message: '',
-  //     },
-  //     validate: {
-  //       name: (value) => value.trim().length < 2,
-  //       email: (value) => !/^\S+@\S+$/.test(value),
-  //       subject: (value) => value.trim().length === 0,
-  //     },
-  //   });
-
   return (
-    <Container
-      size="xs"
-
-      //   onSubmit={form.onSubmit(() => { })}
-    >
+    <Container size="xs">
       {/* @ts-ignore */}
       <form name="contact" netlify>
         <article>
