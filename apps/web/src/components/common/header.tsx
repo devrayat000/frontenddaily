@@ -26,7 +26,12 @@ const Header = () => {
           <Button component={NextLink} href="/" variant="subtle" color="gray">
             License
           </Button>
-          <Button component={NextLink} href="/" variant="subtle" color="gray">
+          <Button
+            component={NextLink}
+            href="/contact"
+            variant="subtle"
+            color="gray"
+          >
             Contact
           </Button>
         </Group>

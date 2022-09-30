@@ -1,6 +1,5 @@
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import {
-  ActionIcon,
   Button,
   Chip,
   Container,
@@ -11,11 +10,9 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import { NextLink } from "@mantine/next";
-import { IconShare } from "@tabler/icons";
 import type {
-  GetStaticPathsContext,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
   NextPage,
 } from "next";
 import Image from "next/future/image";
@@ -23,7 +20,7 @@ import Image from "next/future/image";
 import projects from "~/components/home/Projects/data-full.json";
 import ShareButton from "~/components/project/ShareButton";
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>;
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const PostPage: NextPage<Props> = ({ project, slug }) => {
   return (
@@ -49,11 +46,13 @@ const PostPage: NextPage<Props> = ({ project, slug }) => {
 
           <Title weight={700}>{project.title}</Title>
           <Text
+            // @ts-ignore
             mt="lg"
             size="lg"
             component="time"
             color="gray"
             dateTime={project.createdAt}
+            // @ts-ignore
             my={0}
           >
             {new Intl.DateTimeFormat(["en-UK", "en-US"], {
@@ -73,10 +72,9 @@ const PostPage: NextPage<Props> = ({ project, slug }) => {
             <RichText content={project.description.raw} />
           </TypographyStylesProvider>
 
-          <Group position="apart">
+          <Group position="apart" grow>
             <Button
               color="grape"
-              fullWidth
               component={NextLink}
               href="[slug]/preview"
               as={`${slug}/preview`}
@@ -86,7 +84,6 @@ const PostPage: NextPage<Props> = ({ project, slug }) => {
             <Button
               variant="outline"
               color="cyan"
-              fullWidth
               component="a"
               href={project.sourceCode}
               rel="noreferrer"
@@ -103,16 +100,13 @@ const PostPage: NextPage<Props> = ({ project, slug }) => {
 
 export default PostPage;
 
-export const getStaticPaths = async (ctx: GetStaticPathsContext) => {
-  return {
-    paths: projects.map((project) => ({ params: { slug: project.slug } })),
-    fallback: "blocking",
-  };
-};
-
-export const getStaticProps = async (ctx: GetStaticPropsContext) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const slug = ctx.params?.slug as string;
 
+  ctx.res.setHeader(
+    "Cache-Control",
+    "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
+  );
   return {
     props: {
       project: projects.find((p) => p.slug === slug)!,

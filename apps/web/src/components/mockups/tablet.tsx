@@ -11,7 +11,12 @@ const useStyles = createStyles((theme) => ({
     overflow: "hidden",
     border: "32px solid #1F2224",
     outline: `8px solid ${theme.colors.gray[3]}`,
-    zoom: "60%",
+    scale: "60%",
+    willChange: "scale",
+    backfaceVisibility: "hidden",
+    WebkitFontSmoothing: "subpixel-antialiased",
+    WebkitFilter: "blue(0px)",
+    transformOrigin: "top center",
     margin: `${theme.spacing.md}px auto`,
   },
   frame: {

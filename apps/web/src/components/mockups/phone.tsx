@@ -16,7 +16,12 @@ const useStyles = createStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     position: "relative",
-    zoom: "80%",
+    scale: "80%",
+    willChange: "scale",
+    backfaceVisibility: "hidden",
+    WebkitFontSmoothing: "subpixel-antialiased",
+    WebkitFilter: "blue(0px)",
+    transformOrigin: "top center",
     margin: `${theme.spacing.md}px auto`,
   },
   frame: {

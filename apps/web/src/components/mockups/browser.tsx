@@ -5,13 +5,19 @@ import type { MockupProps } from "./types";
 
 const useStyles = createStyles((theme) => ({
   container: {
-    width: 1280,
-    height: 720,
+    width: 1366,
+    height: 768,
     borderRadius: theme.radius.lg,
     overflow: "hidden",
     border: "4px solid #1F2224",
     margin: `${theme.spacing.md}px auto`,
-    zoom: "80%",
+    // zoom: "75%",
+    scale: "75%",
+    willChange: "scale",
+    backfaceVisibility: "hidden",
+    WebkitFontSmoothing: "subpixel-antialiased",
+    WebkitFilter: "blue(0px)",
+    transformOrigin: "top center",
   },
   frame: {
     width: "100%",
@@ -20,7 +26,11 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const BrowserMockup: React.FC<MockupProps> = ({ children }) => {
+export type BrowserMockupProps = MockupProps & {
+  url: string;
+};
+
+const BrowserMockup: React.FC<BrowserMockupProps> = ({ children, url }) => {
   const { classes } = useStyles();
 
   return (
@@ -53,7 +63,7 @@ const BrowserMockup: React.FC<MockupProps> = ({ children }) => {
             d="M131 25L134 28L137 25"
             stroke="white"
             strokeOpacity="0.7"
-            stroke-width="1.25"
+            strokeWidth="1.25"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
@@ -81,7 +91,7 @@ const BrowserMockup: React.FC<MockupProps> = ({ children }) => {
               fillOpacity="0.7"
             />
             <text x="590" y="31.5" fill="white" fillOpacity="0.7">
-              khazifire.com
+              {new URL(url).hostname}
             </text>
             <path
               d="M992.264 26.624C992.264 29.7407 994.765 32.2417 997.875 32.2417C1000.99 32.2417 1003.48 29.7407 1003.48 26.624C1003.48 26.3193 1003.26 26.0972 1002.95 26.0972C1002.65 26.0972 1002.46 26.3193 1002.46 26.624C1002.46 29.1758 1000.42 31.2197 997.875 31.2197C995.33 31.2197 993.286 29.1758 993.286 26.624C993.286 24.0786 995.33 22.041 997.875 22.041C998.357 22.041 998.808 22.0791 999.183 22.168L997.285 24.0469C997.189 24.1484 997.139 24.2754 997.139 24.4087C997.139 24.7007 997.354 24.9165 997.64 24.9165C997.799 24.9165 997.919 24.8657 998.008 24.7705L1000.62 22.1426C1000.74 22.0347 1000.78 21.9077 1000.78 21.7617C1000.78 21.6221 1000.73 21.4824 1000.62 21.3809L998.008 18.7275C997.919 18.626 997.792 18.5752 997.64 18.5752C997.354 18.5752 997.139 18.8037 997.139 19.0957C997.139 19.229 997.189 19.356 997.278 19.4575L998.967 21.127C998.637 21.0635 998.262 21.019 997.875 21.019C994.765 21.019 992.264 23.5137 992.264 26.624Z"
