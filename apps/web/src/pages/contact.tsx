@@ -13,7 +13,7 @@ export default function GetInTouchSimple() {
   return (
     <Container size="xs">
       {/* @ts-ignore */}
-      <form name="contact" netlify method="POST" data-netlify="true">
+      <form name="contact" netlify="true" method="POST">
         <article>
           <Title order={2} size="h1" weight={900} align="center">
             Get in touch
@@ -59,8 +59,8 @@ export default function GetInTouchSimple() {
           mt="md"
           label="Message"
           placeholder="Your message"
-          maxRows={10}
           minRows={5}
+          maxRows={10}
           autosize
           name="message"
           variant="filled"
