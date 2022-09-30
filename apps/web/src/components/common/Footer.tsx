@@ -1,12 +1,12 @@
 import {
-  Button,
   createStyles,
   Footer as MantineFooter,
   Group,
+  MediaQuery,
   Text,
 } from "@mantine/core";
-import { NextLink } from "@mantine/next";
 
+import { FooterLinks } from "./links";
 import { useHeaderStyles } from "./styles";
 
 const useStyles = createStyles((theme) => ({
@@ -28,14 +28,9 @@ const Footer = () => {
         align="center"
         className={cx(headerClasses.container, classes.container)}
       >
-        <Group className={headerClasses.links}>
-          <Button component={NextLink} href="/" variant="subtle" color="gray">
-            Terms & Conditions
-          </Button>
-          <Button component={NextLink} href="/" variant="subtle" color="gray">
-            Privacy Policy
-          </Button>
-        </Group>
+        <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+          <FooterLinks />
+        </MediaQuery>
 
         <Text component="p" my={0}>
           ©FrontendDaily 2022

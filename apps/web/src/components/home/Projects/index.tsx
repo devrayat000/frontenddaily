@@ -22,6 +22,7 @@ const Projects = () => {
     <section>
       <SimpleGrid
         cols={3}
+        verticalSpacing="xl"
         breakpoints={[
           { maxWidth: "md", cols: 2 },
           { maxWidth: "sm", cols: 1 },
@@ -29,6 +30,14 @@ const Projects = () => {
         sx={(theme) => ({
           gap: theme.spacing.xl * 1.7,
           margin: `${theme.spacing.xl * 2}px ${theme.spacing.xl * 3}px`,
+          [theme.fn.smallerThan("md")]: {
+            marginLeft: theme.spacing.xl,
+            marginRight: theme.spacing.xl,
+          },
+          [theme.fn.smallerThan("xs")]: {
+            marginLeft: 0,
+            marginRight: 0,
+          },
         })}
       >
         {projects.map((project, i) => {

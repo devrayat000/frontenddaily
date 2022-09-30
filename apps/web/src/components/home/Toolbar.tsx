@@ -8,6 +8,8 @@ const useStyles = createStyles((theme) => ({
   container: {
     justifyContent: "space-between",
     alignItems: "stretch",
+    marginTop: theme.spacing.xl,
+    marginBottom: theme.spacing.xl,
 
     [theme.fn.smallerThan("md")]: {
       flexDirection: "column-reverse",
@@ -17,20 +19,28 @@ const useStyles = createStyles((theme) => ({
     [theme.fn.smallerThan("sm")]: {
       flexDirection: "column-reverse",
       alignItems: "center",
+      marginTop: 0,
+      marginBottom: 0,
     },
   },
   searchContainer: {
     [theme.fn.smallerThan("md")]: {
       width: "100%",
     },
+    [theme.fn.smallerThan("sm")]: {
+      justifyContent: "end",
+    },
   },
   inputRoot: {
     width: "max(520px, 400px)",
 
     [theme.fn.smallerThan("md")]: {
-      width: "auto",
+      // width: "auto",
       flexGrow: 1,
       flexShrink: 0,
+    },
+    [theme.fn.smallerThan("xs")]: {
+      width: "100%",
     },
   },
   input: {
@@ -44,7 +54,7 @@ const Toolbar = () => {
   const { classes } = useStyles();
 
   return (
-    <Group className={classes.container} my="xl" py="md">
+    <Group className={classes.container} py="md">
       <FilterToggle />
 
       <Group className={classes.searchContainer}>

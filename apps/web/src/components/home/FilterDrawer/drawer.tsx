@@ -46,7 +46,7 @@ const Drawer = (props: DrawerProps) => {
       withCloseButton={false}
       closeOnEscape
       position="right"
-      closeButtonLabel="Close"
+      closeButtonLabel="Close Filter Drawer"
       classNames={{ closeButton: classes.filter }}
       {...props}
     >

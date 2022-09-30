@@ -24,8 +24,11 @@ export const useHeaderStyles = createStyles((theme) => ({
     [theme.fn.smallerThan("md")]: {
       gap: theme.spacing.sm,
     },
+
     [theme.fn.smallerThan("sm")]: {
-      display: "none",
+      flexDirection: "column",
+      alignItems: "stretch",
+      gap: theme.spacing.lg,
     },
   },
 }));
