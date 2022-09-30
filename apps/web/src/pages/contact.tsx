@@ -31,7 +31,7 @@ export default function GetInTouchSimple() {
       //   onSubmit={form.onSubmit(() => { })}
     >
       {/* @ts-ignore */}
-      <form netlify>
+      <form name="contact" netlify>
         <article>
           <Title order={2} size="h1" weight={900} align="center">
             Get in touch
