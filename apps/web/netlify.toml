@@ -1,5 +1,5 @@
 [build]
-  command = "cd ../.. && yarn install && yarn build"
+  command = "cd ../.. && yarn install && cd apps/web && yarn build"
   publish = ".next"
 
 [[plugins]]
