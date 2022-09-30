@@ -13,7 +13,7 @@ export default function GetInTouchSimple() {
   return (
     <Container size="xs">
       {/* @ts-ignore */}
-      <form name="contact" netlify="true" method="POST">
+      <form name="contact" method="POST" data-netlify="true">
         <article>
           <Title order={2} size="h1" weight={900} align="center">
             Get in touch
