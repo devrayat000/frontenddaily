@@ -1,5 +1,5 @@
 [build]
-  command = "cd ../.. && yarn install && yarn build --filter=web"
+  command = "cd ../.. && yarn install && yarn build"
   publish = ".next"
 
 [[plugins]]
