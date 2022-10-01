@@ -25,13 +25,24 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 const PostPage: NextPage<Props> = ({ project, slug }) => {
   return (
     <Container fluid>
-      <Group position="apart" align="start" spacing="xl">
+      <Group
+        position="apart"
+        align="start"
+        spacing="xl"
+        sx={(theme) => ({
+          [theme.fn.smallerThan("md")]: {
+            flexDirection: "column",
+            alignItems: "stretch",
+          },
+        })}
+      >
         <figure
           style={{
             position: "relative",
             aspectRatio: "3/2",
+            width: "100%",
             flex: "2 0 0%",
-            // margin: 0,
+            margin: 0,
             marginBlock: 0,
             marginInline: 0,
           }}
