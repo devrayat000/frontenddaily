@@ -6546,7 +6546,7 @@ export type ProjectQueryVariables = Exact<{
 }>;
 
 
-export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', sourceCode?: string | null, preview?: string | null, id: string, title: string, slug: string, framework: Framework, createdAt: any, description?: { __typename?: 'RichText', raw: any } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }>, image: { __typename?: 'Asset', id: string, url: string } } | null };
+export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', sourceCode?: string | null, preview?: string | null, id: string, title: string, slug: string, framework: Framework, createdAt: any, description?: { __typename?: 'RichText', raw: any, text: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }>, image: { __typename?: 'Asset', id: string, url: string } } | null };
 
 export type PreviewQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -6599,6 +6599,7 @@ export const ProjectDocument = gql`
     ...SimpleProject
     description {
       raw
+      text
     }
     sourceCode
     preview
@@ -6635,6 +6636,7 @@ export const ProjectsDocument = gql`
     last: $last
     skip: $skip
     where: $where
+    orderBy: createdAt_DESC
   ) {
     ...SimpleProject
   }

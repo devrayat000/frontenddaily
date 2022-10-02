@@ -1,5 +1,8 @@
 import { createStyles, Group, TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons";
+import _debounce from "lodash/debounce";
+
+import { useFilterStore } from "~/stores/filter";
 
 import FilterDrawer from "./FilterDrawer";
 import FilterToggle from "./FilterToggle";
@@ -53,9 +56,17 @@ const useStyles = createStyles((theme) => ({
 const Toolbar = () => {
   const { classes } = useStyles();
 
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    _debounce(() => {
+      useFilterStore.setState({
+        search: e.target.value,
+      });
+    }, 750)();
+  }
+
   return (
     <Group className={classes.container} py="md">
-      <FilterToggle />
+      <FilterToggle key="toggle" />
 
       <Group className={classes.searchContainer}>
         <TextInput
@@ -64,8 +75,9 @@ const Toolbar = () => {
           size="lg"
           variant="filled"
           classNames={{ root: classes.inputRoot, input: classes.input }}
+          onChange={handleChange}
         />
-        <FilterDrawer />
+        <FilterDrawer key="filter-drawer" />
       </Group>
     </Group>
   );

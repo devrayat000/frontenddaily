@@ -15,6 +15,7 @@ query Project($slug: String!) {
     ...SimpleProject
     description {
       raw
+      text
     }
     sourceCode
     preview
@@ -47,7 +48,8 @@ query Projects(
     first: $first
     last: $last
     skip: $skip
-    where: $where
+    where: $where,
+    orderBy: createdAt_DESC
   ) {
     ...SimpleProject
   }

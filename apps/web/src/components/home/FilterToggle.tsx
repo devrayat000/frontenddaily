@@ -3,8 +3,9 @@ import {
   Item as ToggleItem,
   Root as ToggleGroupRoot,
 } from "@radix-ui/react-toggle-group";
-import { useState } from "react";
+import shallow from "zustand/shallow";
 
+import { useFilterStore } from "~/stores/filter";
 import { frameworks } from "~/utils/frameworks";
 
 import IconAll from "../icons/all";
@@ -33,7 +34,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const FilterToggle = () => {
-  const [value, setValue] = useState("all");
+  const value = useFilterStore((store) => store.framework);
   const { classes } = useStyles();
 
   return (
@@ -42,8 +43,8 @@ const FilterToggle = () => {
       className={classes.root}
       defaultValue="all"
       value={value}
-      onValueChange={(value) => {
-        if (value) setValue(value);
+      onValueChange={(framework) => {
+        if (framework) useFilterStore.setState({ framework });
       }}
     >
       <ToggleItem value="all" className={classes.item}>

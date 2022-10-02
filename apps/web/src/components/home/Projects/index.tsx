@@ -1,15 +1,36 @@
 import { Center, Loader, SimpleGrid } from "@mantine/core";
-import { useState } from "react";
 import { useInView } from "react-cool-inview";
+import shallow from "zustand/shallow";
 
+import type { Framework } from "~/graphql/generated";
 import { useProjectsQuery } from "~/graphql/generated";
+import { useFilterStore } from "~/stores/filter";
 
 // import initialProjects from "./data.json";
 import ProjectCard from "./ProjectCard";
 
 const Projects = () => {
   // const [projects, setProjects] = useState(initialProjects);
-  const [{ data }] = useProjectsQuery();
+  const { framework, _search } = useFilterStore(
+    (store) => ({
+      framework: store.framework,
+      _search: store.search,
+    }),
+    shallow
+  );
+  const [{ data }] = useProjectsQuery({
+    variables: {
+      where: {
+        AND: [
+          {
+            framework:
+              framework !== "all" ? (framework as Framework) : undefined,
+          },
+          { _search },
+        ],
+      },
+    },
+  });
 
   const { observe } = useInView<HTMLDivElement>({
     rootMargin: "200px",
@@ -43,7 +64,7 @@ const Projects = () => {
           },
         })}
       >
-        {data?.projects?.map((project, i) => {
+        {data?.projects?.map((project) => {
           return <ProjectCard key={project.id} project={project} />;
         })}
       </SimpleGrid>

@@ -17,6 +17,7 @@ import type {
   NextPage,
 } from "next";
 import Image from "next/future/image";
+import Head from "next/head";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";
 // import projects from "~/components/home/Projects/data-full.json";
@@ -26,6 +27,7 @@ import { initSSR } from "~/services/urql-client";
 import { useProjectStyles } from "~/styles/project";
 import { formatDate } from "~/utils/datetime";
 import { frameworks } from "~/utils/frameworks";
+import { getUrl } from "~/utils/getUrl";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -66,6 +68,26 @@ const PostPage: NextPage<Props> = ({ slug }) => {
 
   return (
     <Container fluid>
+      <Head>
+        <title>{`Frontend Daily | ${project.title}`}</title>
+        <meta name="title" content={`Frontend Daily | ${project.title}`} />
+        <meta name="description" content={project.description?.text} />
+        <meta
+          name="keywords"
+          content={project.tags.map((t) => t.name).join(",")}
+        />
+        <meta
+          property="og:title"
+          content={`Frontend Daily | ${project.title}`}
+        />
+        <meta property="og:description" content={project.description?.text} />
+        <meta property="og:image" content={project.image.url} />
+        <meta property="og:image:alt" content={`Preview | ${project.title}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`${getUrl()}/projects/${slug}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image:alt" content={`Preview | ${project.title}`} />
+      </Head>
       <Group
         position="apart"
         align="start"
