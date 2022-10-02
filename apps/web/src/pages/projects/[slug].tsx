@@ -19,8 +19,10 @@ import type {
 import Image from "next/future/image";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";
-import projects from "~/components/home/Projects/data-full.json";
+// import projects from "~/components/home/Projects/data-full.json";
 import ShareButton from "~/components/project/ShareButton";
+import { ProjectDocument, useProjectQuery } from "~/graphql/generated";
+import { initSSR } from "~/services/urql-client";
 import { useProjectStyles } from "~/styles/project";
 import { formatDate } from "~/utils/datetime";
 import { frameworks } from "~/utils/frameworks";
@@ -29,7 +31,7 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const useStyles = createStyles((theme) => ({
   figure: {
-    width: "100%",
+    // width: "100%",
     flex: "2 0 0%",
     margin: 0,
     marginBlock: 0,
@@ -47,12 +49,19 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const PostPage: NextPage<Props> = ({ project, slug }) => {
+const PostPage: NextPage<Props> = ({ slug }) => {
+  const [{ data }] = useProjectQuery({ variables: { slug } });
+
   const { classes, cx } = useStyles();
   const { classes: pclasses } = useProjectStyles(void 0, {
     name: "project-details",
   });
 
+  if (!data?.project) {
+    return null;
+  }
+
+  const project = data.project;
   const framework = frameworks.find((f) => f.name == project.framework)!;
 
   return (
@@ -117,7 +126,7 @@ const PostPage: NextPage<Props> = ({ project, slug }) => {
               variant="outline"
               color="cyan"
               component="a"
-              href={project.sourceCode}
+              href={project.sourceCode!}
               rel="noreferrer"
               target="_blank"
             >
@@ -134,14 +143,22 @@ export default PostPage;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const slug = ctx.params?.slug as string;
+  const { client, ssr } = initSSR();
+
+  const res = await client.query(ProjectDocument, { slug }).toPromise();
+  if (!res.data.project) {
+    return {
+      notFound: true,
+    };
+  }
 
   ctx.res.setHeader(
     "Cache-Control",
-    "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
+    "public, max-age=60, s-maxage=3600, stale-while-revalidate=86400"
   );
   return {
     props: {
-      project: projects.find((p) => p.slug === slug)!,
+      ssr: ssr.extractData(),
       slug,
     },
   };

@@ -21,11 +21,12 @@ import type {
 } from "next";
 import Head from "next/head";
 
-import projects from "~/components/home/Projects/data-full.json";
 import BrowserMockup from "~/components/mockups/browser";
 import PhoneMockup from "~/components/mockups/phone";
 import TabletMockup from "~/components/mockups/tablet";
+import { PreviewDocument, usePreviewQuery } from "~/graphql/generated";
 import useCycle from "~/hooks/use-cycle";
+import { initSSR } from "~/services/urql-client";
 
 const enum Device {
   LAPTOP = "Desktop",
@@ -41,7 +42,8 @@ const devices = [
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const PreviewPage: NextPage<Props> = ({ project }) => {
+const PreviewPage: NextPage<Props> = ({ slug }) => {
+  const [{ data }] = usePreviewQuery({ variables: { slug } });
   const theme = useMantineTheme();
   const { width: x } = useViewportSize();
 
@@ -53,14 +55,19 @@ const PreviewPage: NextPage<Props> = ({ project }) => {
     () => (isMobile ? Device.MOBILE : isTablet ? Device.TABLET : Device.LAPTOP)
   );
 
-  const frame = <iframe src={project.preview} loading="lazy" />;
+  if (!data?.project) {
+    return null;
+  }
+
+  const project = data.project;
+  const frame = <iframe src={project.preview!} loading="lazy" />;
 
   return (
     <Container fluid>
       <Head>
         <link
           rel="preload"
-          href={project.preview}
+          href={project.preview!}
           as="document"
           type="text/html"
         />
@@ -89,7 +96,7 @@ const PreviewPage: NextPage<Props> = ({ project }) => {
             color="gray"
             rightIcon={<IconExternalLink />}
             component="a"
-            href={project.preview}
+            href={project.preview!}
             rel="noreferrer"
             target="_blank"
           >
@@ -101,7 +108,7 @@ const PreviewPage: NextPage<Props> = ({ project }) => {
       {device === Device.MOBILE && <PhoneMockup>{frame}</PhoneMockup>}
       {device === Device.TABLET && <TabletMockup>{frame}</TabletMockup>}
       {device === Device.LAPTOP && (
-        <BrowserMockup url={project.preview}>{frame}</BrowserMockup>
+        <BrowserMockup url={project.preview!}>{frame}</BrowserMockup>
       )}
     </Container>
   );
@@ -111,14 +118,22 @@ export default PreviewPage;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const slug = ctx.params?.slug as string;
+  const { client, ssr } = initSSR();
+
+  const res = await client.query(PreviewDocument, { slug }).toPromise();
+  if (!res.data.project) {
+    return {
+      notFound: true,
+    };
+  }
 
   ctx.res.setHeader(
     "Cache-Control",
-    "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400"
+    "public, max-age=3600, s-maxage=86400, stale-while-revalidate=15768000"
   );
   return {
     props: {
-      project: projects.find((p) => p.slug === slug)!,
+      ssr: ssr.extractData(),
       slug,
     },
   };

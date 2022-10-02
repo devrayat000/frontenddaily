@@ -12,6 +12,7 @@ import Image from "next/future/image";
 import { forwardRef } from "react";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";
+import type { ProjectsQuery } from "~/graphql/generated";
 import { useProjectStyles } from "~/styles/project";
 import { formatDate } from "~/utils/datetime";
 import { frameworks } from "~/utils/frameworks";
@@ -19,7 +20,7 @@ import { frameworks } from "~/utils/frameworks";
 import type projects from "./data.json";
 
 export type ProjectCardProps = {
-  project: typeof projects[number];
+  project: ProjectsQuery["projects"][number];
 };
 
 const useStyles = createStyles((theme) => ({

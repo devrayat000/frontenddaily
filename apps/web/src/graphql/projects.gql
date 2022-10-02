@@ -1,28 +1,35 @@
+fragment SimpleProject on Project {
+  id
+  title
+  slug
+  image {
+    id
+    url
+  }
+  framework
+  createdAt
+}
+
 query Project($slug: String!) {
   project(where: { slug: $slug }) {
-    id
-    title
-    image {
-      id
-      height
-      width
-      url
-    }
+    ...SimpleProject
     description {
       raw
-      markdown
     }
-    framework
     sourceCode
     preview
     tags {
-      ... on Tag {
-        id
-        name
-        slug
-      }
+      id
+      name
+      slug
     }
-    publishedAt
+  }
+}
+
+query Preview($slug: String!) {
+  project(where: { slug: $slug }) {
+    id
+    preview
   }
 }
 
@@ -42,17 +49,6 @@ query Projects(
     skip: $skip
     where: $where
   ) {
-    id
-    title
-    slug
-    image {
-      id
-      height
-      width
-      url
-    }
-    framework
-    preview
-    publishedAt
+    ...SimpleProject
   }
 }

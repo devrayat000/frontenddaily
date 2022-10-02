@@ -2,20 +2,23 @@ import { Center, Loader, SimpleGrid } from "@mantine/core";
 import { useState } from "react";
 import { useInView } from "react-cool-inview";
 
-import initialProjects from "./data.json";
+import { useProjectsQuery } from "~/graphql/generated";
+
+// import initialProjects from "./data.json";
 import ProjectCard from "./ProjectCard";
 
 const Projects = () => {
-  const [projects, setProjects] = useState(initialProjects);
+  // const [projects, setProjects] = useState(initialProjects);
+  const [{ data }] = useProjectsQuery();
 
   const { observe } = useInView<HTMLDivElement>({
     rootMargin: "200px",
-    onEnter: async ({ unobserve }) => {
-      unobserve();
-      await new Promise((res) => setTimeout(res, 1000));
-      setProjects((prev) => [...prev, ...initialProjects]);
-      observe();
-    },
+    // onEnter: async ({ unobserve }) => {
+    //   unobserve();
+    //   await new Promise((res) => setTimeout(res, 1000));
+    //   setProjects((prev) => [...prev, ...initialProjects]);
+    //   observe();
+    // },
   });
 
   return (
@@ -40,8 +43,8 @@ const Projects = () => {
           },
         })}
       >
-        {projects.map((project, i) => {
-          return <ProjectCard key={project.id + i} project={project} />;
+        {data?.projects?.map((project, i) => {
+          return <ProjectCard key={project.id} project={project} />;
         })}
       </SimpleGrid>
 

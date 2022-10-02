@@ -1,9 +1,30 @@
 import { Container } from "@mantine/core";
+import type { GetServerSidePropsContext } from "next";
+import { ssrExchange } from "urql";
 
 import Projects from "~/components/home/Projects";
 import Toolbar from "~/components/home/Toolbar";
+import { ProjectsDocument } from "~/graphql/generated";
+import { createUrqlClient, initSSR } from "~/services/urql-client";
 
-export default function Web() {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const { client, ssr } = initSSR();
+
+  await client.query(ProjectsDocument, {}).toPromise();
+
+  ctx.res.setHeader(
+    "Cache-Control",
+    "public, max-age=1, s-maxage=120, stale-while-revalidate=86400"
+  );
+
+  return {
+    props: {
+      ssr: ssr.extractData(),
+    },
+  };
+};
+
+export default function HomePage() {
   return (
     <Container
       fluid
