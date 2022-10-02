@@ -1,0 +1,85 @@
+{
+    "id": "cl8rcuplr370h0dpk8enrw099",
+    "content": {
+        "raw": {
+            "children": [
+                {
+                    "children": [
+                        {
+                            "text": "My name is Ildiko, I am a designer and interface developer based in Bergen, Norway ⛰️👋"
+                        }
+                    ],
+                    "type": "paragraph"
+                },
+                {
+                    "children": [
+                        {
+                            "text": "I started doing daily UI practices back in March 2016, and since then I created more than 1000 designs."
+                        }
+                    ],
+                    "type": "paragraph"
+                },
+                {
+                    "children": [
+                        {
+                            "text": "I planned on creating a design every week day until I reach 100 days total, to practice consistency and improve my skills. The improvement after the first hundred days was really encouraging, so I decided to make another hundred focusing on specific areas I am lacking in; and then another hundred, and then many more."
+                        }
+                    ],
+                    "type": "paragraph"
+                },
+                {
+                    "children": [
+                        {
+                            "text": "I created UI Design Daily to be able to share these designs with anybody who is interested in using them as inspiration or research material."
+                        }
+                    ],
+                    "type": "paragraph"
+                },
+                {
+                    "children": [
+                        {
+                            "text": "If you're interested in my journey stay tuned, and if you'd like to get in touch feel free to "
+                        },
+                        {
+                            "children": [
+                                {
+                                    "text": "drop me a message"
+                                }
+                            ],
+                            "className": "link-btn",
+                            "href": "https://uidesigndaily.com/contact",
+                            "openInNewTab": false,
+                            "type": "link"
+                        },
+                        {
+                            "text": ". 😊"
+                        }
+                    ],
+                    "type": "paragraph"
+                },
+                {
+                    "children": [
+                        {
+                            "text": "If you enjoy my work and would like to support me in creating more, the best way to do that is by "
+                        },
+                        {
+                            "children": [
+                                {
+                                    "text": "purchasing my UI Kit on Gumroad!"
+                                }
+                            ],
+                            "className": "link-btn",
+                            "href": "https://uidesigndaily.gumroad.com/l/zaqBU",
+                            "openInNewTab": true,
+                            "type": "link"
+                        },
+                        {
+                            "text": "🙏"
+                        }
+                    ],
+                    "type": "paragraph"
+                }
+            ]
+        }
+    }
+}

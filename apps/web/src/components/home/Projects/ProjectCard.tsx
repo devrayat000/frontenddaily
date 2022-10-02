@@ -11,6 +11,9 @@ import { NextLink } from "@mantine/next";
 import Image from "next/future/image";
 import { forwardRef } from "react";
 
+import FrameworkIcon from "~/components/common/FrameworkIcon";
+import { useProjectStyles } from "~/styles/project";
+import { formatDate } from "~/utils/datetime";
 import { frameworks } from "~/utils/frameworks";
 
 import type projects from "./data.json";
@@ -28,13 +31,12 @@ const useStyles = createStyles((theme) => ({
       boxShadow: theme.shadows.md,
     },
   },
-  section: { position: "relative", aspectRatio: "3/2" },
-  framework: { borderColor: "#E0E0E0" },
 }));
 
 const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
   ({ project }, ref) => {
     const { classes } = useStyles();
+    const { classes: pclasses } = useProjectStyles();
 
     const framework = frameworks.find((f) => f.name == project.framework)!;
 
@@ -50,8 +52,13 @@ const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
         radius="md"
         ref={ref}
       >
-        <Card.Section component="figure" className={classes.section}>
-          <Image src={project.image.url} alt={project.title} fill />
+        <Card.Section component="figure" className={pclasses.figure}>
+          <Image
+            src={project.image.url}
+            alt={project.title}
+            fill
+            loading="lazy"
+          />
         </Card.Section>
 
         <article>
@@ -61,21 +68,14 @@ const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
             </Title>
 
             <Tooltip label={project.framework} withArrow transition="pop">
-              <ActionIcon
-                variant="outline"
-                size="xl"
-                radius="xl"
-                className={classes.framework}
-              >
+              <FrameworkIcon>
                 <framework.icon height={28} width={28} />
-              </ActionIcon>
+              </FrameworkIcon>
             </Tooltip>
           </Group>
 
           <Text mt="lg" size="lg" component="time" dateTime={project.createdAt}>
-            {new Intl.DateTimeFormat(["en-UK", "en-US"], {
-              dateStyle: "medium",
-            }).format(new Date(project.createdAt))}
+            {formatDate(project.createdAt)}
           </Text>
         </article>
       </Card>
@@ -83,5 +83,5 @@ const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
   }
 );
 
-ProjectCard.displayName = "ProjectCard";
+ProjectCard.displayName = "@home/ProjectCard";
 export default ProjectCard;

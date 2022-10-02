@@ -3,6 +3,7 @@ import {
   Button,
   Chip,
   Container,
+  createStyles,
   Group,
   Stack,
   Text,
@@ -17,12 +18,43 @@ import type {
 } from "next";
 import Image from "next/future/image";
 
+import FrameworkIcon from "~/components/common/FrameworkIcon";
 import projects from "~/components/home/Projects/data-full.json";
 import ShareButton from "~/components/project/ShareButton";
+import { useProjectStyles } from "~/styles/project";
+import { formatDate } from "~/utils/datetime";
+import { frameworks } from "~/utils/frameworks";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
+const useStyles = createStyles((theme) => ({
+  figure: {
+    width: "100%",
+    flex: "2 0 0%",
+    margin: 0,
+    marginBlock: 0,
+    marginInline: 0,
+  },
+  framework: {
+    position: "absolute",
+    top: theme.spacing.xl,
+    right: theme.spacing.xl,
+    zIndex: 1,
+    backgroundColor: theme.white,
+    "&:hover": {
+      backgroundColor: theme.white,
+    },
+  },
+}));
+
 const PostPage: NextPage<Props> = ({ project, slug }) => {
+  const { classes, cx } = useStyles();
+  const { classes: pclasses } = useProjectStyles(void 0, {
+    name: "project-details",
+  });
+
+  const framework = frameworks.find((f) => f.name == project.framework)!;
+
   return (
     <Container fluid>
       <Group
@@ -36,17 +68,10 @@ const PostPage: NextPage<Props> = ({ project, slug }) => {
           },
         })}
       >
-        <figure
-          style={{
-            position: "relative",
-            aspectRatio: "3/2",
-            width: "100%",
-            flex: "2 0 0%",
-            margin: 0,
-            marginBlock: 0,
-            marginInline: 0,
-          }}
-        >
+        <figure className={cx(pclasses.figure, classes.figure)}>
+          <FrameworkIcon className={classes.framework}>
+            <framework.icon height={28} width={28} />
+          </FrameworkIcon>
           <Image src={project.image.url} alt={project.title} fill />
         </figure>
 
@@ -57,18 +82,14 @@ const PostPage: NextPage<Props> = ({ project, slug }) => {
 
           <Title weight={700}>{project.title}</Title>
           <Text
-            // @ts-ignore
             mt="lg"
             size="lg"
             component="time"
             color="gray"
             dateTime={project.createdAt}
-            // @ts-ignore
             my={0}
           >
-            {new Intl.DateTimeFormat(["en-UK", "en-US"], {
-              dateStyle: "medium",
-            }).format(new Date(project.createdAt))}
+            {formatDate(project.createdAt)}
           </Text>
 
           <Chip.Group>

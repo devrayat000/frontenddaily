@@ -12,7 +12,7 @@ export const HeaderLinks = ({ className, ...props }: GroupProps) => {
       <Button component={NextLink} href="/" variant="subtle" color="gray">
         Designs
       </Button>
-      <Button component={NextLink} href="/" variant="subtle" color="gray">
+      <Button component={NextLink} href="/about" variant="subtle" color="gray">
         About
       </Button>
       <Button component={NextLink} href="/" variant="subtle" color="gray">
