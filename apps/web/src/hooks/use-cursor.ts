@@ -17,5 +17,11 @@ export default function useCursor(initialValue: string | (() => string) = "") {
     setCursor("");
   }, [framework, search, tags]);
 
-  return { cursor, setCursor, framework, search, tags };
+  return {
+    cursor,
+    setCursor,
+    framework,
+    search,
+    tags,
+  };
 }

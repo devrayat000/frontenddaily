@@ -33,7 +33,7 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const useStyles = createStyles((theme) => ({
   figure: {
-    // width: "100%",
+    width: "100%",
     flex: "2 0 0%",
     margin: 0,
     marginBlock: 0,

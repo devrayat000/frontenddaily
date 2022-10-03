@@ -7,11 +7,18 @@ import Projects from "~/components/home/Projects";
 import Toolbar from "~/components/home/Toolbar";
 import { ProjectsDocument, ProjectsRelayDocument } from "~/graphql/generated";
 import { initSSR } from "~/services/urql-client";
+import { PROJECT_LIMIT } from "~/utils/constants";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { client, ssr } = initSSR();
 
-  await client.query(ProjectsRelayDocument, {}, { suspense: true }).toPromise();
+  await client
+    .query(
+      ProjectsRelayDocument,
+      { first: PROJECT_LIMIT, where: {} },
+      { suspense: true }
+    )
+    .toPromise();
 
   ctx.res.setHeader(
     "Cache-Control",
