@@ -62,7 +62,7 @@ const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
 
         <article>
           <Group position="apart" align="flex-start" noWrap>
-            <Title order={3} weight={600}>
+            <Title order={3} size="h4" weight={600}>
               {project.title}
             </Title>
 
@@ -75,7 +75,7 @@ const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
             )}
           </Group>
 
-          <Text mt="lg" size="lg" component="time" dateTime={project.createdAt}>
+          <Text mt="lg" size="md" component="time" dateTime={project.createdAt}>
             {formatDate(project.createdAt)}
           </Text>
         </article>

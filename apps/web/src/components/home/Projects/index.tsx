@@ -1,33 +1,27 @@
 import { Center, Loader, SimpleGrid } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useInView } from "react-cool-inview";
-import shallow from "zustand/shallow";
 
 import type { Framework } from "~/graphql/generated";
 import { useProjectsRelayQuery } from "~/graphql/generated";
+import useCursor from "~/hooks/use-cursor";
 import useLimit from "~/hooks/use-limit";
-import { useTagStore } from "~/stores/chip";
-import { useFilterStore } from "~/stores/filter";
 
 import ProjectCard from "./ProjectCard";
 
 const Projects = () => {
-  const [after, setAfter] = useState<string | undefined | null>();
-  const [framework, _search] = useFilterStore(
-    (store) => [store.framework, store.search],
-    shallow
-  );
-  const tags = useTagStore((store) => Array.from(store.tags));
+  const { cursor, setCursor, tags, framework, search } = useCursor();
   const limit = useLimit();
+
   const [{ data }] = useProjectsRelayQuery({
     variables: {
       where: {
         framework: framework !== "all" ? (framework as Framework) : undefined,
-        _search: _search || undefined,
+        _search: search || undefined,
         tags_some: { name_in: tags.length === 0 ? undefined : tags },
       },
       first: limit,
-      after,
+      after: cursor || undefined,
     },
   });
 
@@ -36,7 +30,7 @@ const Projects = () => {
     onEnter: async ({ unobserve }) => {
       unobserve();
       if (data?.projectsConnection.pageInfo.hasNextPage) {
-        setAfter(data?.projectsConnection.pageInfo.endCursor);
+        setCursor(data?.projectsConnection.pageInfo.endCursor ?? "");
       }
     },
   });
