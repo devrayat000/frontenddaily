@@ -1232,6 +1232,7 @@ export type DocumentVersion = {
 export const enum Framework {
   Next = 'Next',
   React = 'React',
+  Remix = 'Remix',
   Svelte = 'Svelte',
   Vanilla = 'Vanilla'
 };
@@ -3579,14 +3580,14 @@ export type Project = Node & {
   /** The unique identifier */
   id: Scalars['ID'];
   image: Asset;
-  preview?: Maybe<Scalars['String']>;
+  preview: Scalars['String'];
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
   publishedBy?: Maybe<User>;
   scheduledIn: Array<ScheduledOperation>;
   slug: Scalars['String'];
-  sourceCode?: Maybe<Scalars['String']>;
+  sourceCode: Scalars['String'];
   /** System stage field */
   stage: Stage;
   /** Tags for a project */
@@ -3685,9 +3686,9 @@ export type ProjectCreateInput = {
   description?: InputMaybe<Scalars['RichTextAST']>;
   framework: Framework;
   image: AssetCreateOneInlineInput;
-  preview?: InputMaybe<Scalars['String']>;
+  preview: Scalars['String'];
   slug: Scalars['String'];
-  sourceCode?: InputMaybe<Scalars['String']>;
+  sourceCode: Scalars['String'];
   tags?: InputMaybe<TagCreateManyInlineInput>;
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -6546,14 +6547,14 @@ export type ProjectQueryVariables = Exact<{
 }>;
 
 
-export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', sourceCode?: string | null, preview?: string | null, id: string, title: string, slug: string, framework: Framework, createdAt: any, description?: { __typename?: 'RichText', raw: any, text: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }>, image: { __typename?: 'Asset', id: string, url: string } } | null };
+export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', sourceCode: string, preview: string, id: string, title: string, slug: string, framework: Framework, createdAt: any, description?: { __typename?: 'RichText', raw: any, text: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }>, image: { __typename?: 'Asset', id: string, url: string } } | null };
 
 export type PreviewQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
 
 
-export type PreviewQuery = { __typename?: 'Query', project?: { __typename?: 'Project', id: string, preview?: string | null } | null };
+export type PreviewQuery = { __typename?: 'Query', project?: { __typename?: 'Project', id: string, preview: string } | null };
 
 export type ProjectsQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
@@ -6566,6 +6567,25 @@ export type ProjectsQueryVariables = Exact<{
 
 
 export type ProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', id: string, title: string, slug: string, framework: Framework, createdAt: any, image: { __typename?: 'Asset', id: string, url: string } }> };
+
+export type ProjectsRelayQueryVariables = Exact<{
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ProjectWhereInput>;
+}>;
+
+
+export type ProjectsRelayQuery = { __typename?: 'Query', projectsConnection: { __typename?: 'ProjectConnection', edges: Array<{ __typename?: 'ProjectEdge', cursor: string, node: { __typename?: 'Project', id: string, title: string, slug: string, framework: Framework, createdAt: any, image: { __typename?: 'Asset', id: string, url: string } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, pageSize?: number | null, endCursor?: string | null } } };
+
+export type TagsQueryVariables = Exact<{
+  orderBy?: InputMaybe<TagOrderByInput>;
+}>;
+
+
+export type TagsQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Tag', id: string, name: string }> };
 
 export const SimpleProjectFragmentDoc = gql`
     fragment SimpleProject on Project {
@@ -6645,4 +6665,45 @@ export const ProjectsDocument = gql`
 
 export function useProjectsQuery(options?: Omit<Urql.UseQueryArgs<ProjectsQueryVariables>, 'query'>) {
   return Urql.useQuery<ProjectsQuery, ProjectsQueryVariables>({ query: ProjectsDocument, ...options });
+};
+export const ProjectsRelayDocument = gql`
+    query ProjectsRelay($after: String, $before: String, $first: Int, $last: Int, $skip: Int, $where: ProjectWhereInput) {
+  projectsConnection(
+    after: $after
+    before: $before
+    first: $first
+    last: $last
+    skip: $skip
+    where: $where
+    orderBy: createdAt_DESC
+  ) {
+    edges {
+      cursor
+      node {
+        ...SimpleProject
+      }
+    }
+    pageInfo {
+      hasNextPage
+      pageSize
+      endCursor
+    }
+  }
+}
+    ${SimpleProjectFragmentDoc}`;
+
+export function useProjectsRelayQuery(options?: Omit<Urql.UseQueryArgs<ProjectsRelayQueryVariables>, 'query'>) {
+  return Urql.useQuery<ProjectsRelayQuery, ProjectsRelayQueryVariables>({ query: ProjectsRelayDocument, ...options });
+};
+export const TagsDocument = gql`
+    query Tags($orderBy: TagOrderByInput = name_ASC) {
+  tags(orderBy: $orderBy) {
+    id
+    name
+  }
+}
+    `;
+
+export function useTagsQuery(options?: Omit<Urql.UseQueryArgs<TagsQueryVariables>, 'query'>) {
+  return Urql.useQuery<TagsQuery, TagsQueryVariables>({ query: TagsDocument, ...options });
 };

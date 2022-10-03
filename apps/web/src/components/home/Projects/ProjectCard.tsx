@@ -17,8 +17,6 @@ import { useProjectStyles } from "~/styles/project";
 import { formatDate } from "~/utils/datetime";
 import { frameworks } from "~/utils/frameworks";
 
-import type projects from "./data.json";
-
 export type ProjectCardProps = {
   project: ProjectsQuery["projects"][number];
 };
@@ -39,7 +37,7 @@ const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
     const { classes } = useStyles();
     const { classes: pclasses } = useProjectStyles();
 
-    const framework = frameworks.find((f) => f.name == project.framework)!;
+    const Icon = frameworks[project.framework];
 
     return (
       <Card
@@ -63,16 +61,18 @@ const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
         </Card.Section>
 
         <article>
-          <Group position="apart">
+          <Group position="apart" align="flex-start" noWrap>
             <Title order={3} weight={600}>
               {project.title}
             </Title>
 
-            <Tooltip label={project.framework} withArrow transition="pop">
-              <FrameworkIcon>
-                <framework.icon height={28} width={28} />
-              </FrameworkIcon>
-            </Tooltip>
+            {Icon && (
+              <Tooltip label={project.framework} withArrow transition="pop">
+                <FrameworkIcon>
+                  <Icon height={28} width={28} />
+                </FrameworkIcon>
+              </Tooltip>
+            )}
           </Group>
 
           <Text mt="lg" size="lg" component="time" dateTime={project.createdAt}>

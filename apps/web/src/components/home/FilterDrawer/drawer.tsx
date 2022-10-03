@@ -12,11 +12,13 @@ import {
 import { IconX } from "@tabler/icons";
 import _groubBy from "lodash/groupBy";
 import _head from "lodash/head";
-import { memo } from "react";
+import { memo, Suspense, useMemo } from "react";
 import useVirtual from "react-cool-virtual";
 
+import Loader from "~/components/common/Loader";
+import { useTagsQuery } from "~/graphql/generated";
+
 import { FilterScreen, TagGroup } from "./components";
-import data from "./tags.json";
 
 export const useDrawerStyles = createStyles((theme) => ({
   filter: {
@@ -67,7 +69,9 @@ const Drawer = (props: DrawerProps) => {
 
         <FilterScreen />
 
-        <FilterTagsList />
+        <Suspense fallback={<Loader size="xs" />}>
+          <FilterTagsList />
+        </Suspense>
       </Stack>
     </MantineDrawer>
   );
@@ -75,10 +79,13 @@ const Drawer = (props: DrawerProps) => {
 
 export default Drawer;
 
-const tags = _groubBy(data.tags.sort(), _head);
-const tagsArr = Object.entries(tags);
-
 const FilterTagsList = memo(() => {
+  const [{ data }] = useTagsQuery();
+  const tags = useMemo(
+    () => _groubBy(data?.tags, (t) => _head(t.name)),
+    [data?.tags]
+  );
+  const tagsArr = useMemo(() => Object.entries(tags), [tags]);
   const { outerRef, innerRef, items } = useVirtual<
     HTMLDivElement,
     HTMLDivElement
@@ -86,6 +93,10 @@ const FilterTagsList = memo(() => {
     itemCount: tagsArr.length,
     itemSize: 75,
   });
+
+  if (!data?.tags) {
+    return null;
+  }
 
   return (
     <ScrollArea.Autosize
@@ -96,7 +107,7 @@ const FilterTagsList = memo(() => {
       <div ref={innerRef}>
         {items.map(({ measureRef, index }) => (
           <TagGroup
-            key={tagsArr[index][0]}
+            key={`tag-${tagsArr[index][0]}`}
             label={tagsArr[index][0]}
             tags={tagsArr[index][1]}
             ref={measureRef as any}

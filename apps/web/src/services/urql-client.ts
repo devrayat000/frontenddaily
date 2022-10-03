@@ -1,7 +1,14 @@
 import { cacheExchange } from "@urql/exchange-graphcache";
+import { relayPagination } from "@urql/exchange-graphcache/extras";
 import { createClient, dedupExchange, fetchExchange, ssrExchange } from "urql";
 
-export const cache = cacheExchange();
+export const cache = cacheExchange({
+  resolvers: {
+    Query: {
+      projectsConnection: relayPagination(),
+    },
+  },
+});
 export const ssr = ssrExchange({ isClient: typeof window !== "undefined" });
 
 export function createUrqlClient(sss: ReturnType<typeof ssrExchange>) {

@@ -51,15 +51,10 @@ const FilterToggle = () => {
         <IconAll height={28} width={28} />
       </ToggleItem>
 
-      {frameworks.map((framework) => (
-        <Tooltip
-          key={framework.name}
-          label={framework.name}
-          withArrow
-          transition="pop"
-        >
-          <ToggleItem value={framework.name} className={classes.item}>
-            <framework.icon height={28} width={28} />
+      {Object.entries(frameworks).map(([framework, Icon]) => (
+        <Tooltip key={framework} label={framework} withArrow transition="pop">
+          <ToggleItem value={framework} className={classes.item}>
+            <Icon height={28} width={28} />
           </ToggleItem>
         </Tooltip>
       ))}

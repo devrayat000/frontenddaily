@@ -1562,6 +1562,7 @@ type DocumentVersion {
 enum Framework {
   Next
   React
+  Remix
   Svelte
   Vanilla
 }
@@ -4630,7 +4631,7 @@ type Project implements Node {
     """
     locales: [Locale!]
   ): Asset!
-  preview: String
+  preview: String!
 
   """The time the document was published. Null on documents in draft stage."""
   publishedAt: DateTime
@@ -4666,7 +4667,7 @@ type Project implements Node {
     where: ScheduledOperationWhereInput
   ): [ScheduledOperation!]!
   slug: String!
-  sourceCode: String
+  sourceCode: String!
 
   """System stage field"""
   stage: Stage!
@@ -4736,9 +4737,9 @@ input ProjectCreateInput {
   description: RichTextAST
   framework: Framework!
   image: AssetCreateOneInlineInput!
-  preview: String
+  preview: String!
   slug: String!
-  sourceCode: String
+  sourceCode: String!
   tags: TagCreateManyInlineInput
   title: String!
   updatedAt: DateTime

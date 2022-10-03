@@ -64,7 +64,7 @@ const PostPage: NextPage<Props> = ({ slug }) => {
   }
 
   const project = data.project;
-  const framework = frameworks.find((f) => f.name == project.framework)!;
+  const Icon = frameworks[project.framework];
 
   return (
     <Container fluid>
@@ -100,9 +100,11 @@ const PostPage: NextPage<Props> = ({ slug }) => {
         })}
       >
         <figure className={cx(pclasses.figure, classes.figure)}>
-          <FrameworkIcon className={classes.framework}>
-            <framework.icon height={28} width={28} />
-          </FrameworkIcon>
+          {Icon && (
+            <FrameworkIcon className={classes.framework}>
+              <Icon height={28} width={28} />
+            </FrameworkIcon>
+          )}
           <Image src={project.image.url} alt={project.title} fill />
         </figure>
 

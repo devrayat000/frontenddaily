@@ -48,9 +48,40 @@ query Projects(
     first: $first
     last: $last
     skip: $skip
-    where: $where,
+    where: $where
     orderBy: createdAt_DESC
   ) {
     ...SimpleProject
+  }
+}
+
+query ProjectsRelay(
+  $after: String
+  $before: String
+  $first: Int
+  $last: Int
+  $skip: Int
+  $where: ProjectWhereInput
+) {
+  projectsConnection(
+    after: $after
+    before: $before
+    first: $first
+    last: $last
+    skip: $skip
+    where: $where
+    orderBy: createdAt_DESC
+  ) {
+    edges {
+      cursor
+      node {
+        ...SimpleProject
+      }
+    }
+    pageInfo {
+      hasNextPage
+      pageSize
+      endCursor
+    }
   }
 }

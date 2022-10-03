@@ -2,15 +2,16 @@ import { Container } from "@mantine/core";
 import type { GetServerSidePropsContext } from "next";
 import { Suspense } from "react";
 
+import Loader from "~/components/common/Loader";
 import Projects from "~/components/home/Projects";
 import Toolbar from "~/components/home/Toolbar";
-import { ProjectsDocument } from "~/graphql/generated";
+import { ProjectsDocument, ProjectsRelayDocument } from "~/graphql/generated";
 import { initSSR } from "~/services/urql-client";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { client, ssr } = initSSR();
 
-  await client.query(ProjectsDocument, {}, { suspense: true }).toPromise();
+  await client.query(ProjectsRelayDocument, {}, { suspense: true }).toPromise();
 
   ctx.res.setHeader(
     "Cache-Control",
@@ -39,7 +40,7 @@ export default function HomePage() {
     >
       <Toolbar />
 
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Loader />}>
         <Projects />
       </Suspense>
     </Container>

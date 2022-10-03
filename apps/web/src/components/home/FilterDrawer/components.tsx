@@ -2,6 +2,7 @@ import { Box, Button, Chip, Group, Paper, Text } from "@mantine/core";
 import { forwardRef } from "react";
 import shallow from "zustand/shallow";
 
+import type { TagsQuery } from "~/graphql/generated";
 import { useTagStore } from "~/stores/chip";
 
 export function FilterScreen() {
@@ -16,7 +17,14 @@ export function FilterScreen() {
         <Text size="xl">
           <b>{numberOfTags}</b> tags selected
         </Text>
-        <Button size="sm" color="gray" variant="light" onClick={clear}>
+        <Button
+          key="clear"
+          size="sm"
+          color="gray"
+          variant="light"
+          onClick={clear}
+          type="reset"
+        >
           Clear
         </Button>
       </Group>
@@ -26,7 +34,7 @@ export function FilterScreen() {
 
 type TagGroupProps = {
   label: string;
-  tags: string[];
+  tags: TagsQuery["tags"];
 };
 
 export const TagGroup = forwardRef<HTMLDivElement, TagGroupProps>(
@@ -44,11 +52,13 @@ export const TagGroup = forwardRef<HTMLDivElement, TagGroupProps>(
         <Group spacing="xs">
           {tags.map((tag) => (
             <FilterChip
-              key={tag}
-              value={tag}
-              onChange={(checked) => (checked ? add(tag) : remove(tag))}
+              key={tag.id}
+              value={tag.name}
+              onChange={(checked) =>
+                checked ? add(tag.name) : remove(tag.name)
+              }
             >
-              {tag}
+              {tag.name}
             </FilterChip>
           ))}
         </Group>
