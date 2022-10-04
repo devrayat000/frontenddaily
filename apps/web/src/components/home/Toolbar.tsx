@@ -1,9 +1,9 @@
 import { createStyles, Group, TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons";
 import _debounce from "lodash/debounce";
+import { useRouter } from "next/router";
 
-import { useFilterStore } from "~/stores/filter";
-
+// import { useFilterStore } from "~/stores/filter";
 import FilterDrawer from "./FilterDrawer";
 import FilterToggle from "./FilterToggle";
 
@@ -55,12 +55,17 @@ const useStyles = createStyles((theme) => ({
 
 const Toolbar = () => {
   const { classes } = useStyles();
+  const router = useRouter();
+  const { q, ...rest } = router.query;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     _debounce(() => {
-      useFilterStore.setState({
-        search: e.target.value,
-      });
+      let query = Object.assign({ q: e.target.value || undefined }, rest);
+      if (!query["q"]) {
+        delete query.q;
+      }
+
+      router.push({ query });
     }, 750)();
   }
 

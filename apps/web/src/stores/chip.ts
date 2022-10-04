@@ -6,21 +6,21 @@ export type TagStore = {
   remove(item: string): void;
   clear(): void;
 };
-export const useTagStore = create<TagStore>((set) => ({
-  tags: new Set<string>(),
-  add(item: string) {
-    set((prev) => ({
-      ...prev,
-      tags: prev.tags.add(item),
-    }));
-  },
-  remove(item: string) {
-    set((prev) => {
-      prev.tags.delete(item);
-      return { ...prev, tags: prev.tags };
-    });
-  },
-  clear() {
-    set((prev) => ({ ...prev, tags: new Set() }));
-  },
-}));
+// export const useTagStore = create<TagStore>((set) => ({
+//   tags: new Set<string>(),
+//   add(item: string) {
+//     set((prev) => ({
+//       ...prev,
+//       tags: prev.tags.add(item),
+//     }));
+//   },
+//   remove(item: string) {
+//     set((prev) => {
+//       prev.tags.delete(item);
+//       return { ...prev, tags: prev.tags };
+//     });
+//   },
+//   clear() {
+//     set((prev) => ({ ...prev, tags: new Set() }));
+//   },
+// }));

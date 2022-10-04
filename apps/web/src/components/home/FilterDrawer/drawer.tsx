@@ -117,4 +117,4 @@ const FilterTagsList = memo(() => {
     </ScrollArea.Autosize>
   );
 });
-FilterTagsList.displayName = "FilterTagsList";
+FilterTagsList.displayName = "@home/FilterTagsList";

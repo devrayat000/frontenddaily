@@ -10,6 +10,15 @@ const config = {
   images: {
     domains: ["media.graphassets.com"],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/terms-conditions",
+        destination:
+          "https://www.termsandconditionsgenerator.com/live.php?token=fyelApp7EHLumpgl6KTy4ImHfb7v1CRE",
+      },
+    ];
+  },
 };
 
 module.exports = withBundleAnalyzer(withTM(config));

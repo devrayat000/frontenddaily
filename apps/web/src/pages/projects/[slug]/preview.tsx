@@ -26,7 +26,6 @@ import PhoneMockup from "~/components/mockups/phone";
 import TabletMockup from "~/components/mockups/tablet";
 import { PreviewDocument, usePreviewQuery } from "~/graphql/generated";
 import useCycle from "~/hooks/use-cycle";
-import { initSSR } from "~/services/urql-client";
 
 const enum Device {
   LAPTOP = "Desktop",
@@ -118,7 +117,9 @@ export default PreviewPage;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const slug = ctx.params?.slug as string;
-  const { client, ssr } = initSSR();
+  const { client, ssr } = await import("~/services/urql-client").then((m) =>
+    m.initSSR()
+  );
 
   const res = await client.query(PreviewDocument, { slug }).toPromise();
   if (!res.data.project) {

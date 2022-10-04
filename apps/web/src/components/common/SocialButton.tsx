@@ -98,15 +98,14 @@ const SocialButton = () => {
             color="cyan"
             variant="filled"
             className={classes.fab}
-            style={{
-              zIndex: socialLinks.length - i,
-              //   @ts-ignore
-              opacity: style.opacity,
-              //   @ts-ignore
-              transform: to([style.y], (y) => `translateY(${y}px)`),
-              //   @ts-ignore
-              display: to([style.y], (y) => (y === 0 ? "none" : "flex")),
-            }}
+            style={
+              {
+                zIndex: socialLinks.length - i,
+                opacity: style.opacity,
+                transform: to([style.y], (y) => `translateY(${y}px)`),
+                display: to([style.y], (y) => (y === 0 ? "none" : "flex")),
+              } as any
+            }
           >
             <item.icon />
           </ActionIcon>

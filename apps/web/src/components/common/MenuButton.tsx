@@ -2,7 +2,7 @@ import { Burger, MediaQuery } from "@mantine/core";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
-const Drawer = dynamic(() => import("./Drawer"));
+const Drawer = dynamic(() => import("./Drawer"), { ssr: false });
 
 const MenuButton = () => {
   const [opened, setOpened] = useState(false);

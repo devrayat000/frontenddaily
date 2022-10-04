@@ -18,7 +18,7 @@ const Projects = () => {
       where: {
         framework: framework !== "all" ? (framework as Framework) : undefined,
         _search: search || undefined,
-        tags_some: tags.length === 0 ? undefined : { name_in: tags },
+        tags_some: tags?.length === 0 ? undefined : { name_in: tags },
       },
       first: limit,
       after: cursor || undefined,

@@ -23,7 +23,6 @@ import FrameworkIcon from "~/components/common/FrameworkIcon";
 // import projects from "~/components/home/Projects/data-full.json";
 import ShareButton from "~/components/project/ShareButton";
 import { ProjectDocument, useProjectQuery } from "~/graphql/generated";
-import { initSSR } from "~/services/urql-client";
 import { useProjectStyles } from "~/styles/project";
 import { formatDate } from "~/utils/datetime";
 import { frameworks } from "~/utils/frameworks";
@@ -167,7 +166,9 @@ export default PostPage;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const slug = ctx.params?.slug as string;
-  const { client, ssr } = initSSR();
+  const { client, ssr } = await import("~/services/urql-client").then((m) =>
+    m.initSSR()
+  );
 
   const res = await client.query(ProjectDocument, { slug }).toPromise();
   if (!res.data.project) {

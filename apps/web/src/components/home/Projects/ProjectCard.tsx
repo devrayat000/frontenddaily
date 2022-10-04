@@ -1,12 +1,4 @@
-import {
-  ActionIcon,
-  Card,
-  createStyles,
-  Group,
-  Text,
-  Title,
-  Tooltip,
-} from "@mantine/core";
+import { Card, createStyles, Group, Text, Title, Tooltip } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import Image from "next/future/image";
 import { forwardRef } from "react";

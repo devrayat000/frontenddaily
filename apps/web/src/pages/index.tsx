@@ -5,12 +5,13 @@ import { Suspense } from "react";
 import Loader from "~/components/common/Loader";
 import Projects from "~/components/home/Projects";
 import Toolbar from "~/components/home/Toolbar";
-import { ProjectsDocument, ProjectsRelayDocument } from "~/graphql/generated";
-import { initSSR } from "~/services/urql-client";
+import { ProjectsRelayDocument } from "~/graphql/generated";
 import { PROJECT_LIMIT } from "~/utils/constants";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const { client, ssr } = initSSR();
+  const { client, ssr } = await import("~/services/urql-client").then((m) =>
+    m.initSSR()
+  );
 
   await client
     .query(
