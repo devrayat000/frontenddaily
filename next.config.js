@@ -1,4 +1,3 @@
-const withTM = require("next-transpile-modules")(["ui"]);
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   // eslint-disable-next-line
   enabled: process.env.ANALIZE === true,
@@ -21,4 +20,4 @@ const config = {
   },
 };
 
-module.exports = withBundleAnalyzer(withTM(config));
+module.exports = withBundleAnalyzer(config);
