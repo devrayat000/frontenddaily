@@ -1,4 +1,5 @@
 import type { ActionIconProps } from "@mantine/core";
+import { createPolymorphicComponent } from "@mantine/core";
 import { ActionIcon } from "@mantine/core";
 import { forwardRef } from "react";
 
@@ -21,4 +22,6 @@ const FrameworkIcon = forwardRef<HTMLButtonElement, ActionIconProps>(
 );
 
 FrameworkIcon.displayName = "@common/FrameworkIcon";
-export default FrameworkIcon;
+export default createPolymorphicComponent<"button", ActionIconProps>(
+  FrameworkIcon
+);

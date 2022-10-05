@@ -1,5 +1,6 @@
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import {
+  Box,
   Button,
   Chip,
   Container,
@@ -32,8 +33,8 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const useStyles = createStyles((theme) => ({
   figure: {
-    width: "100%",
-    flex: "2 0 0%",
+    flexGrow: 2,
+    flexShrink: 0,
     margin: 0,
     marginBlock: 0,
     marginInline: 0,
@@ -69,6 +70,7 @@ const PostPage: NextPage<Props> = ({ slug }) => {
     <Container fluid>
       <Head>
         <title>{`Frontend Daily | ${project.title}`}</title>
+        <link rel="preload" as="image" href={project.image.url} />
         <meta name="title" content={`Frontend Daily | ${project.title}`} />
         <meta name="description" content={project.description?.text} />
         <meta
@@ -97,15 +99,16 @@ const PostPage: NextPage<Props> = ({ slug }) => {
             alignItems: "stretch",
           },
         })}
+        // grow
       >
-        <figure className={cx(pclasses.figure, classes.figure)}>
+        <Box component="figure" className={cx(pclasses.figure, classes.figure)}>
           {Icon && (
-            <FrameworkIcon className={classes.framework}>
+            <FrameworkIcon className={classes.framework} component="div">
               <Icon height={28} width={28} />
             </FrameworkIcon>
           )}
           <Image src={project.image.url} alt={project.title} fill />
-        </figure>
+        </Box>
 
         <Stack style={{ flex: "1 0 0%" }} spacing="xs">
           <Group position="right">

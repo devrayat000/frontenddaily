@@ -6,7 +6,7 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "export": "next export",
-    "start": "next start",
+    "start": "next start --port 3001",
     "lint": "next lint",
     "codegen": "env-cmd -f ./.env.local \"graphql-codegen --config .graphqlrc.yml\""
   },
