@@ -5,13 +5,12 @@ import { useInView } from "react-cool-inview";
 import type { Framework } from "~/graphql/generated";
 import { useProjectsRelayQuery } from "~/graphql/generated";
 import useCursor from "~/hooks/use-cursor";
-import useLimit from "~/hooks/use-limit";
+import { PROJECT_LIMIT } from "~/utils/constants";
 
 import ProjectCard from "./ProjectCard";
 
 const Projects = () => {
   const { cursor, setCursor, tags, framework, search } = useCursor();
-  const limit = useLimit();
 
   const [{ data }] = useProjectsRelayQuery({
     variables: {
@@ -20,7 +19,7 @@ const Projects = () => {
         _search: search || undefined,
         tags_some: tags?.length === 0 ? undefined : { name_in: tags },
       },
-      first: limit,
+      first: PROJECT_LIMIT,
       after: cursor || undefined,
     },
   });

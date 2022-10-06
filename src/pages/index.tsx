@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import Loader from "~/components/common/Loader";
 import Projects from "~/components/home/Projects";
 import Toolbar from "~/components/home/Toolbar";
+import type { Framework } from "~/graphql/generated";
 import { ProjectsRelayDocument } from "~/graphql/generated";
 import { PROJECT_LIMIT } from "~/utils/constants";
 
@@ -12,11 +13,20 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { client, ssr } = await import("~/services/urql-client").then((m) =>
     m.initSSR()
   );
+  const { framework, q: search, tags: tg } = ctx.query;
+  const tags = typeof tg === "string" ? tg.split(",") : undefined;
 
   await client
     .query(
       ProjectsRelayDocument,
-      { first: PROJECT_LIMIT, where: {} },
+      {
+        where: {
+          framework: framework !== "all" ? (framework as Framework) : undefined,
+          _search: search || undefined,
+          tags_some: tags?.length === 0 ? undefined : { name_in: tags },
+        },
+        first: PROJECT_LIMIT,
+      },
       { suspense: true }
     )
     .toPromise();
