@@ -1,30 +1,28 @@
 import type { DrawerProps } from "@mantine/core";
-import { Divider } from "@mantine/core";
-import { Drawer as MantineDrawer } from "@mantine/core";
-import { useCallback, useEffect } from "react";
+import { Divider, Drawer as MantineDrawer } from "@mantine/core";
+import { useSyncExternalStore } from "react";
 
 import { useDrawerStyles } from "../home/FilterDrawer/drawer";
 import { FooterLinks, HeaderLinks } from "./links";
 
+function subscribe(callback: () => void) {
+  window.addEventListener("resize", callback);
+  return () => {
+    window.removeEventListener("resize", callback);
+  };
+}
+
 const Drawer = (props: DrawerProps) => {
   const { classes, theme } = useDrawerStyles();
-
-  const handleResize = useCallback(
-    (e: UIEvent) => {
-      if ((e.target as Window).innerWidth >= theme.breakpoints.sm) {
-        props.onClose();
-      }
-    },
-    // eslint-disable-next-line
-    [props.onClose, theme.breakpoints.sm]
+  const isLarge = useSyncExternalStore<boolean>(
+    subscribe,
+    () => window.innerHeight >= theme.breakpoints.sm,
+    () => false
   );
 
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [handleResize]);
+  if (isLarge) {
+    props.onClose();
+  }
 
   return (
     <MantineDrawer

@@ -2,9 +2,9 @@ import { Box, Button, Chip, Group, Paper, Text } from "@mantine/core";
 // import { useRouter } from "next/router";
 import { forwardRef } from "react";
 
-// import shallow from "zustand/shallow";
-import type { TagsQuery } from "~/graphql/generated";
 import useTags from "~/hooks/use-tags";
+// import shallow from "zustand/shallow";
+import type { TagsQuery } from "~/types/graphql.generated";
 // import { useTagStore } from "~/stores/chip";
 
 export function FilterScreen() {
@@ -87,7 +87,7 @@ type FilterChipProps = {
 function FilterChip({ value, children }: FilterChipProps) {
   // const isChecked = useTagStore((store) => store.tags.has(value));
   const { router, tags } = useTags();
-  const { tags: t, ...rest } = router.query;
+  const { tags: _, ...rest } = router.query;
 
   function toggleTag(checked: boolean) {
     let newTags = new Set(tags ?? []);

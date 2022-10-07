@@ -20,12 +20,16 @@ import type {
   NextPage,
 } from "next";
 import Head from "next/head";
+import { gql, useQuery } from "urql";
 
 import BrowserMockup from "~/components/mockups/browser";
 import PhoneMockup from "~/components/mockups/phone";
 import TabletMockup from "~/components/mockups/tablet";
-import { PreviewDocument, usePreviewQuery } from "~/graphql/generated";
 import useCycle from "~/hooks/use-cycle";
+import type {
+  ProjectPreviewQuery,
+  ProjectPreviewQueryVariables,
+} from "~/types/graphql.generated";
 
 const enum Device {
   LAPTOP = "Desktop",
@@ -41,8 +45,20 @@ const devices = [
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
+export const PROJECT_PREVIEW_QUERY = gql`
+  query ProjectPreview($slug: String!) {
+    project(where: { slug: $slug }) {
+      id
+      preview
+    }
+  }
+`;
+
 const PreviewPage: NextPage<Props> = ({ slug }) => {
-  const [{ data }] = usePreviewQuery({ variables: { slug } });
+  const [{ data }] = useQuery<
+    ProjectPreviewQuery,
+    ProjectPreviewQueryVariables
+  >({ query: PROJECT_PREVIEW_QUERY, variables: { slug } });
   const theme = useMantineTheme();
   const { width: x } = useViewportSize();
 
@@ -121,8 +137,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     m.initSSR()
   );
 
-  const res = await client.query(PreviewDocument, { slug }).toPromise();
-  if (!res.data.project) {
+  const res = await client
+    .query<ProjectPreviewQuery, ProjectPreviewQueryVariables>(
+      PROJECT_PREVIEW_QUERY,
+      { slug }
+    )
+    .toPromise();
+  if (!res.data?.project) {
     return {
       notFound: true,
     };

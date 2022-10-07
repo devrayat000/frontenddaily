@@ -21,7 +21,7 @@ export function createUrqlClient(sss: ReturnType<typeof ssrExchange>) {
       },
     },
     exchanges: [dedupExchange, cache, sss, fetchExchange],
-    suspense: true,
+    // suspense: true,
   });
 }
 

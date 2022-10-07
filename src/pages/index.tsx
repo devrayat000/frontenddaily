@@ -4,9 +4,13 @@ import { Suspense } from "react";
 
 import Loader from "~/components/common/Loader";
 import Projects from "~/components/home/Projects";
+import { PROJECTS_QUERY } from "~/components/home/Projects/query";
 import Toolbar from "~/components/home/Toolbar";
-import type { Framework } from "~/graphql/generated";
-import { ProjectsRelayDocument } from "~/graphql/generated";
+import type {
+  Framework,
+  ProjectsQuery,
+  ProjectsQueryVariables,
+} from "~/types/graphql.generated";
 import { PROJECT_LIMIT } from "~/utils/constants";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
@@ -17,17 +21,17 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const tags = typeof tg === "string" ? tg.split(",") : undefined;
 
   await client
-    .query(
-      ProjectsRelayDocument,
+    .query<ProjectsQuery, ProjectsQueryVariables>(
+      PROJECTS_QUERY,
       {
         where: {
           framework: framework !== "all" ? (framework as Framework) : undefined,
-          _search: search || undefined,
+          _search: (search as string) || undefined,
           tags_some: tags?.length === 0 ? undefined : { name_in: tags },
         },
         first: PROJECT_LIMIT,
-      },
-      { suspense: true }
+      }
+      // { suspense: true }
     )
     .toPromise();
 

@@ -19,17 +19,39 @@ import type {
 } from "next";
 import Image from "next/future/image";
 import Head from "next/head";
+import { gql, useQuery } from "urql";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";
-// import projects from "~/components/home/Projects/data-full.json";
 import ShareButton from "~/components/project/ShareButton";
-import { ProjectDocument, useProjectQuery } from "~/graphql/generated";
 import { useProjectStyles } from "~/styles/project";
+import type {
+  ProjectQuery,
+  ProjectQueryVariables,
+} from "~/types/graphql.generated";
 import { formatDate } from "~/utils/datetime";
 import { frameworks } from "~/utils/frameworks";
 import { getUrl } from "~/utils/getUrl";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+
+export const PROJECT_QUERY = gql`
+  query Project($slug: String!) {
+    project(where: { slug: $slug }) {
+      ...SimpleProject
+      description {
+        raw
+        text
+      }
+      sourceCode
+      preview
+      tags {
+        id
+        name
+        slug
+      }
+    }
+  }
+`;
 
 const useStyles = createStyles((theme) => ({
   figure: {
@@ -52,7 +74,10 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const PostPage: NextPage<Props> = ({ slug }) => {
-  const [{ data }] = useProjectQuery({ variables: { slug } });
+  const [{ data }] = useQuery<ProjectQuery, ProjectQueryVariables>({
+    query: PROJECT_QUERY,
+    variables: { slug },
+  });
 
   const { classes, cx } = useStyles();
   const { classes: pclasses } = useProjectStyles(void 0, {
@@ -173,8 +198,10 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     m.initSSR()
   );
 
-  const res = await client.query(ProjectDocument, { slug }).toPromise();
-  if (!res.data.project) {
+  const res = await client
+    .query<ProjectQuery, ProjectQueryVariables>(PROJECT_QUERY, { slug })
+    .toPromise();
+  if (!res.data?.project) {
     return {
       notFound: true,
     };

@@ -6,9 +6,20 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import Image from "next/future/image";
+import { gql } from "urql";
 
 import me from "~/assets/me.png";
 import about from "~/components/common/about.json";
+
+export const ABOUT_QUERY = gql`
+  query AboutMe($type: String = "frontenddaily") {
+    about(where: { type: $type }) {
+      content {
+        json
+      }
+    }
+  }
+`;
 
 const AboutPage = () => {
   return (

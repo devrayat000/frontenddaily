@@ -1,5 +1,4 @@
 import { ActionIcon, createStyles } from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
 import {
   IconBrandDribbble,
   IconBrandFacebook,
@@ -8,7 +7,7 @@ import {
   IconBrandTwitter,
   IconSocial,
 } from "@tabler/icons";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { animated, config, to, useSprings } from "react-spring";
 
 const useStyles = createStyles((theme) => ({
@@ -50,7 +49,7 @@ const socialLinks = [
 
 const SocialButton = () => {
   const { classes } = useStyles();
-  const [open, toggle] = useToggle();
+  const openRef = useRef(false);
 
   const [springs, api] = useSprings(socialLinks.length, () => ({
     y: 0,
@@ -58,15 +57,18 @@ const SocialButton = () => {
     config: config.stiff,
   }));
 
-  useEffect(() => {
+  function animate() {
+    let open = (openRef.current = !openRef.current);
     api.start((i) => ({
       y: open ? (-i - 1) * 52 : 0,
       opacity: open ? 1 : 0,
     }));
+  }
 
+  useEffect(() => {
     return () => void api.stop();
     // eslint-disable-next-line
-  }, [open]);
+  }, []);
 
   return (
     <div>
@@ -76,7 +78,7 @@ const SocialButton = () => {
         color="cyan"
         variant="filled"
         className={classes.fab}
-        onClick={() => toggle()}
+        onClick={animate}
         sx={{ zIndex: socialLinks.length + 10 }}
       >
         <IconSocial />
@@ -103,7 +105,6 @@ const SocialButton = () => {
                 zIndex: socialLinks.length - i,
                 opacity: style.opacity,
                 transform: to([style.y], (y) => `translateY(${y}px)`),
-                display: to([style.y], (y) => (y === 0 ? "none" : "flex")),
               } as any
             }
           >

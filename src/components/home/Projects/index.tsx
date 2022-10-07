@@ -1,18 +1,26 @@
 import { Center, Loader, SimpleGrid } from "@mantine/core";
-import { useEffect } from "react";
-import { useInView } from "react-cool-inview";
+import useInfiniteScroll from "react-infinite-scroll-hook";
+import { useQuery } from "urql";
 
-import type { Framework } from "~/graphql/generated";
-import { useProjectsRelayQuery } from "~/graphql/generated";
 import useCursor from "~/hooks/use-cursor";
+import type {
+  Framework,
+  ProjectsQuery,
+  ProjectsQueryVariables,
+} from "~/types/graphql.generated";
 import { PROJECT_LIMIT } from "~/utils/constants";
 
 import ProjectCard from "./ProjectCard";
+import { PROJECTS_QUERY } from "./query";
 
 const Projects = () => {
   const { cursor, setCursor, tags, framework, search } = useCursor();
 
-  const [{ data }] = useProjectsRelayQuery({
+  const [{ data, fetching, error }] = useQuery<
+    ProjectsQuery,
+    ProjectsQueryVariables
+  >({
+    query: PROJECTS_QUERY,
     variables: {
       where: {
         framework: framework !== "all" ? (framework as Framework) : undefined,
@@ -23,26 +31,35 @@ const Projects = () => {
       after: cursor || undefined,
     },
   });
-
-  const { observe } = useInView<HTMLDivElement>({
-    rootMargin: "200px",
-    onEnter: async ({ unobserve }) => {
-      unobserve();
-      if (data?.projectsConnection.pageInfo.hasNextPage) {
-        setCursor(data?.projectsConnection.pageInfo.endCursor ?? "");
-      }
+  const [observe] = useInfiniteScroll({
+    loading: fetching,
+    hasNextPage: !!data?.projectsConnection.pageInfo.hasNextPage,
+    disabled: !!error,
+    rootMargin: "0px 0px 400px 0px",
+    onLoadMore() {
+      setCursor(data?.projectsConnection.pageInfo.endCursor);
     },
   });
 
-  useEffect(() => {
-    if (data?.projectsConnection.pageInfo.hasNextPage) {
-      observe();
-    }
-  }, [
-    data?.projectsConnection.pageInfo.hasNextPage,
-    data?.projectsConnection.pageInfo.endCursor,
-    observe,
-  ]);
+  // const { observe } = useInView<HTMLDivElement>({
+  //   rootMargin: "200px",
+  //   onEnter: async ({ unobserve }) => {
+  //     unobserve();
+  //     if (data?.projectsConnection.pageInfo.hasNextPage) {
+  //       setCursor(data?.projectsConnection.pageInfo.endCursor ?? "");
+  //     }
+  //   },
+  // });
+
+  // useEffect(() => {
+  //   if (data?.projectsConnection.pageInfo.hasNextPage) {
+  //     observe();
+  //   }
+  // }, [
+  //   data?.projectsConnection.pageInfo.hasNextPage,
+  //   data?.projectsConnection.pageInfo.endCursor,
+  //   observe,
+  // ]);
 
   return (
     <section>

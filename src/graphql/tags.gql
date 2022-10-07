@@ -1,6 +1,0 @@
-query Tags($orderBy: TagOrderByInput = name_ASC) {
-  tags(orderBy: $orderBy) {
-    id
-    name
-  }
-}

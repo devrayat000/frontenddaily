@@ -1,7 +1,0 @@
-query AboutMe($type: String = "frontenddaily") {
-  about(where: { type: $type }) {
-    content {
-      raw
-    }
-  }
-}

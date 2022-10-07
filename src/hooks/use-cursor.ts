@@ -5,7 +5,7 @@ import { useState } from "react";
 // import { useFilterStore } from "~/stores/filter";
 
 export default function useCursor(initialValue: string | (() => string) = "") {
-  const [cursor, setCursor] = useState(initialValue);
+  const [cursor, setCursor] = useState<string | undefined | null>(initialValue);
 
   // const [framework, search] = useFilterStore(
   //   (store) => [store.framework, store.search],
@@ -22,7 +22,7 @@ export default function useCursor(initialValue: string | (() => string) = "") {
     search !== prevSearch ||
     tags !== prevTags
   ) {
-    setCursor("");
+    setCursor(null);
     setPrevFramework(framework);
     setPrevSearch(search);
     setPrevTags(tags);

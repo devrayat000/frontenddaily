@@ -14,11 +14,13 @@ import _groubBy from "lodash/groupBy";
 import _head from "lodash/head";
 import { memo, Suspense, useMemo } from "react";
 import useVirtual from "react-cool-virtual";
+import { useQuery } from "urql";
 
 import Loader from "~/components/common/Loader";
-import { useTagsQuery } from "~/graphql/generated";
+import type { TagsQuery, TagsQueryVariables } from "~/types/graphql.generated";
 
 import { FilterScreen, TagGroup } from "./components";
+import { TAGS_QUERY } from "./query";
 
 export const useDrawerStyles = createStyles((theme) => ({
   filter: {
@@ -80,7 +82,9 @@ const Drawer = (props: DrawerProps) => {
 export default Drawer;
 
 const FilterTagsList = memo(() => {
-  const [{ data }] = useTagsQuery();
+  const [{ data }] = useQuery<TagsQuery, TagsQueryVariables>({
+    query: TAGS_QUERY,
+  });
   const tags = useMemo(
     () => _groubBy(data?.tags, (t) => _head(t.name)),
     [data?.tags]
@@ -93,10 +97,6 @@ const FilterTagsList = memo(() => {
     itemCount: tagsArr.length,
     itemSize: 75,
   });
-
-  if (!data?.tags) {
-    return null;
-  }
 
   return (
     <ScrollArea.Autosize

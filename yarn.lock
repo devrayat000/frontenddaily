@@ -6661,6 +6661,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-infinite-scroll-hook@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "react-infinite-scroll-hook@npm:4.0.3"
+  dependencies:
+    react-intersection-observer-hook: ^2.0.4
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 1af258bdb2d292bfa48ab59a9a324a322963f76bb9f18c6a2e507e3818d35e73b31794edc6eadc2c8fa0ca88493e8ac5be5529276d5f21b2c41e5120d9a23346
+  languageName: node
+  linkType: hard
+
+"react-intersection-observer-hook@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "react-intersection-observer-hook@npm:2.0.4"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: ab388b8b9328ebc22284360003d6339b6fb4a4af3adaa7820754ceeaaa797df6310ad02ec720837434382113cbb464e30b24b5445fc8845bf53c442d749881ef
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -7886,6 +7906,7 @@ __metadata:
     react-cool-inview: ^3.0.1
     react-cool-virtual: ^0.7.0
     react-dom: 18.2.0
+    react-infinite-scroll-hook: ^4.0.3
     react-spring: ^9.5.5
     typescript: ^4.5.3
     urql: ^3.0.3
