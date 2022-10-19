@@ -4,13 +4,13 @@ import Image from "next/future/image";
 import { forwardRef } from "react";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";
-import type { ProjectsQuery } from "~/graphql/generated";
 import { useProjectStyles } from "~/styles/project";
+import type { ProjectsQuery } from "~/types/graphql.generated";
 import { formatDate } from "~/utils/datetime";
 import { frameworks } from "~/utils/frameworks";
 
 export type ProjectCardProps = {
-  project: ProjectsQuery["projects"][number];
+  project: ProjectsQuery["projectsConnection"]["edges"][number]["node"];
 };
 
 const useStyles = createStyles((theme) => ({

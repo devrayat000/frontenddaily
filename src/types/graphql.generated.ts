@@ -1,3 +1,4 @@
+import type { RichTextAST } from '~/types/RichTextAST';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -15,10 +16,10 @@ export type Scalars = {
   Hex: any;
   Json: any;
   Long: any;
-  Portfolio_RichTextAST: any;
+  Portfolio_RichTextAST: RichTextAST;
   RGBAHue: any;
   RGBATransparency: any;
-  RichTextAST: any;
+  RichTextAST: RichTextAST;
 };
 
 export type About = Node & {
@@ -1301,6 +1302,8 @@ export type Mutation = {
   createScheduledRelease?: Maybe<ScheduledRelease>;
   /** Create one tag */
   createTag?: Maybe<Tag>;
+  /** Create one termCondition */
+  createTermCondition?: Maybe<TermCondition>;
   /** Delete one about from _all_ existing stages. Returns deleted document. */
   deleteAbout?: Maybe<About>;
   /** Delete one asset from _all_ existing stages. Returns deleted document. */
@@ -1333,6 +1336,13 @@ export type Mutation = {
   deleteManyTags: BatchPayload;
   /** Delete many Tag documents, return deleted documents */
   deleteManyTagsConnection: TagConnection;
+  /**
+   * Delete many TermCondition documents
+   * @deprecated Please use the new paginated many mutation (deleteManyTermConditionsConnection)
+   */
+  deleteManyTermConditions: BatchPayload;
+  /** Delete many TermCondition documents, return deleted documents */
+  deleteManyTermConditionsConnection: TermConditionConnection;
   /** Delete one project from _all_ existing stages. Returns deleted document. */
   deleteProject?: Maybe<Project>;
   /** Delete and return scheduled operation */
@@ -1341,6 +1351,8 @@ export type Mutation = {
   deleteScheduledRelease?: Maybe<ScheduledRelease>;
   /** Delete one tag from _all_ existing stages. Returns deleted document. */
   deleteTag?: Maybe<Tag>;
+  /** Delete one termCondition from _all_ existing stages. Returns deleted document. */
+  deleteTermCondition?: Maybe<TermCondition>;
   /** Publish one about */
   publishAbout?: Maybe<About>;
   /** Publish one asset */
@@ -1373,10 +1385,19 @@ export type Mutation = {
   publishManyTags: BatchPayload;
   /** Publish many Tag documents */
   publishManyTagsConnection: TagConnection;
+  /**
+   * Publish many TermCondition documents
+   * @deprecated Please use the new paginated many mutation (publishManyTermConditionsConnection)
+   */
+  publishManyTermConditions: BatchPayload;
+  /** Publish many TermCondition documents */
+  publishManyTermConditionsConnection: TermConditionConnection;
   /** Publish one project */
   publishProject?: Maybe<Project>;
   /** Publish one tag */
   publishTag?: Maybe<Tag>;
+  /** Publish one termCondition */
+  publishTermCondition?: Maybe<TermCondition>;
   /** Schedule to publish one about */
   schedulePublishAbout?: Maybe<About>;
   /** Schedule to publish one asset */
@@ -1385,6 +1406,8 @@ export type Mutation = {
   schedulePublishProject?: Maybe<Project>;
   /** Schedule to publish one tag */
   schedulePublishTag?: Maybe<Tag>;
+  /** Schedule to publish one termCondition */
+  schedulePublishTermCondition?: Maybe<TermCondition>;
   /** Unpublish one about from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAbout?: Maybe<About>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -1393,6 +1416,8 @@ export type Mutation = {
   scheduleUnpublishProject?: Maybe<Project>;
   /** Unpublish one tag from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishTag?: Maybe<Tag>;
+  /** Unpublish one termCondition from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishTermCondition?: Maybe<TermCondition>;
   /** Unpublish one about from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAbout?: Maybe<About>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -1425,10 +1450,19 @@ export type Mutation = {
   unpublishManyTags: BatchPayload;
   /** Find many Tag documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyTagsConnection: TagConnection;
+  /**
+   * Unpublish many TermCondition documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyTermConditionsConnection)
+   */
+  unpublishManyTermConditions: BatchPayload;
+  /** Find many TermCondition documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyTermConditionsConnection: TermConditionConnection;
   /** Unpublish one project from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishProject?: Maybe<Project>;
   /** Unpublish one tag from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishTag?: Maybe<Tag>;
+  /** Unpublish one termCondition from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishTermCondition?: Maybe<TermCondition>;
   /** Update one about */
   updateAbout?: Maybe<About>;
   /** Update one asset */
@@ -1461,12 +1495,21 @@ export type Mutation = {
   updateManyTags: BatchPayload;
   /** Update many Tag documents */
   updateManyTagsConnection: TagConnection;
+  /**
+   * Update many termConditions
+   * @deprecated Please use the new paginated many mutation (updateManyTermConditionsConnection)
+   */
+  updateManyTermConditions: BatchPayload;
+  /** Update many TermCondition documents */
+  updateManyTermConditionsConnection: TermConditionConnection;
   /** Update one project */
   updateProject?: Maybe<Project>;
   /** Update one scheduledRelease */
   updateScheduledRelease?: Maybe<ScheduledRelease>;
   /** Update one tag */
   updateTag?: Maybe<Tag>;
+  /** Update one termCondition */
+  updateTermCondition?: Maybe<TermCondition>;
   /** Upsert one about */
   upsertAbout?: Maybe<About>;
   /** Upsert one asset */
@@ -1475,6 +1518,8 @@ export type Mutation = {
   upsertProject?: Maybe<Project>;
   /** Upsert one tag */
   upsertTag?: Maybe<Tag>;
+  /** Upsert one termCondition */
+  upsertTermCondition?: Maybe<TermCondition>;
 };
 
 
@@ -1500,6 +1545,11 @@ export type MutationCreateScheduledReleaseArgs = {
 
 export type MutationCreateTagArgs = {
   data: TagCreateInput;
+};
+
+
+export type MutationCreateTermConditionArgs = {
+  data: TermConditionCreateInput;
 };
 
 
@@ -1573,6 +1623,21 @@ export type MutationDeleteManyTagsConnectionArgs = {
 };
 
 
+export type MutationDeleteManyTermConditionsArgs = {
+  where?: InputMaybe<TermConditionManyWhereInput>;
+};
+
+
+export type MutationDeleteManyTermConditionsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TermConditionManyWhereInput>;
+};
+
+
 export type MutationDeleteProjectArgs = {
   where: ProjectWhereUniqueInput;
 };
@@ -1590,6 +1655,11 @@ export type MutationDeleteScheduledReleaseArgs = {
 
 export type MutationDeleteTagArgs = {
   where: TagWhereUniqueInput;
+};
+
+
+export type MutationDeleteTermConditionArgs = {
+  where: TermConditionWhereUniqueInput;
 };
 
 
@@ -1686,6 +1756,24 @@ export type MutationPublishManyTagsConnectionArgs = {
 };
 
 
+export type MutationPublishManyTermConditionsArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<TermConditionManyWhereInput>;
+};
+
+
+export type MutationPublishManyTermConditionsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<TermConditionManyWhereInput>;
+};
+
+
 export type MutationPublishProjectArgs = {
   to?: Array<Stage>;
   where: ProjectWhereUniqueInput;
@@ -1695,6 +1783,12 @@ export type MutationPublishProjectArgs = {
 export type MutationPublishTagArgs = {
   to?: Array<Stage>;
   where: TagWhereUniqueInput;
+};
+
+
+export type MutationPublishTermConditionArgs = {
+  to?: Array<Stage>;
+  where: TermConditionWhereUniqueInput;
 };
 
 
@@ -1733,6 +1827,14 @@ export type MutationSchedulePublishTagArgs = {
 };
 
 
+export type MutationSchedulePublishTermConditionArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: TermConditionWhereUniqueInput;
+};
+
+
 export type MutationScheduleUnpublishAboutArgs = {
   from?: Array<Stage>;
   releaseAt?: InputMaybe<Scalars['DateTime']>;
@@ -1764,6 +1866,14 @@ export type MutationScheduleUnpublishTagArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   where: TagWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishTermConditionArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: TermConditionWhereUniqueInput;
 };
 
 
@@ -1857,6 +1967,24 @@ export type MutationUnpublishManyTagsConnectionArgs = {
 };
 
 
+export type MutationUnpublishManyTermConditionsArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<TermConditionManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyTermConditionsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<TermConditionManyWhereInput>;
+};
+
+
 export type MutationUnpublishProjectArgs = {
   from?: Array<Stage>;
   where: ProjectWhereUniqueInput;
@@ -1866,6 +1994,12 @@ export type MutationUnpublishProjectArgs = {
 export type MutationUnpublishTagArgs = {
   from?: Array<Stage>;
   where: TagWhereUniqueInput;
+};
+
+
+export type MutationUnpublishTermConditionArgs = {
+  from?: Array<Stage>;
+  where: TermConditionWhereUniqueInput;
 };
 
 
@@ -1949,6 +2083,23 @@ export type MutationUpdateManyTagsConnectionArgs = {
 };
 
 
+export type MutationUpdateManyTermConditionsArgs = {
+  data: TermConditionUpdateManyInput;
+  where?: InputMaybe<TermConditionManyWhereInput>;
+};
+
+
+export type MutationUpdateManyTermConditionsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: TermConditionUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TermConditionManyWhereInput>;
+};
+
+
 export type MutationUpdateProjectArgs = {
   data: ProjectUpdateInput;
   where: ProjectWhereUniqueInput;
@@ -1964,6 +2115,12 @@ export type MutationUpdateScheduledReleaseArgs = {
 export type MutationUpdateTagArgs = {
   data: TagUpdateInput;
   where: TagWhereUniqueInput;
+};
+
+
+export type MutationUpdateTermConditionArgs = {
+  data: TermConditionUpdateInput;
+  where: TermConditionWhereUniqueInput;
 };
 
 
@@ -1988,6 +2145,12 @@ export type MutationUpsertProjectArgs = {
 export type MutationUpsertTagArgs = {
   upsert: TagUpsertInput;
   where: TagWhereUniqueInput;
+};
+
+
+export type MutationUpsertTermConditionArgs = {
+  upsert: TermConditionUpsertInput;
+  where: TermConditionWhereUniqueInput;
 };
 
 /** An object with an ID */
@@ -2734,7 +2897,7 @@ export type Portfolio_ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Portfolio_Locale>>;
 };
 
-export type Portfolio_ScheduledOperationAffectedDocument = Portfolio_About | Portfolio_Asset | Portfolio_Info | Portfolio_Journey | Portfolio_Project | Portfolio_Skill | Portfolio_Visitor;
+export type Portfolio_ScheduledOperationAffectedDocument = Portfolio_About | Portfolio_Asset | Portfolio_Info | Portfolio_Journey | Portfolio_Project | Portfolio_Skill | Portfolio_TermsCondition | Portfolio_Visitor;
 
 export const enum Portfolio_ScheduledOperationOrderByInput {
   CreatedAtAsc = 'createdAt_ASC',
@@ -3292,6 +3455,73 @@ export type Portfolio_TagWhereInput = {
   name_not_starts_with?: InputMaybe<Scalars['String']>;
   /** All values starting with the given string. */
   name_starts_with?: InputMaybe<Scalars['String']>;
+};
+
+export type Portfolio_TermsCondition = Portfolio_Node & {
+  __typename?: 'Portfolio_TermsCondition';
+  content: Portfolio_RichText;
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<Portfolio_User>;
+  /** Get the document in other stages */
+  documentInStages: Array<Portfolio_TermsCondition>;
+  /** List of TermsCondition versions */
+  history: Array<Portfolio_Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<Portfolio_User>;
+  scheduledIn: Array<Portfolio_ScheduledOperation>;
+  /** System stage field */
+  stage: Portfolio_Stage;
+  type: Scalars['String'];
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<Portfolio_User>;
+};
+
+
+export type Portfolio_TermsConditionCreatedByArgs = {
+  locales?: InputMaybe<Array<Portfolio_Locale>>;
+};
+
+
+export type Portfolio_TermsConditionDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Portfolio_Stage>;
+};
+
+
+export type Portfolio_TermsConditionHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Portfolio_Stage>;
+};
+
+
+export type Portfolio_TermsConditionPublishedByArgs = {
+  locales?: InputMaybe<Array<Portfolio_Locale>>;
+};
+
+
+export type Portfolio_TermsConditionScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Portfolio_Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Portfolio_ScheduledOperationWhereInput>;
+};
+
+
+export type Portfolio_TermsConditionUpdatedByArgs = {
+  locales?: InputMaybe<Array<Portfolio_Locale>>;
 };
 
 /** User system model */
@@ -4239,6 +4469,14 @@ export type Query = {
   tags: Array<Tag>;
   /** Retrieve multiple tags using the Relay connection interface */
   tagsConnection: TagConnection;
+  /** Retrieve a single termCondition */
+  termCondition?: Maybe<TermCondition>;
+  /** Retrieve document version */
+  termConditionVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple termConditions */
+  termConditions: Array<TermCondition>;
+  /** Retrieve multiple termConditions using the Relay connection interface */
+  termConditionsConnection: TermConditionConnection;
   /** Retrieve a single user */
   user?: Maybe<User>;
   /** Retrieve multiple users */
@@ -4473,6 +4711,44 @@ export type QueryTagsConnectionArgs = {
 };
 
 
+export type QueryTermConditionArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: TermConditionWhereUniqueInput;
+};
+
+
+export type QueryTermConditionVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryTermConditionsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<TermConditionOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<TermConditionWhereInput>;
+};
+
+
+export type QueryTermConditionsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<TermConditionOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<TermConditionWhereInput>;
+};
+
+
 export type QueryUserArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
@@ -4612,7 +4888,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = About | Asset | Project | Tag;
+export type ScheduledOperationAffectedDocument = About | Asset | Project | Tag | TermCondition;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -6039,6 +6315,435 @@ export type TagWhereUniqueInput = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
+export type TermCondition = Node & {
+  __typename?: 'TermCondition';
+  content: Portfolio_RichText;
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<TermCondition>;
+  /** List of TermCondition versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  type: Scalars['String'];
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type TermConditionCreatedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type TermConditionDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type TermConditionHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type TermConditionPublishedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type TermConditionScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type TermConditionUpdatedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type TermConditionConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: TermConditionWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type TermConditionConnection = {
+  __typename?: 'TermConditionConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<TermConditionEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type TermConditionCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  type: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TermConditionCreateManyInlineInput = {
+  /** Connect multiple existing TermCondition documents */
+  connect?: InputMaybe<Array<TermConditionWhereUniqueInput>>;
+  /** Create and connect multiple existing TermCondition documents */
+  create?: InputMaybe<Array<TermConditionCreateInput>>;
+};
+
+export type TermConditionCreateOneInlineInput = {
+  /** Connect one existing TermCondition document */
+  connect?: InputMaybe<TermConditionWhereUniqueInput>;
+  /** Create and connect one TermCondition document */
+  create?: InputMaybe<TermConditionCreateInput>;
+};
+
+/** An edge in a connection. */
+export type TermConditionEdge = {
+  __typename?: 'TermConditionEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: TermCondition;
+};
+
+/** Identifies documents */
+export type TermConditionManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<TermConditionWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<TermConditionWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<TermConditionWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<TermConditionWhereStageInput>;
+  documentInStages_none?: InputMaybe<TermConditionWhereStageInput>;
+  documentInStages_some?: InputMaybe<TermConditionWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  type?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  type_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  type_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  type_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  type_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  type_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  type_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  type_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  type_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  type_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export const enum TermConditionOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  TypeAsc = 'type_ASC',
+  TypeDesc = 'type_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+};
+
+export type TermConditionUpdateInput = {
+  type?: InputMaybe<Scalars['String']>;
+};
+
+export type TermConditionUpdateManyInlineInput = {
+  /** Connect multiple existing TermCondition documents */
+  connect?: InputMaybe<Array<TermConditionConnectInput>>;
+  /** Create and connect multiple TermCondition documents */
+  create?: InputMaybe<Array<TermConditionCreateInput>>;
+  /** Delete multiple TermCondition documents */
+  delete?: InputMaybe<Array<TermConditionWhereUniqueInput>>;
+  /** Disconnect multiple TermCondition documents */
+  disconnect?: InputMaybe<Array<TermConditionWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing TermCondition documents */
+  set?: InputMaybe<Array<TermConditionWhereUniqueInput>>;
+  /** Update multiple TermCondition documents */
+  update?: InputMaybe<Array<TermConditionUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple TermCondition documents */
+  upsert?: InputMaybe<Array<TermConditionUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type TermConditionUpdateManyInput = {
+  /** No fields in updateMany data input */
+  _?: InputMaybe<Scalars['String']>;
+};
+
+export type TermConditionUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: TermConditionUpdateManyInput;
+  /** Document search */
+  where: TermConditionWhereInput;
+};
+
+export type TermConditionUpdateOneInlineInput = {
+  /** Connect existing TermCondition document */
+  connect?: InputMaybe<TermConditionWhereUniqueInput>;
+  /** Create and connect one TermCondition document */
+  create?: InputMaybe<TermConditionCreateInput>;
+  /** Delete currently connected TermCondition document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected TermCondition document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single TermCondition document */
+  update?: InputMaybe<TermConditionUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single TermCondition document */
+  upsert?: InputMaybe<TermConditionUpsertWithNestedWhereUniqueInput>;
+};
+
+export type TermConditionUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: TermConditionUpdateInput;
+  /** Unique document search */
+  where: TermConditionWhereUniqueInput;
+};
+
+export type TermConditionUpsertInput = {
+  /** Create document if it didn't exist */
+  create: TermConditionCreateInput;
+  /** Update document if it exists */
+  update: TermConditionUpdateInput;
+};
+
+export type TermConditionUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: TermConditionUpsertInput;
+  /** Unique document search */
+  where: TermConditionWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type TermConditionWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type TermConditionWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<TermConditionWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<TermConditionWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<TermConditionWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<TermConditionWhereStageInput>;
+  documentInStages_none?: InputMaybe<TermConditionWhereStageInput>;
+  documentInStages_some?: InputMaybe<TermConditionWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  type?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  type_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  type_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  type_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  type_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  type_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  type_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  type_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  type_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  type_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type TermConditionWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<TermConditionWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<TermConditionWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<TermConditionWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<TermConditionWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References TermCondition record uniquely */
+export type TermConditionWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  type?: InputMaybe<Scalars['String']>;
+};
+
 export type UnpublishLocaleInput = {
   /** Locales to unpublish */
   locale: Locale;
@@ -6556,14 +7261,19 @@ export type AboutMeQueryVariables = Exact<{
 }>;
 
 
-export type AboutMeQuery = { __typename?: 'Query', about?: { __typename?: 'About', content: { __typename?: 'Portfolio_AboutContentRichText', json: any } } | null };
+export type AboutMeQuery = { __typename?: 'Query', about?: { __typename?: 'About', id: string, content: { __typename?: 'Portfolio_AboutContentRichText', raw: RichTextAST } } | null };
+
+export type PrivacyPolicyQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PrivacyPolicyQuery = { __typename?: 'Query', termCondition?: { __typename?: 'TermCondition', id: string, content: { __typename?: 'Portfolio_RichText', raw: RichTextAST } } | null };
 
 export type ProjectQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
 
 
-export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', sourceCode: string, preview: string, id: string, title: string, slug: string, framework: Framework, createdAt: any, description?: { __typename?: 'RichText', raw: any, text: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }>, image: { __typename?: 'Asset', id: string, url: string } } | null };
+export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', sourceCode: string, preview: string, id: string, title: string, slug: string, framework: Framework, createdAt: any, description?: { __typename?: 'RichText', raw: RichTextAST, text: string } | null, tags: Array<{ __typename?: 'Tag', id: string, name: string, slug: string }>, image: { __typename?: 'Asset', id: string, url: string } } | null };
 
 export type ProjectPreviewQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -6571,3 +7281,8 @@ export type ProjectPreviewQueryVariables = Exact<{
 
 
 export type ProjectPreviewQuery = { __typename?: 'Query', project?: { __typename?: 'Project', id: string, preview: string } | null };
+
+export type TermAndConditionsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TermAndConditionsQuery = { __typename?: 'Query', termCondition?: { __typename?: 'TermCondition', id: string, content: { __typename?: 'Portfolio_RichText', raw: RichTextAST } } | null };

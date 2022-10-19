@@ -35,10 +35,20 @@ export const FooterLinks = ({ className, ...props }: GroupProps) => {
 
   return (
     <Group className={cx(classes.links, className)} {...props}>
-      <Button component={NextLink} href="/" variant="subtle" color="gray">
+      <Button
+        component={NextLink}
+        href="/terms-conditions"
+        variant="subtle"
+        color="gray"
+      >
         Terms & Conditions
       </Button>
-      <Button component={NextLink} href="/" variant="subtle" color="gray">
+      <Button
+        component={NextLink}
+        href="/privacy"
+        variant="subtle"
+        color="gray"
+      >
         Privacy Policy
       </Button>
     </Group>

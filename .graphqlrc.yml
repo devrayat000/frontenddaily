@@ -25,3 +25,6 @@ extensions:
         config:
           useTypeImports: true
           constEnums: true
+          scalars:
+            RichTextAST: "~/types/RichTextAST#RichTextAST"
+            Portfolio_RichTextAST: "~/types/RichTextAST#RichTextAST"

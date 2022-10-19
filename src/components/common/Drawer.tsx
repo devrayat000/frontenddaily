@@ -20,7 +20,7 @@ const Drawer = (props: DrawerProps) => {
     () => false
   );
 
-  if (isLarge) {
+  if (props.opened && isLarge) {
     props.onClose();
   }
 

@@ -1655,6 +1655,9 @@ type Mutation {
   """Create one tag"""
   createTag(data: TagCreateInput!): Tag
 
+  """Create one termCondition"""
+  createTermCondition(data: TermConditionCreateInput!): TermCondition
+
   """Delete one about from _all_ existing stages. Returns deleted document."""
   deleteAbout(
     """Document to delete"""
@@ -1739,6 +1742,24 @@ type Mutation {
     where: TagManyWhereInput
   ): TagConnection!
 
+  """Delete many TermCondition documents"""
+  deleteManyTermConditions(
+    """Documents to delete"""
+    where: TermConditionManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyTermConditionsConnection)")
+
+  """Delete many TermCondition documents, return deleted documents"""
+  deleteManyTermConditionsConnection(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to delete"""
+    where: TermConditionManyWhereInput
+  ): TermConditionConnection!
+
   """
   Delete one project from _all_ existing stages. Returns deleted document.
   """
@@ -1766,6 +1787,14 @@ type Mutation {
     """Document to delete"""
     where: TagWhereUniqueInput!
   ): Tag
+
+  """
+  Delete one termCondition from _all_ existing stages. Returns deleted document.
+  """
+  deleteTermCondition(
+    """Document to delete"""
+    where: TermConditionWhereUniqueInput!
+  ): TermCondition
 
   """Publish one about"""
   publishAbout(
@@ -1920,6 +1949,33 @@ type Mutation {
     where: TagManyWhereInput
   ): TagConnection!
 
+  """Publish many TermCondition documents"""
+  publishManyTermConditions(
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: TermConditionManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyTermConditionsConnection)")
+
+  """Publish many TermCondition documents"""
+  publishManyTermConditionsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+    last: Int
+    skip: Int
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: TermConditionManyWhereInput
+  ): TermConditionConnection!
+
   """Publish one project"""
   publishProject(
     """Publishing target stage"""
@@ -1937,6 +1993,15 @@ type Mutation {
     """Document to publish"""
     where: TagWhereUniqueInput!
   ): Tag
+
+  """Publish one termCondition"""
+  publishTermCondition(
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: TermConditionWhereUniqueInput!
+  ): TermCondition
 
   """Schedule to publish one about"""
   schedulePublishAbout(
@@ -2014,6 +2079,23 @@ type Mutation {
     """Document to publish"""
     where: TagWhereUniqueInput!
   ): Tag
+
+  """Schedule to publish one termCondition"""
+  schedulePublishTermCondition(
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: TermConditionWhereUniqueInput!
+  ): TermCondition
 
   """
   Unpublish one about from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
@@ -2100,6 +2182,25 @@ type Mutation {
     """Document to unpublish"""
     where: TagWhereUniqueInput!
   ): Tag
+
+  """
+  Unpublish one termCondition from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  scheduleUnpublishTermCondition(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Document to unpublish"""
+    where: TermConditionWhereUniqueInput!
+  ): TermCondition
 
   """
   Unpublish one about from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
@@ -2261,6 +2362,35 @@ type Mutation {
     where: TagManyWhereInput
   ): TagConnection!
 
+  """Unpublish many TermCondition documents"""
+  unpublishManyTermConditions(
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage"""
+    where: TermConditionManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyTermConditionsConnection)")
+
+  """
+  Find many TermCondition documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManyTermConditionsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+    last: Int
+    skip: Int
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Identifies documents in draft stage"""
+    where: TermConditionManyWhereInput
+  ): TermConditionConnection!
+
   """
   Unpublish one project from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
   """
@@ -2282,6 +2412,17 @@ type Mutation {
     """Document to unpublish"""
     where: TagWhereUniqueInput!
   ): Tag
+
+  """
+  Unpublish one termCondition from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishTermCondition(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Document to unpublish"""
+    where: TermConditionWhereUniqueInput!
+  ): TermCondition
 
   """Update one about"""
   updateAbout(data: AboutUpdateInput!, where: AboutWhereUniqueInput!): About
@@ -2385,6 +2526,30 @@ type Mutation {
     where: TagManyWhereInput
   ): TagConnection!
 
+  """Update many termConditions"""
+  updateManyTermConditions(
+    """Updates to document content"""
+    data: TermConditionUpdateManyInput!
+
+    """Documents to apply update on"""
+    where: TermConditionManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyTermConditionsConnection)")
+
+  """Update many TermCondition documents"""
+  updateManyTermConditionsConnection(
+    after: ID
+    before: ID
+
+    """Updates to document content"""
+    data: TermConditionUpdateManyInput!
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to apply update on"""
+    where: TermConditionManyWhereInput
+  ): TermConditionConnection!
+
   """Update one project"""
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
 
@@ -2393,6 +2558,9 @@ type Mutation {
 
   """Update one tag"""
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+
+  """Update one termCondition"""
+  updateTermCondition(data: TermConditionUpdateInput!, where: TermConditionWhereUniqueInput!): TermCondition
 
   """Upsert one about"""
   upsertAbout(upsert: AboutUpsertInput!, where: AboutWhereUniqueInput!): About
@@ -2405,6 +2573,9 @@ type Mutation {
 
   """Upsert one tag"""
   upsertTag(upsert: TagUpsertInput!, where: TagWhereUniqueInput!): Tag
+
+  """Upsert one termCondition"""
+  upsertTermCondition(upsert: TermConditionUpsertInput!, where: TermConditionWhereUniqueInput!): TermCondition
 }
 
 """An object with an ID"""
@@ -3418,7 +3589,7 @@ type Portfolio_ScheduledOperation implements Portfolio_Node {
   ): Portfolio_User
 }
 
-union Portfolio_ScheduledOperationAffectedDocument = Portfolio_About | Portfolio_Asset | Portfolio_Info | Portfolio_Journey | Portfolio_Project | Portfolio_Skill | Portfolio_Visitor
+union Portfolio_ScheduledOperationAffectedDocument = Portfolio_About | Portfolio_Asset | Portfolio_Info | Portfolio_Journey | Portfolio_Project | Portfolio_Skill | Portfolio_TermsCondition | Portfolio_Visitor
 
 enum Portfolio_ScheduledOperationOrderByInput {
   createdAt_ASC
@@ -4193,6 +4364,108 @@ input Portfolio_TagWhereInput {
 
   """All values starting with the given string."""
   name_starts_with: String
+}
+
+type Portfolio_TermsCondition implements Portfolio_Node {
+  content: Portfolio_RichText!
+
+  """The time the document was created"""
+  createdAt: DateTime!
+
+  """User that created this document"""
+  createdBy(
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Portfolio_Locale!]
+  ): Portfolio_User
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+
+    """Potential stages that should be returned"""
+    stages: [Portfolio_Stage!]! = [DRAFT, PUBLISHED]
+  ): [Portfolio_TermsCondition!]!
+
+  """List of TermsCondition versions"""
+  history(
+    limit: Int! = 10
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Portfolio_Stage
+  ): [Portfolio_Version!]!
+
+  """The unique identifier"""
+  id: ID!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt: DateTime
+
+  """User that last published this document"""
+  publishedBy(
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Portfolio_Locale!]
+  ): Portfolio_User
+  scheduledIn(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Portfolio_Locale!]
+    skip: Int
+    where: Portfolio_ScheduledOperationWhereInput
+  ): [Portfolio_ScheduledOperation!]!
+
+  """System stage field"""
+  stage: Portfolio_Stage!
+  type: String!
+
+  """The time the document was updated"""
+  updatedAt: DateTime!
+
+  """User that last updated this document"""
+  updatedBy(
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Portfolio_Locale!]
+  ): Portfolio_User
 }
 
 """User system model"""
@@ -5809,6 +6082,68 @@ type Query {
     where: TagWhereInput
   ): TagConnection!
 
+  """Retrieve a single termCondition"""
+  termCondition(
+    """
+    Defines which locales should be returned.
+    
+    Note that `TermCondition` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    stage: Stage! = PUBLISHED
+    where: TermConditionWhereUniqueInput!
+  ): TermCondition
+
+  """Retrieve document version"""
+  termConditionVersion(where: VersionWhereInput!): DocumentVersion
+
+  """Retrieve multiple termConditions"""
+  termConditions(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `TermCondition` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: TermConditionOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: TermConditionWhereInput
+  ): [TermCondition!]!
+
+  """Retrieve multiple termConditions using the Relay connection interface"""
+  termConditionsConnection(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `TermCondition` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: TermConditionOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: TermConditionWhereInput
+  ): TermConditionConnection!
+
   """Retrieve a single user"""
   user(
     """
@@ -6029,7 +6364,7 @@ type ScheduledOperation implements Node {
   ): User
 }
 
-union ScheduledOperationAffectedDocument = About | Asset | Project | Tag
+union ScheduledOperationAffectedDocument = About | Asset | Project | Tag | TermCondition
 
 input ScheduledOperationConnectInput {
   """
@@ -7945,6 +8280,589 @@ input TagWhereUniqueInput {
   id: ID
   name: String
   slug: String
+}
+
+type TermCondition implements Node {
+  content: Portfolio_RichText!
+
+  """The time the document was created"""
+  createdAt: DateTime!
+
+  """User that created this document"""
+  createdBy(
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [DRAFT, PUBLISHED]
+  ): [TermCondition!]!
+
+  """List of TermCondition versions"""
+  history(
+    limit: Int! = 10
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+
+  """The unique identifier"""
+  id: ID!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt: DateTime
+
+  """User that last published this document"""
+  publishedBy(
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+  scheduledIn(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    skip: Int
+    where: ScheduledOperationWhereInput
+  ): [ScheduledOperation!]!
+
+  """System stage field"""
+  stage: Stage!
+  type: String!
+
+  """The time the document was updated"""
+  updatedAt: DateTime!
+
+  """User that last updated this document"""
+  updatedBy(
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+}
+
+input TermConditionConnectInput {
+  """
+  Allow to specify document position in list of connected documents, will default to appending at end of list
+  """
+  position: ConnectPositionInput
+
+  """Document to connect"""
+  where: TermConditionWhereUniqueInput!
+}
+
+"""A connection to a list of items."""
+type TermConditionConnection {
+  aggregate: Aggregate!
+
+  """A list of edges."""
+  edges: [TermConditionEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+input TermConditionCreateInput {
+  createdAt: DateTime
+  type: String!
+  updatedAt: DateTime
+}
+
+input TermConditionCreateManyInlineInput {
+  """Connect multiple existing TermCondition documents"""
+  connect: [TermConditionWhereUniqueInput!]
+
+  """Create and connect multiple existing TermCondition documents"""
+  create: [TermConditionCreateInput!]
+}
+
+input TermConditionCreateOneInlineInput {
+  """Connect one existing TermCondition document"""
+  connect: TermConditionWhereUniqueInput
+
+  """Create and connect one TermCondition document"""
+  create: TermConditionCreateInput
+}
+
+"""An edge in a connection."""
+type TermConditionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: TermCondition!
+}
+
+"""Identifies documents"""
+input TermConditionManyWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TermConditionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TermConditionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TermConditionWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: TermConditionWhereStageInput
+  documentInStages_none: TermConditionWhereStageInput
+  documentInStages_some: TermConditionWhereStageInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  type: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values that are contained in given list."""
+  type_in: [String]
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values not ending with the given string"""
+  type_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  type_not_in: [String]
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+enum TermConditionOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  publishedAt_ASC
+  publishedAt_DESC
+  type_ASC
+  type_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input TermConditionUpdateInput {
+  type: String
+}
+
+input TermConditionUpdateManyInlineInput {
+  """Connect multiple existing TermCondition documents"""
+  connect: [TermConditionConnectInput!]
+
+  """Create and connect multiple TermCondition documents"""
+  create: [TermConditionCreateInput!]
+
+  """Delete multiple TermCondition documents"""
+  delete: [TermConditionWhereUniqueInput!]
+
+  """Disconnect multiple TermCondition documents"""
+  disconnect: [TermConditionWhereUniqueInput!]
+
+  """
+  Override currently-connected documents with multiple existing TermCondition documents
+  """
+  set: [TermConditionWhereUniqueInput!]
+
+  """Update multiple TermCondition documents"""
+  update: [TermConditionUpdateWithNestedWhereUniqueInput!]
+
+  """Upsert multiple TermCondition documents"""
+  upsert: [TermConditionUpsertWithNestedWhereUniqueInput!]
+}
+
+input TermConditionUpdateManyInput {
+  """No fields in updateMany data input"""
+  _: String
+}
+
+input TermConditionUpdateManyWithNestedWhereInput {
+  """Update many input"""
+  data: TermConditionUpdateManyInput!
+
+  """Document search"""
+  where: TermConditionWhereInput!
+}
+
+input TermConditionUpdateOneInlineInput {
+  """Connect existing TermCondition document"""
+  connect: TermConditionWhereUniqueInput
+
+  """Create and connect one TermCondition document"""
+  create: TermConditionCreateInput
+
+  """Delete currently connected TermCondition document"""
+  delete: Boolean
+
+  """Disconnect currently connected TermCondition document"""
+  disconnect: Boolean
+
+  """Update single TermCondition document"""
+  update: TermConditionUpdateWithNestedWhereUniqueInput
+
+  """Upsert single TermCondition document"""
+  upsert: TermConditionUpsertWithNestedWhereUniqueInput
+}
+
+input TermConditionUpdateWithNestedWhereUniqueInput {
+  """Document to update"""
+  data: TermConditionUpdateInput!
+
+  """Unique document search"""
+  where: TermConditionWhereUniqueInput!
+}
+
+input TermConditionUpsertInput {
+  """Create document if it didn't exist"""
+  create: TermConditionCreateInput!
+
+  """Update document if it exists"""
+  update: TermConditionUpdateInput!
+}
+
+input TermConditionUpsertWithNestedWhereUniqueInput {
+  """Upsert data"""
+  data: TermConditionUpsertInput!
+
+  """Unique document search"""
+  where: TermConditionWhereUniqueInput!
+}
+
+"""
+This contains a set of filters that can be used to compare values internally
+"""
+input TermConditionWhereComparatorInput {
+  """
+  This field can be used to request to check if the entry is outdated by internal comparison
+  """
+  outdated_to: Boolean
+}
+
+"""Identifies documents"""
+input TermConditionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [TermConditionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TermConditionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TermConditionWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: TermConditionWhereStageInput
+  documentInStages_none: TermConditionWhereStageInput
+  documentInStages_some: TermConditionWhereStageInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """All values that are not equal to given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  type: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values that are contained in given list."""
+  type_in: [String]
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values not ending with the given string"""
+  type_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  type_not_in: [String]
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+"""
+The document in stages filter allows specifying a stage entry to cross compare the same document between different stages
+"""
+input TermConditionWhereStageInput {
+  """Logical AND on all given filters."""
+  AND: [TermConditionWhereStageInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [TermConditionWhereStageInput!]
+
+  """Logical OR on all given filters."""
+  OR: [TermConditionWhereStageInput!]
+
+  """
+  This field contains fields which can be set as true or false to specify an internal comparison
+  """
+  compareWithParent: TermConditionWhereComparatorInput
+
+  """Specify the stage to compare with"""
+  stage: Stage
+}
+
+"""References TermCondition record uniquely"""
+input TermConditionWhereUniqueInput {
+  id: ID
+  type: String
 }
 
 input UnpublishLocaleInput {

@@ -23,6 +23,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         headings: {
           fontFamily: `Poppins, ${DEFAULT_THEME.fontFamily}`,
         },
+        primaryColor: "cyan",
         components: {
           Button: {
             styles: {
