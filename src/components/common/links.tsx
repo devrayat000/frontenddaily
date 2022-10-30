@@ -15,9 +15,14 @@ export const HeaderLinks = ({ className, ...props }: GroupProps) => {
       <Button component={NextLink} href="/about" variant="subtle" color="gray">
         About
       </Button>
-      <Button component={NextLink} href="/" variant="subtle" color="gray">
+      {/* <Button
+        component={NextLink}
+        href="/license"
+        variant="subtle"
+        color="gray"
+      >
         License
-      </Button>
+      </Button> */}
       <Button
         component={NextLink}
         href="/contact"

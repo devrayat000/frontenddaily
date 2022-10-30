@@ -27,27 +27,29 @@ const ShareModal: React.FC<ShareModalProps> = (props) => {
       {...props}
     >
       <Text component="em">Or,</Text>
-      <Paper component={Group} withBorder p="lg">
-        <Text
-          component="p"
-          my={0}
-          sx={{
-            textOverflow: "ellipsis",
-            width: "75%",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            flexGrow: 1,
-          }}
-        >
-          {window.location.href}
-        </Text>
-        <CopyButton value={window.location.href}>
-          {({ copy }) => (
-            <Button color="gray" variant="light" onClick={copy}>
-              Copy
-            </Button>
-          )}
-        </CopyButton>
+      <Paper withBorder p="lg">
+        <Group>
+          <Text
+            component="p"
+            my={0}
+            sx={{
+              textOverflow: "ellipsis",
+              width: "75%",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              flexGrow: 1,
+            }}
+          >
+            {window.location.href}
+          </Text>
+          <CopyButton value={window.location.href}>
+            {({ copy }) => (
+              <Button color="gray" variant="light" onClick={copy}>
+                Copy
+              </Button>
+            )}
+          </CopyButton>
+        </Group>
       </Paper>
     </Modal>
   );

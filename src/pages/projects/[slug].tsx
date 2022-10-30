@@ -22,6 +22,7 @@ import Head from "next/head";
 import { gql, useQuery } from "urql";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";
+import { SIMPLE_PROJECT_FRAGMENT } from "~/components/home/Projects/query";
 import ShareButton from "~/components/project/ShareButton";
 import { useProjectStyles } from "~/styles/project";
 import type {
@@ -51,6 +52,7 @@ export const PROJECT_QUERY = gql`
       }
     }
   }
+  ${SIMPLE_PROJECT_FRAGMENT}
 `;
 
 const useStyles = createStyles((theme) => ({
@@ -201,6 +203,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const res = await client
     .query<ProjectQuery, ProjectQueryVariables>(PROJECT_QUERY, { slug })
     .toPromise();
+
   if (!res.data?.project) {
     return {
       notFound: true,
