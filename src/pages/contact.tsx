@@ -12,9 +12,7 @@ import {
 } from "@mantine/core";
 
 export default function GetInTouchSimple() {
-  const [state, handleSubmit, reset] = useForm(
-    process.env.NEXT_PUBLIC_FORM_ID!
-  );
+  const [state, handleSubmit, reset] = useForm(process.env.NEXT_PUBLIC_FORM!);
 
   if (state.succeeded) {
     return (

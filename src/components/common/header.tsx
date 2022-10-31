@@ -1,5 +1,11 @@
-import { Group, Header as MantineHeader, MediaQuery } from "@mantine/core";
+import {
+  Group,
+  Header as MantineHeader,
+  MediaQuery,
+  Text,
+} from "@mantine/core";
 
+import Logo from "../icons/Logo";
 import { HeaderLinks } from "./links";
 import MenuButton from "./MenuButton";
 import { useHeaderStyles } from "./styles";
@@ -10,7 +16,19 @@ const Header = () => {
   return (
     <MantineHeader fixed height={72}>
       <Group position="apart" align="center" className={classes.container}>
-        <h3 style={{ fontWeight: 900, margin: 0 }}>Logo</h3>
+        <Text
+          component="span"
+          color="dark"
+          weight={600}
+          size="lg"
+          sx={(theme) => ({
+            display: "flex",
+            alignItems: "center",
+            gap: theme.spacing.sm,
+          })}
+        >
+          <Logo height={36} /> Frontend Daily
+        </Text>
 
         <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
           <HeaderLinks />
