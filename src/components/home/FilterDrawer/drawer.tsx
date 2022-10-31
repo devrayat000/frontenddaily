@@ -14,9 +14,11 @@ import _groubBy from "lodash/groupBy";
 import _head from "lodash/head";
 import { memo, Suspense, useMemo } from "react";
 import useVirtual from "react-cool-virtual";
-import { useQuery } from "urql";
 
+import { ClientErrorBoundary } from "~/components/common/ErrorBoundary";
+// import { useQuery } from "urql";
 import Loader from "~/components/common/Loader";
+import { useQuery } from "~/stores/urql-provider-extended";
 import type { TagsQuery, TagsQueryVariables } from "~/types/graphql.generated";
 
 import { FilterScreen, TagGroup } from "./components";
@@ -71,9 +73,11 @@ const Drawer = (props: DrawerProps) => {
 
         <FilterScreen />
 
-        <Suspense fallback={<Loader size="xs" />}>
-          <FilterTagsList />
-        </Suspense>
+        <ClientErrorBoundary>
+          <Suspense fallback={<Loader size="xs" />}>
+            <FilterTagsList />
+          </Suspense>
+        </ClientErrorBoundary>
       </Stack>
     </MantineDrawer>
   );
@@ -82,9 +86,11 @@ const Drawer = (props: DrawerProps) => {
 export default Drawer;
 
 const FilterTagsList = memo(() => {
-  const [{ data }] = useQuery<TagsQuery, TagsQueryVariables>({
+  const [{ data, fetching }] = useQuery<TagsQuery, TagsQueryVariables>({
     query: TAGS_QUERY,
+    // context: { suspense: true },
   });
+
   const tags = useMemo(
     () => _groubBy(data?.tags, (t) => _head(t.name)),
     [data?.tags]
@@ -97,6 +103,10 @@ const FilterTagsList = memo(() => {
     itemCount: tagsArr.length,
     itemSize: 75,
   });
+
+  if (fetching) {
+    return <Loader size="xs" />;
+  }
 
   return (
     <ScrollArea.Autosize

@@ -1,8 +1,10 @@
+import { useForm, ValidationError } from "@formspree/react";
 import {
   Button,
   Container,
   Group,
   SimpleGrid,
+  Stack,
   Text,
   Textarea,
   TextInput,
@@ -10,10 +12,28 @@ import {
 } from "@mantine/core";
 
 export default function GetInTouchSimple() {
+  const [state, handleSubmit, reset] = useForm(
+    process.env.NEXT_PUBLIC_FORM_ID!
+  );
+
+  if (state.succeeded) {
+    return (
+      <Container size="xs">
+        <Stack align="center">
+          <Text>
+            Thanks for contanting. We will get back to you as soon as
+            possible.👌
+          </Text>
+          <Button onClick={reset}>Go Back</Button>
+        </Stack>
+      </Container>
+    );
+  }
+
   return (
     <Container size="xs">
       {/* @ts-ignore */}
-      <form name="contact" method="POST" data-netlify="true">
+      <form name="contact" onSubmit={handleSubmit}>
         <input type="hidden" name="form-name" value="contact" />
         <article>
           <Title order={2} size="h1" weight={900} align="center">
@@ -37,6 +57,13 @@ export default function GetInTouchSimple() {
             placeholder="Your name"
             name="name"
             variant="filled"
+            error={
+              <ValidationError
+                prefix="Name"
+                field="name"
+                errors={state.errors}
+              />
+            }
           />
           <TextInput
             type="email"
@@ -45,6 +72,13 @@ export default function GetInTouchSimple() {
             name="email"
             variant="filled"
             required
+            error={
+              <ValidationError
+                prefix="Email"
+                field="email"
+                errors={state.errors}
+              />
+            }
           />
         </SimpleGrid>
 
@@ -55,6 +89,13 @@ export default function GetInTouchSimple() {
           name="subject"
           variant="filled"
           required
+          error={
+            <ValidationError
+              prefix="Subject"
+              field="subject"
+              errors={state.errors}
+            />
+          }
         />
         <Textarea
           mt="md"
@@ -66,6 +107,13 @@ export default function GetInTouchSimple() {
           name="message"
           variant="filled"
           required
+          error={
+            <ValidationError
+              prefix="Message"
+              field="message"
+              errors={state.errors}
+            />
+          }
         />
 
         <Group position="center" mt="xl">
@@ -74,10 +122,12 @@ export default function GetInTouchSimple() {
             size="md"
             variant="gradient"
             gradient={{ from: "teal", to: "blue", deg: 60 }}
+            disabled={state.submitting}
           >
             Send message
           </Button>
         </Group>
+        <ValidationError errors={state.errors} />
       </form>
     </Container>
   );

@@ -1,7 +1,8 @@
-import { Center, Loader, SimpleGrid } from "@mantine/core";
+import { Button, Center, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import { useQuery } from "urql";
 
+import { formatGraphqlError } from "~/components/common/ErrorBoundary";
 import useCursor from "~/hooks/use-cursor";
 import type {
   Framework,
@@ -16,7 +17,7 @@ import { PROJECTS_QUERY } from "./query";
 const Projects = () => {
   const { cursor, setCursor, tags, framework, search } = useCursor();
 
-  const [{ data, fetching, error }] = useQuery<
+  const [{ data, fetching, error }, retry] = useQuery<
     ProjectsQuery,
     ProjectsQueryVariables
   >({
@@ -37,29 +38,44 @@ const Projects = () => {
     disabled: !!error,
     rootMargin: "0px 0px 400px 0px",
     onLoadMore() {
+      // setCursor("xx");
       setCursor(data?.projectsConnection.pageInfo.endCursor);
     },
   });
 
-  // const { observe } = useInView<HTMLDivElement>({
-  //   rootMargin: "200px",
-  //   onEnter: async ({ unobserve }) => {
-  //     unobserve();
-  //     if (data?.projectsConnection.pageInfo.hasNextPage) {
-  //       setCursor(data?.projectsConnection.pageInfo.endCursor ?? "");
-  //     }
-  //   },
-  // });
+  if (error) {
+    return (
+      <Stack align="center">
+        <Text size="lg" color="red">
+          {formatGraphqlError(error)}
+        </Text>
+        <Button variant="outline" color="red" onClick={retry}>
+          Try Again
+        </Button>
+      </Stack>
+    );
+  }
 
-  // useEffect(() => {
-  //   if (data?.projectsConnection.pageInfo.hasNextPage) {
-  //     observe();
-  //   }
-  // }, [
-  //   data?.projectsConnection.pageInfo.hasNextPage,
-  //   data?.projectsConnection.pageInfo.endCursor,
-  //   observe,
-  // ]);
+  if (
+    data?.projectsConnection?.edges &&
+    data.projectsConnection.edges.length <= 0
+  ) {
+    return (
+      <Stack align="center">
+        <Text component="p" size="xl" weight={500}>
+          Sorry, we could not find any match
+          {search && (
+            <>
+              for <b>{search}</b>
+            </>
+          )}
+        </Text>
+        <Text component="p" size="sm">
+          Please try {search ? "searching" : "filtering"} with another term
+        </Text>
+      </Stack>
+    );
+  }
 
   return (
     <section>
@@ -88,7 +104,7 @@ const Projects = () => {
         })}
       </SimpleGrid>
 
-      {data?.projectsConnection.pageInfo.hasNextPage && (
+      {(data?.projectsConnection.pageInfo.hasNextPage || fetching) && (
         <Center ref={observe}>
           <Loader variant="bars" color="cyan" size="lg" />
         </Center>

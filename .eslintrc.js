@@ -6,7 +6,7 @@ module.exports = {
     "@typescript-eslint/consistent-type-imports": "warn",
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
-    "no-unused-vars": "off",
+    // "no-unused-vars": "warn",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       { varsIgnorePattern: "^_", ignoreRestSiblings: true },

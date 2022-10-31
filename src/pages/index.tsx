@@ -1,8 +1,6 @@
 import { Container } from "@mantine/core";
 import type { GetServerSidePropsContext } from "next";
-import { Suspense } from "react";
 
-import Loader from "~/components/common/Loader";
 import Projects from "~/components/home/Projects";
 import { PROJECTS_QUERY } from "~/components/home/Projects/query";
 import Toolbar from "~/components/home/Toolbar";
@@ -48,6 +46,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 };
 
 export default function HomePage() {
+  // const router = useRouter();
+
   return (
     <Container
       fluid
@@ -62,9 +62,7 @@ export default function HomePage() {
     >
       <Toolbar />
 
-      <Suspense fallback={<Loader />}>
-        <Projects />
-      </Suspense>
+      <Projects />
     </Container>
   );
 }

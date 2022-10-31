@@ -11,14 +11,14 @@ import {
   Title,
   TypographyStylesProvider,
 } from "@mantine/core";
-import { NextLink } from "@mantine/next";
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import Image from "next/future/image";
 import Head from "next/head";
+import Image from "next/image";
+import NextLink from "next/link";
 import { gql, useQuery } from "urql";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";

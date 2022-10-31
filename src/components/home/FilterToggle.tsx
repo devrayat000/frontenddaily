@@ -1,12 +1,10 @@
 import { createStyles, Tooltip } from "@mantine/core";
-import { NextLink } from "@mantine/next";
 import {
   Item as ToggleItem,
   Root as ToggleGroupRoot,
 } from "@radix-ui/react-toggle-group";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { forwardRef } from "react";
 
 // import { useFilterStore } from "~/stores/filter";
 import { frameworks } from "~/utils/frameworks";
@@ -47,25 +45,23 @@ const FilterToggle = () => {
       className={classes.root}
       value={(framework || "all") as string}
     >
-      <Link
-        href={{
-          query: {
-            ...rest,
-          },
-        }}
-        passHref
-      >
-        <ToggleItem value="all" className={classes.item} asChild>
-          <a>
-            <IconAll height={28} width={28} />
-          </a>
-        </ToggleItem>
-      </Link>
+      <ToggleItem value="all" className={classes.item} asChild>
+        <Link
+          href={{
+            query: {
+              ...rest,
+            },
+          }}
+          passHref
+        >
+          <IconAll height={28} width={28} />
+        </Link>
+      </ToggleItem>
 
       {Object.entries(frameworks).map(([framework, Icon]) => (
         <Tooltip key={framework} label={framework} withArrow transition="pop">
           <ToggleItem value={framework} className={classes.item} asChild>
-            <NextLink
+            <Link
               href={{
                 query: {
                   ...rest,
@@ -75,7 +71,7 @@ const FilterToggle = () => {
               passHref
             >
               <Icon height={28} width={28} />
-            </NextLink>
+            </Link>
           </ToggleItem>
         </Tooltip>
       ))}

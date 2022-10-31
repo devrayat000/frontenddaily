@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "urql";
 
+import { RootErrorBoundary } from "~/components/common/ErrorBoundary";
 import Shell from "~/components/common/shell";
 import SocialButton from "~/components/common/SocialButton";
 
@@ -43,7 +44,9 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
       </Head>
       <Shell>
         <Provider value={urqlClient}>
-          <Component {...pageProps} />
+          <RootErrorBoundary>
+            <Component {...pageProps} />
+          </RootErrorBoundary>
         </Provider>
         <SocialButton />
       </Shell>

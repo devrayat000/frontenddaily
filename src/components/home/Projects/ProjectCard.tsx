@@ -1,6 +1,6 @@
 import { Card, createStyles, Group, Text, Title, Tooltip } from "@mantine/core";
-import { NextLink } from "@mantine/next";
-import Image from "next/future/image";
+import Image from "next/image";
+import NextLink from "next/link";
 import { forwardRef } from "react";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";

@@ -6,7 +6,7 @@ import {
   TypographyStylesProvider,
 } from "@mantine/core";
 import type { GetServerSidePropsContext } from "next";
-import Image from "next/future/image";
+import Image from "next/image";
 import { gql, useQuery } from "urql";
 
 import me from "~/assets/me.png";

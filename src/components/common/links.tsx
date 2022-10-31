@@ -1,6 +1,6 @@
 import type { GroupProps } from "@mantine/core";
 import { Button, Group } from "@mantine/core";
-import { NextLink } from "@mantine/next";
+import NextLink from "next/link";
 
 import { useHeaderStyles } from "./styles";
 
