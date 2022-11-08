@@ -1,5 +1,6 @@
 import { Container } from "@mantine/core";
 import type { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 
 import Projects from "~/components/home/Projects";
 import { PROJECTS_QUERY } from "~/components/home/Projects/query";
@@ -60,6 +61,10 @@ export default function HomePage() {
         },
       })}
     >
+      <Head>
+        <title>Frontend Daily</title>
+        <meta name="title" content="Frontend Daily" />
+      </Head>
       <Toolbar />
 
       <Projects />

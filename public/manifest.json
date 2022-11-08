@@ -1,5 +1,7 @@
 {
- "name": "App",
+ "name": "Frontend Daily",
+ "short_name": "Frontend Daily",
+ "start_url": "/",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

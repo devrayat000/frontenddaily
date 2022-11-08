@@ -4,33 +4,37 @@ import NextLink from "next/link";
 
 import { useHeaderStyles } from "./styles";
 
+const headerLinks = [
+  {
+    href: "/",
+    label: "Designs",
+  },
+  {
+    href: "/about",
+    label: "About",
+  },
+  {
+    href: "/contact",
+    label: "Contact",
+  },
+];
+
 export const HeaderLinks = ({ className, ...props }: GroupProps) => {
   const { classes, cx } = useHeaderStyles();
 
   return (
     <Group className={cx(classes.links, className)} {...props}>
-      <Button component={NextLink} href="/" variant="subtle" color="gray">
-        Designs
-      </Button>
-      <Button component={NextLink} href="/about" variant="subtle" color="gray">
-        About
-      </Button>
-      {/* <Button
-        component={NextLink}
-        href="/license"
-        variant="subtle"
-        color="gray"
-      >
-        License
-      </Button> */}
-      <Button
-        component={NextLink}
-        href="/contact"
-        variant="subtle"
-        color="gray"
-      >
-        Contact
-      </Button>
+      {headerLinks.map((link) => (
+        <Button
+          key={link.href}
+          component={NextLink}
+          href={link.href}
+          variant="subtle"
+          color="gray"
+        >
+          {link.label}
+        </Button>
+      ))}
     </Group>
   );
 };

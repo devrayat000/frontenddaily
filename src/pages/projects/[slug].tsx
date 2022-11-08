@@ -18,7 +18,7 @@ import type {
 } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import NextLink from "next/link";
+// import NextLink from "next/link";
 import { gql, useQuery } from "urql";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";
@@ -169,12 +169,21 @@ const PostPage: NextPage<Props> = ({ slug }) => {
           <Group position="apart" grow>
             <Button
               color="grape"
+              component={"a"}
+              href={data.project.preview}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Preview
+            </Button>
+            {/* <Button
+              color="grape"
               component={NextLink}
               href="[slug]/preview"
               as={`${slug}/preview`}
             >
               Preview
-            </Button>
+            </Button> */}
             <Button
               variant="outline"
               color="cyan"

@@ -36,7 +36,7 @@ const socialLinks = [
     icon: IconBrandInstagram,
   },
   {
-    href: "#",
+    href: "https://twitter.com/fronten_daily",
     title: "Twitter",
     icon: IconBrandTwitter,
   },
