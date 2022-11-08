@@ -6,6 +6,7 @@ import { RootErrorBoundary } from "~/components/common/ErrorBoundary";
 import AppHead from "~/components/common/Head";
 import Shell from "~/components/common/shell";
 import SocialButton from "~/components/common/SocialButton";
+import { emotionCache } from "~/styles/cache";
 
 import urqlClient, { ssr } from "../services/urql-client";
 
@@ -33,6 +34,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
           },
         },
       }}
+      emotionCache={emotionCache}
     >
       <AppHead />
 

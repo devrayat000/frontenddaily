@@ -3,6 +3,8 @@ import type { NextPage } from "next";
 import type { DocumentInitialProps, DocumentProps } from "next/document";
 import { Head, Html, Main, NextScript } from "next/document";
 
+import { emotionCache } from "~/styles/cache";
+
 const MyDocument: NextPage<DocumentProps, DocumentInitialProps> = () => {
   return (
     <Html lang="en-US">
@@ -26,6 +28,6 @@ const MyDocument: NextPage<DocumentProps, DocumentInitialProps> = () => {
   );
 };
 
-MyDocument.getInitialProps = createGetInitialProps();
+MyDocument.getInitialProps = createGetInitialProps(emotionCache);
 
 export default MyDocument;
