@@ -1,4 +1,4 @@
-import { gql } from "urql";
+import { gql } from "~/utils/fetcher";
 
 export const SIMPLE_PROJECT_FRAGMENT = gql`
   fragment SimpleProject on Project {

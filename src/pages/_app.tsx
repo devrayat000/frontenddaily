@@ -1,20 +1,16 @@
 import { DEFAULT_THEME, MantineProvider } from "@mantine/core";
 import type { AppProps } from "next/app";
-import { Provider } from "urql";
+import { SWRConfig } from "swr";
 
 import { RootErrorBoundary } from "~/components/common/ErrorBoundary";
 import AppHead from "~/components/common/Head";
+import RouterTransition from "~/components/common/RouterTransition";
 import Shell from "~/components/common/shell";
 import SocialButton from "~/components/common/SocialButton";
 import { emotionCache } from "~/styles/cache";
-
-import urqlClient, { ssr } from "../services/urql-client";
+import fetcher from "~/utils/fetcher";
 
 const MyApp = ({ Component, pageProps }: MyAppProps) => {
-  if (pageProps.ssr) {
-    ssr.restoreData(pageProps.ssr);
-  }
-
   return (
     <MantineProvider
       withCSSVariables
@@ -37,13 +33,22 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
       emotionCache={emotionCache}
     >
       <AppHead />
+      <RouterTransition />
 
       <Shell>
-        <Provider value={urqlClient}>
+        <SWRConfig
+          value={{
+            fetcher,
+            fallback: pageProps.ssr,
+            revalidateOnMount: false,
+            revalidateOnFocus: false,
+            // use: [infinite],
+          }}
+        >
           <RootErrorBoundary>
             <Component {...pageProps} />
           </RootErrorBoundary>
-        </Provider>
+        </SWRConfig>
         <SocialButton />
       </Shell>
     </MantineProvider>
@@ -54,6 +59,6 @@ export default MyApp;
 
 type MyAppProps<P = {}> = AppProps<P> & {
   pageProps: {
-    ssr?: ReturnType<typeof ssr["extractData"]>;
+    ssr?: Record<string, any>;
   };
 };

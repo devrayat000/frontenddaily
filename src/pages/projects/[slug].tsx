@@ -18,9 +18,9 @@ import type {
 } from "next";
 import Head from "next/head";
 import Image from "next/image";
-// import NextLink from "next/link";
-import { gql, useQuery } from "urql";
+import useSWR, { unstable_serialize } from "swr";
 
+// import NextLink from "next/link";
 import FrameworkIcon from "~/components/common/FrameworkIcon";
 import { SIMPLE_PROJECT_FRAGMENT } from "~/components/home/Projects/query";
 import ShareButton from "~/components/project/ShareButton";
@@ -30,6 +30,7 @@ import type {
   ProjectQueryVariables,
 } from "~/types/graphql.generated";
 import { formatDate } from "~/utils/datetime";
+import fetcher, { gql } from "~/utils/fetcher";
 import { frameworks } from "~/utils/frameworks";
 import { getUrl } from "~/utils/getUrl";
 
@@ -76,10 +77,10 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const PostPage: NextPage<Props> = ({ slug }) => {
-  const [{ data }] = useQuery<ProjectQuery, ProjectQueryVariables>({
-    query: PROJECT_QUERY,
-    variables: { slug },
-  });
+  const { data } = useSWR<ProjectQuery, ProjectQueryVariables>([
+    PROJECT_QUERY,
+    { slug },
+  ]);
 
   const { classes, cx } = useStyles();
   const { classes: pclasses } = useProjectStyles(void 0, {
@@ -205,15 +206,10 @@ export default PostPage;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const slug = ctx.params?.slug as string;
-  const { client, ssr } = await import("~/services/urql-client").then((m) =>
-    m.initSSR()
-  );
 
-  const res = await client
-    .query<ProjectQuery, ProjectQueryVariables>(PROJECT_QUERY, { slug })
-    .toPromise();
+  const data = await fetcher(PROJECT_QUERY, { slug });
 
-  if (!res.data?.project) {
+  if (!data?.project) {
     return {
       notFound: true,
     };
@@ -225,7 +221,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   );
   return {
     props: {
-      ssr: ssr.extractData(),
+      ssr: {
+        [unstable_serialize([PROJECT_QUERY, { slug }])]: data,
+      },
       slug,
     },
   };

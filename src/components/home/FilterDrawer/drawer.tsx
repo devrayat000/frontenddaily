@@ -15,10 +15,12 @@ import _head from "lodash/head";
 import { memo, Suspense, useMemo } from "react";
 import useVirtual from "react-cool-virtual";
 
+// import useSWR from "swr";
 import { ClientErrorBoundary } from "~/components/common/ErrorBoundary";
 // import { useQuery } from "urql";
 import Loader from "~/components/common/Loader";
-import { useQuery } from "~/stores/urql-provider-extended";
+import { useSWR } from "~/stores/swr-provider-extended";
+// import { useQuery } from "~/stores/urql-provider-extended";
 import type { TagsQuery, TagsQueryVariables } from "~/types/graphql.generated";
 
 import { FilterScreen, TagGroup } from "./components";
@@ -86,10 +88,10 @@ const Drawer = (props: DrawerProps) => {
 export default Drawer;
 
 const FilterTagsList = memo(() => {
-  const [{ data, fetching }] = useQuery<TagsQuery, TagsQueryVariables>({
-    query: TAGS_QUERY,
-    // context: { suspense: true },
-  });
+  const { data, isValidating: fetching } = useSWR<
+    TagsQuery,
+    TagsQueryVariables
+  >([TAGS_QUERY]);
 
   const tags = useMemo(
     () => _groubBy(data?.tags, (t) => _head(t.name)),

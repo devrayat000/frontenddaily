@@ -3,17 +3,16 @@ import { GraphQLError } from "graphql";
 import { useRouter } from "next/router";
 import React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { CombinedError } from "urql";
 
-import { UrqlErrorRetry } from "~/stores/urql-provider-extended";
+import { SWRErrorRetry } from "~/stores/swr-provider-extended";
 
 export function formatGraphqlError(error: Error): string {
-  if (error instanceof CombinedError) {
-    if (error.networkError) {
-      return "Could not fetch data due to network error!";
-    }
-    return error.message;
-  }
+  // if (error instanceof CombinedError) {
+  //   if (error.networkError) {
+  //     return "Could not fetch data due to network error!";
+  //   }
+  //   return error.message;
+  // }
   if (error instanceof GraphQLError) {
     return error.toString();
   }
@@ -22,7 +21,7 @@ export function formatGraphqlError(error: Error): string {
 
 export const ClientErrorBoundary = ({ children }: React.PropsWithChildren) => {
   return (
-    <UrqlErrorRetry>
+    <SWRErrorRetry>
       {({ retryFun }) => (
         <ErrorBoundary
           onReset={retryFun}
@@ -47,7 +46,7 @@ export const ClientErrorBoundary = ({ children }: React.PropsWithChildren) => {
           {children}
         </ErrorBoundary>
       )}
-    </UrqlErrorRetry>
+    </SWRErrorRetry>
   );
 };
 

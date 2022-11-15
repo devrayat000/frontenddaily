@@ -1,9 +1,10 @@
 import { RichText } from "@graphcms/rich-text-react-renderer";
 import { Box, Container, Title, TypographyStylesProvider } from "@mantine/core";
 import type { GetServerSidePropsContext, NextPage } from "next";
-import { gql, useQuery } from "urql";
+import useSWR from "swr";
 
 import type { PrivacyPolicyQuery } from "~/types/graphql.generated";
+import fetcher, { gql } from "~/utils/fetcher";
 
 export const PRIVACY_POLICY_QUERY = gql`
   query PrivacyPolicy {
@@ -17,12 +18,6 @@ export const PRIVACY_POLICY_QUERY = gql`
 `;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const { client, ssr } = await import("~/services/urql-client").then((m) =>
-    m.initSSR()
-  );
-
-  await client.query(PRIVACY_POLICY_QUERY, {}).toPromise();
-
   ctx.res.setHeader(
     "Cache-Control",
     "public, max-age=86400, s-maxage=15768000, stale-while-revalidate=31536000"
@@ -30,15 +25,15 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
   return {
     props: {
-      ssr: ssr.extractData(),
+      ssr: {
+        [PRIVACY_POLICY_QUERY]: await fetcher(PRIVACY_POLICY_QUERY),
+      },
     },
   };
 };
 
 const TermsConditionsPage: NextPage = () => {
-  const [{ data }] = useQuery<PrivacyPolicyQuery>({
-    query: PRIVACY_POLICY_QUERY,
-  });
+  const { data } = useSWR<PrivacyPolicyQuery>(PRIVACY_POLICY_QUERY);
 
   return (
     <Container>

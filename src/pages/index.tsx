@@ -1,54 +1,38 @@
 import { Container } from "@mantine/core";
 import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
+import { unstable_serialize } from "swr/infinite";
 
 import Projects from "~/components/home/Projects";
-import { PROJECTS_QUERY } from "~/components/home/Projects/query";
+import createGetKey from "~/components/home/Projects/getKey";
 import Toolbar from "~/components/home/Toolbar";
-import type {
-  Framework,
-  ProjectsQuery,
-  ProjectsQueryVariables,
-} from "~/types/graphql.generated";
-import { PROJECT_LIMIT } from "~/utils/constants";
+import fetcher from "~/utils/fetcher";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const { client, ssr } = await import("~/services/urql-client").then((m) =>
-    m.initSSR()
-  );
   const { framework, q: search, tags: tg } = ctx.query;
   const tags = typeof tg === "string" ? tg.split(",") : undefined;
-
-  await client
-    .query<ProjectsQuery, ProjectsQueryVariables>(
-      PROJECTS_QUERY,
-      {
-        where: {
-          framework: framework !== "all" ? (framework as Framework) : undefined,
-          _search: (search as string) || undefined,
-          tags_some: tags?.length === 0 ? undefined : { name_in: tags },
-        },
-        first: PROJECT_LIMIT,
-      }
-      // { suspense: true }
-    )
-    .toPromise();
 
   ctx.res.setHeader(
     "Cache-Control",
     "public, max-age=1, s-maxage=120, stale-while-revalidate=86400"
   );
 
+  const getKey = createGetKey({
+    framework: framework as string,
+    search: search as string,
+    tags,
+  });
+
   return {
     props: {
-      ssr: ssr.extractData(),
+      ssr: {
+        [unstable_serialize(getKey)]: [await fetcher(...getKey(0, null))],
+      },
     },
   };
 };
 
 export default function HomePage() {
-  // const router = useRouter();
-
   return (
     <Container
       fluid

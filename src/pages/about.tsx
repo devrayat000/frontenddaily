@@ -7,9 +7,10 @@ import {
 } from "@mantine/core";
 import type { GetServerSidePropsContext } from "next";
 import Image from "next/image";
-import { gql, useQuery } from "urql";
+import useSWR from "swr";
 
 import me from "~/assets/me.png";
+import fetcher, { gql } from "~/utils/fetcher";
 
 export const ABOUT_QUERY = gql`
   query AboutMe($type: String = "frontenddaily") {
@@ -23,12 +24,6 @@ export const ABOUT_QUERY = gql`
 `;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const { client, ssr } = await import("~/services/urql-client").then((m) =>
-    m.initSSR()
-  );
-
-  await client.query(ABOUT_QUERY, {}).toPromise();
-
   ctx.res.setHeader(
     "Cache-Control",
     "public, max-age=3600, s-maxage=86400, stale-while-revalidate=15768000"
@@ -36,13 +31,15 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
   return {
     props: {
-      ssr: ssr.extractData(),
+      ssr: {
+        [ABOUT_QUERY]: await fetcher(ABOUT_QUERY),
+      },
     },
   };
 };
 
 const AboutPage = () => {
-  const [{ data }] = useQuery({ query: ABOUT_QUERY });
+  const { data } = useSWR(ABOUT_QUERY);
 
   return (
     <Container size="md">

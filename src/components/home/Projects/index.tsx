@@ -1,47 +1,48 @@
 import { Button, Center, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import useInfiniteScroll from "react-infinite-scroll-hook";
-import { useQuery } from "urql";
+import useSWRInfinite from "swr/infinite";
 
 import { formatGraphqlError } from "~/components/common/ErrorBoundary";
 import useCursor from "~/hooks/use-cursor";
-import type {
-  Framework,
-  ProjectsQuery,
-  ProjectsQueryVariables,
-} from "~/types/graphql.generated";
-import { PROJECT_LIMIT } from "~/utils/constants";
+import type { ProjectsQuery } from "~/types/graphql.generated";
 
+import createGetKey from "./getKey";
 import ProjectCard from "./ProjectCard";
-import { PROJECTS_QUERY } from "./query";
 
 const Projects = () => {
-  const { cursor, setCursor, tags, framework, search } = useCursor();
+  const { tags, framework, search } = useCursor();
 
-  const [{ data, fetching, error }, retry] = useQuery<
-    ProjectsQuery,
-    ProjectsQueryVariables
-  >({
-    query: PROJECTS_QUERY,
-    variables: {
-      where: {
-        framework: framework !== "all" ? (framework as Framework) : undefined,
-        _search: search || undefined,
-        tags_some: tags?.length === 0 ? undefined : { name_in: tags },
-      },
-      first: PROJECT_LIMIT,
-      after: cursor || undefined,
-    },
-  });
+  const {
+    data,
+    isValidating: fetching,
+    error,
+    setSize,
+    mutate,
+  } = useSWRInfinite<ProjectsQuery>(
+    createGetKey({
+      framework,
+      search,
+      tags,
+    }),
+    {
+      revalidateFirstPage: false,
+      persistSize: true,
+    }
+  );
+
   const [observe] = useInfiniteScroll({
     loading: fetching,
-    hasNextPage: !!data?.projectsConnection.pageInfo.hasNextPage,
+    hasNextPage: !!data?.at(-1)?.projectsConnection.pageInfo.hasNextPage,
     disabled: !!error,
     rootMargin: "0px 0px 400px 0px",
     onLoadMore() {
-      // setCursor("xx");
-      setCursor(data?.projectsConnection.pageInfo.endCursor);
+      setSize((size) => size + 1);
     },
   });
+
+  function retry() {
+    mutate(undefined, { revalidate: true });
+  }
 
   if (error) {
     return (
@@ -56,10 +57,7 @@ const Projects = () => {
     );
   }
 
-  if (
-    data?.projectsConnection?.edges &&
-    data.projectsConnection.edges.length <= 0
-  ) {
+  if (!data?.length) {
     return (
       <Stack align="center">
         <Text component="p" size="xl" weight={500}>
@@ -99,12 +97,14 @@ const Projects = () => {
           },
         })}
       >
-        {data?.projectsConnection?.edges?.map(({ node: project }) => {
-          return <ProjectCard key={project.id} project={project} />;
-        })}
+        {data.map((d) =>
+          d?.projectsConnection?.edges?.map(({ node: project }) => {
+            return <ProjectCard key={project.id} project={project} />;
+          })
+        )}
       </SimpleGrid>
 
-      {(data?.projectsConnection.pageInfo.hasNextPage || fetching) && (
+      {(data?.at(-1)?.projectsConnection.pageInfo.hasNextPage || fetching) && (
         <Center ref={observe}>
           <Loader variant="bars" color="cyan" size="lg" />
         </Center>

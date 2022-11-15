@@ -1,4 +1,4 @@
-import { gql } from "urql";
+import { gql } from "~/utils/fetcher";
 
 export const TAGS_QUERY = gql`
   query Tags($orderBy: TagOrderByInput = name_ASC) {

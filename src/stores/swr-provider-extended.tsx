@@ -1,20 +1,18 @@
 import { createContext, useContext, useState } from "react";
 import { useErrorHandler } from "react-error-boundary";
-import type { AnyVariables, UseQueryArgs } from "urql";
-import { useQuery as useUrqlQuery } from "urql";
+import useSWRQuery from "swr";
 
-export function useQuery<
-  Data = any,
-  Variables extends AnyVariables = AnyVariables
->(args: UseQueryArgs<Variables, Data>) {
-  const results = useUrqlQuery(args);
+export function useSWR<Data = any, Variables extends object = any>(
+  args: [string] | [string, Variables]
+) {
+  const results = useSWRQuery<Data, any, [string] | [string, Variables]>(args);
   const errorHandler = useErrorHandler();
   const { subscribeToRetry } = useContext(ErrorRetryContext);
 
-  if (results[0].error) {
-    errorHandler(results[0].error);
+  if (results.error) {
+    errorHandler(results.error);
   }
-  subscribeToRetry(() => results[1]());
+  subscribeToRetry(() => results.mutate(undefined, { revalidate: true }));
 
   return results;
 }
@@ -31,13 +29,13 @@ function createRetry() {
 
 const ErrorRetryContext = createContext(createRetry());
 
-type UrqlErrorRetryValue = ReturnType<typeof createRetry>;
+type SWRErrorRetryValue = ReturnType<typeof createRetry>;
 
-export interface UrqlErrorRetryProps {
-  children: ((value: UrqlErrorRetryValue) => React.ReactNode) | React.ReactNode;
+export interface SWRErrorRetryProps {
+  children: ((value: SWRErrorRetryValue) => React.ReactNode) | React.ReactNode;
 }
 
-export function UrqlErrorRetry({ children }: UrqlErrorRetryProps) {
+export function SWRErrorRetry({ children }: SWRErrorRetryProps) {
   const [retryState] = useState(createRetry);
 
   return (

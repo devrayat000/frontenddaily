@@ -20,7 +20,7 @@ import type {
   NextPage,
 } from "next";
 import Head from "next/head";
-import { gql, useQuery } from "urql";
+import useSWR, { unstable_serialize } from "swr";
 
 import BrowserMockup from "~/components/mockups/browser";
 import PhoneMockup from "~/components/mockups/phone";
@@ -30,6 +30,7 @@ import type {
   ProjectPreviewQuery,
   ProjectPreviewQueryVariables,
 } from "~/types/graphql.generated";
+import fetcher, { gql } from "~/utils/fetcher";
 
 const enum Device {
   LAPTOP = "Desktop",
@@ -55,10 +56,10 @@ export const PROJECT_PREVIEW_QUERY = gql`
 `;
 
 const PreviewPage: NextPage<Props> = ({ slug }) => {
-  const [{ data }] = useQuery<
-    ProjectPreviewQuery,
-    ProjectPreviewQueryVariables
-  >({ query: PROJECT_PREVIEW_QUERY, variables: { slug } });
+  const { data } = useSWR<ProjectPreviewQuery, ProjectPreviewQueryVariables>([
+    PROJECT_PREVIEW_QUERY,
+    { slug },
+  ]);
   const theme = useMantineTheme();
   const { width: x } = useViewportSize();
 
@@ -133,17 +134,9 @@ export default PreviewPage;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const slug = ctx.params?.slug as string;
-  const { client, ssr } = await import("~/services/urql-client").then((m) =>
-    m.initSSR()
-  );
 
-  const res = await client
-    .query<ProjectPreviewQuery, ProjectPreviewQueryVariables>(
-      PROJECT_PREVIEW_QUERY,
-      { slug }
-    )
-    .toPromise();
-  if (!res.data?.project) {
+  const data = await fetcher(PROJECT_PREVIEW_QUERY, { slug });
+  if (!data?.project) {
     return {
       notFound: true,
     };
@@ -155,7 +148,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   );
   return {
     props: {
-      ssr: ssr.extractData(),
+      ssr: {
+        [unstable_serialize([PROJECT_PREVIEW_QUERY, { slug }])]: data,
+      },
       slug,
     },
   };
