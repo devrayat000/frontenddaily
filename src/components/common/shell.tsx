@@ -1,13 +1,13 @@
-import { AppShell } from "@mantine/core";
-
 import Footer from "./Footer";
 import Header from "./header";
 
 const Shell: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <AppShell fixed header={<Header />} footer={<Footer />}>
+    <main>
+      <Header />
       {children}
-    </AppShell>
+      <Footer />
+    </main>
   );
 };
 

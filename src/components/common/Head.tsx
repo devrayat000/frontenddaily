@@ -1,9 +1,7 @@
-import { useMantineTheme } from "@mantine/core";
 import NextHead from "next/head";
+// import { tailwindConfig } from "~/styles/config";
 
 export default function AppHead() {
-  const theme = useMantineTheme();
-
   return (
     <NextHead>
       <meta httpEquiv="Content-Type" content="text/html;charset=UTF-8" />
@@ -66,16 +64,19 @@ export default function AppHead() {
         href="/favicon-16x16.png"
       />
       <link rel="manifest" href="/manifest.json" />
-      <meta
+      {/* <meta
         name="msapplication-TileColor"
-        content={theme.colors[theme.primaryColor][6]}
+        content={tailwindConfig.theme?.colors?.["primary"]?.["600"] as string ?? ""}
       />
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-      <meta name="theme-color" content={theme.colors[theme.primaryColor][6]} />
+      <meta
+        name="theme-color"
+        content={tailwindConfig.theme?.colors?.["primary"]?.["600"] as string ?? ""}
+      />
       <meta
         name="apple-mobile-web-app-status-bar"
-        content={theme.colors[theme.primaryColor][6]}
-      />
+        content={tailwindConfig.theme?.colors?.["primary"]?.["600"] as string ?? ""}
+      /> */}
     </NextHead>
   );
 }

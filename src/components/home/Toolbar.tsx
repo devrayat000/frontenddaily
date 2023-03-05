@@ -1,4 +1,3 @@
-import { createStyles, Group, TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons";
 import _debounce from "lodash/debounce";
 import { useRouter } from "next/router";
@@ -7,54 +6,7 @@ import { useRouter } from "next/router";
 import FilterDrawer from "./FilterDrawer";
 import FilterToggle from "./FilterToggle";
 
-const useStyles = createStyles((theme) => ({
-  container: {
-    justifyContent: "space-between",
-    alignItems: "stretch",
-    marginTop: theme.spacing.xl,
-    marginBottom: theme.spacing.xl,
-
-    [theme.fn.smallerThan("md")]: {
-      flexDirection: "column-reverse",
-      alignItems: "flex-end",
-    },
-
-    [theme.fn.smallerThan("sm")]: {
-      flexDirection: "column-reverse",
-      alignItems: "center",
-      marginTop: 0,
-      marginBottom: 0,
-    },
-  },
-  searchContainer: {
-    [theme.fn.smallerThan("md")]: {
-      width: "100%",
-    },
-    [theme.fn.smallerThan("sm")]: {
-      justifyContent: "end",
-    },
-  },
-  inputRoot: {
-    width: "max(520px, 400px)",
-
-    [theme.fn.smallerThan("md")]: {
-      // width: "auto",
-      flexGrow: 1,
-      flexShrink: 0,
-    },
-    [theme.fn.smallerThan("xs")]: {
-      width: "100%",
-    },
-  },
-  input: {
-    "&:focus": {
-      border: "none",
-    },
-  },
-}));
-
 const Toolbar = () => {
-  const { classes } = useStyles();
   const router = useRouter();
   const { q, ...rest } = router.query;
 
@@ -70,21 +22,28 @@ const Toolbar = () => {
   }
 
   return (
-    <Group className={classes.container} py="md">
+    <section className="py-4 flex flex-col md:flex-row items-center sm:items-end md:items-stretch justify-between my-6">
       <FilterToggle key="toggle" />
 
-      <Group className={classes.searchContainer}>
-        <TextInput
-          placeholder="Search"
-          icon={<IconSearch />}
-          size="lg"
-          variant="filled"
-          classNames={{ root: classes.inputRoot, input: classes.input }}
-          onChange={handleChange}
-        />
-        <FilterDrawer key="filter-drawer" />
-      </Group>
-    </Group>
+      <section className="flex items-center justify-end sm:justify-start w-full md:w-auto">
+        <div
+          className="flex items-center border border-slate-50 rounded py-2 px-3 bg-slate-100 gap-2"
+          tabIndex={0}
+          style={{ width: "max(520px, 400px)" }}
+        >
+          <IconSearch />
+          <input
+            type="search"
+            placeholder="Search"
+            // size="lg"
+            // variant="filled"
+            className="flex-1 bg-inherit px-4 py-1 w-full all-unset"
+            onChange={handleChange}
+          />
+        </div>
+        {/* <FilterDrawer key="filter-drawer" /> */}
+      </section>
+    </section>
   );
 };
 

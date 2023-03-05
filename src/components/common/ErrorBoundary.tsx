@@ -1,4 +1,3 @@
-import { Button, Stack, Text } from "@mantine/core";
 import { GraphQLError } from "graphql";
 import { useRouter } from "next/router";
 import React from "react";
@@ -30,18 +29,18 @@ export const ClientErrorBoundary = ({ children }: React.PropsWithChildren) => {
             console.log({ error, componentStack })
           }
           fallbackRender={({ error, resetErrorBoundary }) => (
-            <Stack align="center">
-              <Text size="lg" color="red">
+            <section className="flex flex-col items-center">
+              <p className="text-lg text-red-500">
                 {formatGraphqlError(error)}
-              </Text>
-              <Button
-                variant="outline"
-                color="red"
+              </p>
+              <button
+                type="button"
+                className="text-lg text-red-500 px-4 py-2 rounded border border-red-500"
                 onClick={resetErrorBoundary}
               >
                 Try Again
-              </Button>
-            </Stack>
+              </button>
+            </section>
           )}
         >
           {children}
@@ -61,19 +60,16 @@ export const RootErrorBoundary = ({ children }: React.PropsWithChildren) => {
         console.log({ error, componentStack })
       }
       fallbackRender={({ resetErrorBoundary }) => (
-        <Stack align="center">
-          <Text size="xl" color="red">
-            Something went wrong!
-          </Text>
-          <Button
-            variant="outline"
-            color="red"
-            size="lg"
+        <section className="flex flex-col items-center">
+          <p className="text-xl text-red-500">Something went wrong!</p>
+          <button
+            type="button"
+            className="text-lg text-red-500 px-4 py-2 rounded border border-red-500"
             onClick={resetErrorBoundary}
           >
             Reload Page
-          </Button>
-        </Stack>
+          </button>
+        </section>
       )}
     >
       {children}

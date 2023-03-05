@@ -1,8 +1,7 @@
-import type { GroupProps } from "@mantine/core";
-import { Button, Group } from "@mantine/core";
+import clsx from "clsx";
 import NextLink from "next/link";
 
-import { useHeaderStyles } from "./styles";
+// import { useHeaderStyles } from "./styles";
 
 const headerLinks = [
   {
@@ -19,47 +18,55 @@ const headerLinks = [
   },
 ];
 
-export const HeaderLinks = ({ className, ...props }: GroupProps) => {
-  const { classes, cx } = useHeaderStyles();
-
+export const HeaderLinks = ({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"div">) => {
   return (
-    <Group className={cx(classes.links, className)} {...props}>
+    <section
+      className={clsx(
+        "flex items-stretch flex-col gap-5 sm:flex-row sm:items-center sm:gap-3 md:gap-4",
+        className
+      )}
+      {...props}
+    >
       {headerLinks.map((link) => (
-        <Button
+        <NextLink
           key={link.href}
-          component={NextLink}
           href={link.href}
-          variant="subtle"
-          color="gray"
+          className="text-slate-800 hover:bg-slate-100 px-4 py-2 rounded"
         >
           {link.label}
-        </Button>
+        </NextLink>
       ))}
-    </Group>
+    </section>
   );
 };
 
-export const FooterLinks = ({ className, ...props }: GroupProps) => {
-  const { classes, cx } = useHeaderStyles();
-
+export const FooterLinks = ({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"div">) => {
   return (
-    <Group className={cx(classes.links, className)} {...props}>
-      <Button
-        component={NextLink}
+    <section
+      className={clsx(
+        "flex items-stretch flex-col gap-5 sm:flex-row sm:items-center sm:gap-3 md:gap-4",
+        className
+      )}
+      {...props}
+    >
+      <NextLink
         href="/terms-conditions"
-        variant="subtle"
-        color="gray"
+        className="text-slate-800 hover:bg-slate-100 px-4 py-2 rounded"
       >
         Terms & Conditions
-      </Button>
-      <Button
-        component={NextLink}
+      </NextLink>
+      <NextLink
         href="/privacy"
-        variant="subtle"
-        color="gray"
+        className="text-slate-800 hover:bg-slate-100 px-4 py-2 rounded"
       >
         Privacy Policy
-      </Button>
-    </Group>
+      </NextLink>
+    </section>
   );
 };

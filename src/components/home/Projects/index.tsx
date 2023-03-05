@@ -1,4 +1,3 @@
-import { Button, Center, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import { useQuery } from "urql";
 
@@ -45,14 +44,15 @@ const Projects = () => {
 
   if (error) {
     return (
-      <Stack align="center">
-        <Text size="lg" color="red">
-          {formatGraphqlError(error)}
-        </Text>
-        <Button variant="outline" color="red" onClick={retry}>
+      <section className="flex flex-col items-center">
+        <p className="text-red-500 text-lg">{formatGraphqlError(error)}</p>
+        <button
+          className="text-red-500 border border-current rounded"
+          onClick={retry}
+        >
           Try Again
-        </Button>
-      </Stack>
+        </button>
+      </section>
     );
   }
 
@@ -61,53 +61,35 @@ const Projects = () => {
     data.projectsConnection.edges.length <= 0
   ) {
     return (
-      <Stack align="center">
-        <Text component="p" size="xl" weight={500}>
+      <section className="flex flex-col items-center">
+        <p className="text-red-500 text-xl font-medium">
           Sorry, we could not find any match
           {search && (
             <>
               for <b>{search}</b>
             </>
           )}
-        </Text>
-        <Text component="p" size="sm">
+        </p>
+        <p className="text-sm">
           Please try {search ? "searching" : "filtering"} with another term
-        </Text>
-      </Stack>
+        </p>
+      </section>
     );
   }
 
   return (
     <section>
-      <SimpleGrid
-        cols={3}
-        verticalSpacing="xl"
-        breakpoints={[
-          { maxWidth: "md", cols: 2 },
-          { maxWidth: "sm", cols: 1 },
-        ]}
-        sx={(theme) => ({
-          gap: theme.spacing.xl * 1.7,
-          margin: `${theme.spacing.xl * 2}px ${theme.spacing.xl * 3}px`,
-          [theme.fn.smallerThan("md")]: {
-            marginLeft: theme.spacing.xl,
-            marginRight: theme.spacing.xl,
-          },
-          [theme.fn.smallerThan("xs")]: {
-            marginLeft: 0,
-            marginRight: 0,
-          },
-        })}
-      >
+      <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 my-12 mx-0 sm:mx-6 lg:mx-18">
         {data?.projectsConnection?.edges?.map(({ node: project }) => {
           return <ProjectCard key={project.id} project={project} />;
         })}
-      </SimpleGrid>
+      </section>
 
       {(data?.projectsConnection.pageInfo.hasNextPage || fetching) && (
-        <Center ref={observe}>
-          <Loader variant="bars" color="cyan" size="lg" />
-        </Center>
+        <div className="grid place-items-center" ref={observe}>
+          Loading...
+          {/* <Loader variant="bars" color="cyan" size="lg" /> */}
+        </div>
       )}
     </section>
   );

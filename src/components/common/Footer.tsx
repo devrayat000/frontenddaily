@@ -1,42 +1,18 @@
-import {
-  createStyles,
-  Footer as MantineFooter,
-  Group,
-  MediaQuery,
-  Text,
-} from "@mantine/core";
-
 import { FooterLinks } from "./links";
-import { useHeaderStyles } from "./styles";
-
-const useStyles = createStyles((theme) => ({
-  container: {
-    [theme.fn.smallerThan("sm")]: {
-      justifyContent: "center",
-    },
-  },
-}));
+import MediaQuery from "./MediaQuery";
+import { CONTAINER_STYLES } from "./styles";
 
 const Footer = () => {
-  const { classes, cx } = useStyles();
-  const { classes: headerClasses } = useHeaderStyles();
-
   return (
-    <MantineFooter height={72} fixed>
-      <Group
-        position="apart"
-        align="center"
-        className={cx(headerClasses.container, classes.container)}
-      >
-        <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+    <footer className="h-20 sticky bottom-0 w-full shadow-lg shadow-slate-900/10 z-50 bg-white border-t border-slate-200">
+      <section className={CONTAINER_STYLES}>
+        <MediaQuery className="hidden sm:flex">
           <FooterLinks />
         </MediaQuery>
 
-        <Text component="p" my={0}>
-          ©FrontendDaily 2022
-        </Text>
-      </Group>
-    </MantineFooter>
+        <p className="my-0">©FrontendDaily 2022</p>
+      </section>
+    </footer>
   );
 };
 

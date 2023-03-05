@@ -1,8 +1,8 @@
-import { createStyles, Tooltip } from "@mantine/core";
 import {
   Item as ToggleItem,
   Root as ToggleGroupRoot,
 } from "@radix-ui/react-toggle-group";
+import * as Tooltip from "@radix-ui/react-tooltip";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -11,41 +11,20 @@ import { frameworks } from "~/utils/frameworks";
 
 import IconAll from "../icons/all";
 
-const useStyles = createStyles((theme) => ({
-  root: {
-    display: "inline-flex",
-    borderRadius: 4,
-    border: `1px solid ${theme.colors.gray[1]}`,
-  },
-  item: {
-    all: "unset",
-    padding: "8px 12px",
-    display: "flex",
-    fontSize: 15,
-    lineHeight: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    backgroundColor: "white",
-    transition: "background-color 0.15s ease-in-out",
-    "&:hover": { backgroundColor: theme.colors.gray[0] },
-    "&[data-state=on]": {
-      backgroundColor: theme.colors.gray[1],
-    },
-  },
-}));
-
 const FilterToggle = () => {
-  const { classes } = useStyles();
   const { framework, ...rest } = useRouter().query;
 
   return (
     <ToggleGroupRoot
       type="single"
-      className={classes.root}
+      className="inline-flex rounded border border-gray-100"
       value={(framework || "all") as string}
     >
-      <ToggleItem value="all" className={classes.item} asChild>
+      <ToggleItem
+        value="all"
+        className="all-unset py-2 px-3 flex items-center justify-center cursor-pointer bg-white hover:bg-gray-50 transition-colors data-[state=on]:bg-gray-100"
+        asChild
+      >
         <Link
           href={{
             query: {
@@ -59,21 +38,38 @@ const FilterToggle = () => {
       </ToggleItem>
 
       {Object.entries(frameworks).map(([framework, Icon]) => (
-        <Tooltip key={framework} label={framework} withArrow transition="pop">
-          <ToggleItem value={framework} className={classes.item} asChild>
-            <Link
-              href={{
-                query: {
-                  ...rest,
-                  framework,
-                },
-              }}
-              passHref
-            >
-              <Icon height={28} width={28} />
-            </Link>
-          </ToggleItem>
-        </Tooltip>
+        <Tooltip.Provider key={framework}>
+          <Tooltip.Root>
+            <Tooltip.Trigger asChild>
+              <ToggleItem
+                value={framework}
+                className="all-unset py-2 px-3 flex items-center justify-center cursor-pointer bg-white hover:bg-gray-50 transition-colors data-[state=on]:bg-gray-100"
+                asChild
+              >
+                <Link
+                  href={{
+                    query: {
+                      ...rest,
+                      framework,
+                    },
+                  }}
+                  passHref
+                >
+                  <Icon height={28} width={28} />
+                </Link>
+              </ToggleItem>
+            </Tooltip.Trigger>
+            <Tooltip.Portal>
+              <Tooltip.Content
+                className="z-60 data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade text-violet11 select-none rounded-[4px] bg-white px-[15px] py-[10px] text-[15px] leading-none shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity]"
+                sideOffset={5}
+              >
+                {framework}
+                <Tooltip.Arrow className="fill-white" />
+              </Tooltip.Content>
+            </Tooltip.Portal>
+          </Tooltip.Root>
+        </Tooltip.Provider>
       ))}
     </ToggleGroupRoot>
   );

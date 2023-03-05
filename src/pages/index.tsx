@@ -1,4 +1,3 @@
-import { Container } from "@mantine/core";
 import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 
@@ -50,17 +49,7 @@ export default function HomePage() {
   // const router = useRouter();
 
   return (
-    <Container
-      fluid
-      sx={(theme) => ({
-        paddingLeft: theme.spacing.xl,
-        paddingRight: theme.spacing.xl,
-        [theme.fn.smallerThan("sm")]: {
-          paddingLeft: 0,
-          paddingRight: 0,
-        },
-      })}
-    >
+    <main className="md:max-w-6xl lg:max-w-7xl px-0 md:px-6 mx-auto">
       <Head>
         <title>Frontend Daily</title>
         <meta name="title" content="Frontend Daily" />
@@ -68,6 +57,6 @@ export default function HomePage() {
       <Toolbar />
 
       <Projects />
-    </Container>
+    </main>
   );
 }

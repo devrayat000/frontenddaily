@@ -1,9 +1,6 @@
-import { createGetInitialProps } from "@mantine/next";
 import type { NextPage } from "next";
 import type { DocumentInitialProps, DocumentProps } from "next/document";
 import { Head, Html, Main, NextScript } from "next/document";
-
-import { emotionCache } from "~/styles/cache";
 
 const MyDocument: NextPage<DocumentProps, DocumentInitialProps> = () => {
   return (
@@ -27,7 +24,5 @@ const MyDocument: NextPage<DocumentProps, DocumentInitialProps> = () => {
     </Html>
   );
 };
-
-MyDocument.getInitialProps = createGetInitialProps(emotionCache);
 
 export default MyDocument;

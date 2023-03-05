@@ -1,41 +1,23 @@
-import {
-  Group,
-  Header as MantineHeader,
-  MediaQuery,
-  Text,
-} from "@mantine/core";
-
 import Logo from "../icons/Logo";
 import { HeaderLinks } from "./links";
+import MediaQuery from "./MediaQuery";
 import MenuButton from "./MenuButton";
-import { useHeaderStyles } from "./styles";
+import { CONTAINER_STYLES } from "./styles";
 
 const Header = () => {
-  const { classes } = useHeaderStyles();
-
   return (
-    <MantineHeader fixed height={72}>
-      <Group position="apart" align="center" className={classes.container}>
-        <Text
-          component="span"
-          color="dark"
-          weight={600}
-          size="lg"
-          sx={(theme) => ({
-            display: "flex",
-            alignItems: "center",
-            gap: theme.spacing.sm,
-          })}
-        >
+    <header className="sticky top-0 h-20 w-full bg-white z-50 shadow-lg shadow-slate-900/10">
+      <section className={CONTAINER_STYLES}>
+        <span className="text-slate-900 font-semibold text-lg flex items-center gap-3">
           <Logo height={36} /> Frontend Daily
-        </Text>
+        </span>
 
-        <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+        <MediaQuery className="hidden sm:flex">
           <HeaderLinks />
         </MediaQuery>
         <MenuButton />
-      </Group>
-    </MantineHeader>
+      </section>
+    </header>
   );
 };
 
