@@ -1,4 +1,4 @@
-import { createStyles, Tooltip } from "@mantine/core";
+import { createStyles, Tooltip } from "@nextui-org/react";
 import {
   Item as ToggleItem,
   Root as ToggleGroupRoot,

@@ -1,5 +1,5 @@
-import type { DrawerProps } from "@mantine/core";
-import { Divider, Drawer as MantineDrawer } from "@mantine/core";
+import type { DrawerProps } from "@nextui-org/react";
+import { Divider, Drawer as MantineDrawer } from "@nextui-org/react";
 import { useSyncExternalStore } from "react";
 
 import { useDrawerStyles } from "../home/FilterDrawer/drawer";

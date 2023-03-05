@@ -1,10 +1,10 @@
-import { Card, createStyles, Group, Text, Title, Tooltip } from "@mantine/core";
-import Image from "next/image";
+import { Card, Row, Text, Tooltip } from "@nextui-org/react";
+// import Image from "next/image";
 import NextLink from "next/link";
 import { forwardRef } from "react";
 
 import FrameworkIcon from "~/components/common/FrameworkIcon";
-import { useProjectStyles } from "~/styles/project";
+// import { useProjectStyles } from "~/styles/project";
 import type { ProjectsQuery } from "~/types/graphql.generated";
 import { formatDate } from "~/utils/datetime";
 import { frameworks } from "~/utils/frameworks";
@@ -13,65 +13,72 @@ export type ProjectCardProps = {
   project: ProjectsQuery["projectsConnection"]["edges"][number]["node"];
 };
 
-const useStyles = createStyles((theme) => ({
-  card: {
-    boxShadow: theme.shadows.sm,
-    transition: "box-shadow 0.25s ease-in, scale 0.25s ease-out",
-    "&:hover": {
-      scale: "1.05",
-      boxShadow: theme.shadows.md,
-    },
-  },
-}));
+// const useStyles = createStyles((theme) => ({
+//   card: {
+//     boxShadow: theme.shadows.sm,
+//     transition: "box-shadow 0.25s ease-in, scale 0.25s ease-out",
+//     "&:hover": {
+//       scale: "1.05",
+//       boxShadow: theme.shadows.md,
+//     },
+//   },
+// }));
 
 const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
   ({ project }, ref) => {
-    const { classes } = useStyles();
-    const { classes: pclasses } = useProjectStyles();
-
     const Icon = frameworks[project.framework];
 
     return (
-      <Card
-        key={project.id}
-        component={NextLink}
-        href="/projects/[slug]"
-        as={`/projects/${project.slug}`}
-        title={project.title}
-        className={classes.card}
-        p="xl"
-        radius="md"
-        ref={ref}
-      >
-        <Card.Section component="figure" className={pclasses.figure}>
-          <Image
+      <NextLink key={project.id} href={`/projects/${project.slug}`} passHref>
+        <Card
+          as={"a"}
+          isPressable
+          isHoverable
+          variant="bordered"
+          title={project.title}
+          css={{ p: "$xl", borderRadius: "$md" }}
+          // ref={ref}
+        >
+          <Card.Image
             src={project.image.url}
             alt={project.title}
-            fill
+            objectFit="fill"
             loading="lazy"
           />
-        </Card.Section>
 
-        <article>
-          <Group position="apart" align="flex-start" noWrap>
-            <Title order={3} size="h4" weight={600}>
-              {project.title}
-            </Title>
+          <Card.Body as="article">
+            <Row justify="space-between" align="flex-start" wrap="nowrap">
+              <Text h3 size="$lg" weight="semibold">
+                {project.title}
+              </Text>
 
-            {Icon && (
-              <Tooltip label={project.framework} withArrow transition="pop">
-                <FrameworkIcon>
-                  <Icon height={28} width={28} />
-                </FrameworkIcon>
-              </Tooltip>
-            )}
-          </Group>
+              {Icon && (
+                <Tooltip content={project.framework}>
+                  <FrameworkIcon
+                    auto
+                    rounded
+                    bordered
+                    color="warning"
+                    // icon={<Icon height={28} width={28} />}
+                  >
+                    <Icon height={28} width={28} />
+                  </FrameworkIcon>
+                </Tooltip>
+              )}
+            </Row>
 
-          <Text mt="lg" size="md" component="time" dateTime={project.createdAt}>
-            {formatDate(project.createdAt)}
-          </Text>
-        </article>
-      </Card>
+            <Text
+              size="md"
+              as="time"
+              // @ts-ignore
+              dateTime={project.createdAt}
+              css={{ mt: "$lg" }}
+            >
+              {formatDate(project.createdAt)}
+            </Text>
+          </Card.Body>
+        </Card>
+      </NextLink>
     );
   }
 );

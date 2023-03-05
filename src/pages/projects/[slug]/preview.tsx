@@ -1,3 +1,4 @@
+import { useViewportSize } from "@mantine/hooks";
 import {
   ActionIcon,
   Button,
@@ -5,8 +6,7 @@ import {
   Group,
   Text,
   useMantineTheme,
-} from "@mantine/core";
-import { useViewportSize } from "@mantine/hooks";
+} from "@nextui-org/react";
 // import {useCycle} from 'framer-motion'
 import {
   IconDeviceLaptop,

@@ -4,7 +4,7 @@ import {
   Group,
   Title,
   TypographyStylesProvider,
-} from "@mantine/core";
+} from "@nextui-org/react";
 import type { GetServerSidePropsContext } from "next";
 import Image from "next/image";
 import { gql, useQuery } from "urql";

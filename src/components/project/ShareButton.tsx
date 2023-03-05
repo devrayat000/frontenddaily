@@ -1,4 +1,4 @@
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon } from "@nextui-org/react";
 import { IconShare } from "@tabler/icons";
 import dynamic from "next/dynamic";
 import { useState } from "react";

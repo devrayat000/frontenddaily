@@ -1,5 +1,5 @@
-import type { ActionIconProps } from "@mantine/core";
-import { ActionIcon, Indicator } from "@mantine/core";
+import type { ActionIconProps } from "@nextui-org/react";
+import { ActionIcon, Indicator } from "@nextui-org/react";
 import { IconAdjustmentsHorizontal } from "@tabler/icons";
 import dynamic from "next/dynamic";
 // import { useRouter } from "next/router";

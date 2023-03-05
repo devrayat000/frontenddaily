@@ -1,4 +1,4 @@
-import { Burger, MediaQuery } from "@mantine/core";
+import { Burger, MediaQuery } from "@nextui-org/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 

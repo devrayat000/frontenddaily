@@ -1,5 +1,10 @@
 import { RichText } from "@graphcms/rich-text-react-renderer";
-import { Box, Container, Title, TypographyStylesProvider } from "@mantine/core";
+import {
+  Box,
+  Container,
+  Title,
+  TypographyStylesProvider,
+} from "@nextui-org/react";
 import type { GetServerSidePropsContext, NextPage } from "next";
 import { gql, useQuery } from "urql";
 

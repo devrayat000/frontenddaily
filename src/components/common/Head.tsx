@@ -1,8 +1,8 @@
-import { useMantineTheme } from "@mantine/core";
+import { useTheme } from "@nextui-org/react";
 import NextHead from "next/head";
 
 export default function AppHead() {
-  const theme = useMantineTheme();
+  const { theme } = useTheme();
 
   return (
     <NextHead>
@@ -68,13 +68,13 @@ export default function AppHead() {
       <link rel="manifest" href="/manifest.json" />
       <meta
         name="msapplication-TileColor"
-        content={theme.colors[theme.primaryColor][6]}
+        content={theme?.colors.primary.toString()}
       />
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-      <meta name="theme-color" content={theme.colors[theme.primaryColor][6]} />
+      <meta name="theme-color" content={theme?.colors.primary.toString()} />
       <meta
         name="apple-mobile-web-app-status-bar"
-        content={theme.colors[theme.primaryColor][6]}
+        content={theme?.colors.primary.toString()}
       />
     </NextHead>
   );

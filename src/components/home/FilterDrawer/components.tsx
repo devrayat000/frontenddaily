@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Group, Paper, Text } from "@mantine/core";
+import { Box, Button, Chip, Group, Paper, Text } from "@nextui-org/react";
 // import { useRouter } from "next/router";
 import { forwardRef } from "react";
 

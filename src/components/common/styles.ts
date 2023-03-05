@@ -1,4 +1,4 @@
-import { createStyles } from "@mantine/core";
+import { createStyles } from "@nextui-org/react";
 
 export const useHeaderStyles = createStyles((theme) => ({
   container: {

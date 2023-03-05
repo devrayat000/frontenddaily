@@ -1,5 +1,5 @@
-import type { LoaderProps } from "@mantine/core";
-import { Center, Loader as MantineLoader } from "@mantine/core";
+import type { LoaderProps } from "@nextui-org/react";
+import { Center, Loader as MantineLoader } from "@nextui-org/react";
 import { forwardRef } from "react";
 
 const Loader = forwardRef<HTMLDivElement, LoaderProps>((props, ref) => {

@@ -8,7 +8,7 @@ import {
   Stack,
   Text,
   Title,
-} from "@mantine/core";
+} from "@nextui-org/react";
 import { IconX } from "@tabler/icons";
 import _groubBy from "lodash/groupBy";
 import _head from "lodash/head";

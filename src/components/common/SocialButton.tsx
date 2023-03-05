@@ -1,4 +1,4 @@
-import { ActionIcon, createStyles } from "@mantine/core";
+import { ActionIcon, createStyles } from "@nextui-org/react";
 import {
   IconBrandDribbble,
   IconBrandFacebook,

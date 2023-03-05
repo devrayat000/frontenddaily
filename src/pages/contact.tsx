@@ -9,7 +9,7 @@ import {
   Textarea,
   TextInput,
   Title,
-} from "@mantine/core";
+} from "@nextui-org/react";
 
 export default function GetInTouchSimple() {
   const [state, handleSubmit, reset] = useForm(process.env.NEXT_PUBLIC_FORM!);

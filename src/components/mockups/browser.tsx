@@ -1,4 +1,4 @@
-import { createStyles } from "@mantine/core";
+import { createStyles } from "@nextui-org/react";
 import { cloneElement } from "react";
 
 import type { MockupProps } from "./types";

@@ -1,4 +1,4 @@
-import { Container } from "@mantine/core";
+import { Container } from "@nextui-org/react";
 import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 
@@ -52,20 +52,20 @@ export default function HomePage() {
   return (
     <Container
       fluid
-      sx={(theme) => ({
-        paddingLeft: theme.spacing.xl,
-        paddingRight: theme.spacing.xl,
-        [theme.fn.smallerThan("sm")]: {
-          paddingLeft: 0,
-          paddingRight: 0,
-        },
-      })}
+      // sx={(theme) => ({
+      //   paddingLeft: theme.spacing.xl,
+      //   paddingRight: theme.spacing.xl,
+      //   [theme.fn.smallerThan("sm")]: {
+      //     paddingLeft: 0,
+      //     paddingRight: 0,
+      //   },
+      // })}
     >
       <Head>
         <title>Frontend Daily</title>
         <meta name="title" content="Frontend Daily" />
       </Head>
-      <Toolbar />
+      {/* <Toolbar /> */}
 
       <Projects />
     </Container>

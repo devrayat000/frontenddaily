@@ -1,9 +1,12 @@
-import { createGetInitialProps } from "@mantine/next";
+import { CssBaseline } from "@nextui-org/react";
 import type { NextPage } from "next";
-import type { DocumentInitialProps, DocumentProps } from "next/document";
+import type { DocumentContext } from "next/document";
+import Document, {
+  type DocumentInitialProps,
+  type DocumentProps,
+} from "next/document";
 import { Head, Html, Main, NextScript } from "next/document";
-
-import { emotionCache } from "~/styles/cache";
+import { Children } from "react";
 
 const MyDocument: NextPage<DocumentProps, DocumentInitialProps> = () => {
   return (
@@ -19,6 +22,7 @@ const MyDocument: NextPage<DocumentProps, DocumentInitialProps> = () => {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
           rel="stylesheet"
         />
+        {CssBaseline.flush()}
       </Head>
       <body>
         <Main />
@@ -28,6 +32,14 @@ const MyDocument: NextPage<DocumentProps, DocumentInitialProps> = () => {
   );
 };
 
-MyDocument.getInitialProps = createGetInitialProps(emotionCache);
+MyDocument.getInitialProps = async function getInitialProps(
+  ctx: DocumentContext
+) {
+  const initialProps = await Document.getInitialProps(ctx);
+  return {
+    ...initialProps,
+    styles: Children.toArray([initialProps.styles]),
+  };
+};
 
 export default MyDocument;

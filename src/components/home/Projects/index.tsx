@@ -1,4 +1,12 @@
-import { Button, Center, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
+import {
+  Button,
+  Col,
+  Grid,
+  // Center,
+  Loading,
+  Row,
+  Text,
+} from "@nextui-org/react";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import { useQuery } from "urql";
 
@@ -45,14 +53,14 @@ const Projects = () => {
 
   if (error) {
     return (
-      <Stack align="center">
+      <Col css={{ alignItems: "center" }}>
         <Text size="lg" color="red">
           {formatGraphqlError(error)}
         </Text>
-        <Button variant="outline" color="red" onClick={retry}>
+        <Button bordered color="error" onClick={retry}>
           Try Again
         </Button>
-      </Stack>
+      </Col>
     );
   }
 
@@ -61,8 +69,8 @@ const Projects = () => {
     data.projectsConnection.edges.length <= 0
   ) {
     return (
-      <Stack align="center">
-        <Text component="p" size="xl" weight={500}>
+      <Col css={{ alignItems: "center" }}>
+        <Text as="p" size="xl" weight="medium">
           Sorry, we could not find any match
           {search && (
             <>
@@ -70,45 +78,49 @@ const Projects = () => {
             </>
           )}
         </Text>
-        <Text component="p" size="sm">
+        <Text as="p" size="sm">
           Please try {search ? "searching" : "filtering"} with another term
         </Text>
-      </Stack>
+      </Col>
     );
   }
 
   return (
     <section>
-      <SimpleGrid
-        cols={3}
-        verticalSpacing="xl"
-        breakpoints={[
-          { maxWidth: "md", cols: 2 },
-          { maxWidth: "sm", cols: 1 },
-        ]}
-        sx={(theme) => ({
-          gap: theme.spacing.xl * 1.7,
-          margin: `${theme.spacing.xl * 2}px ${theme.spacing.xl * 3}px`,
-          [theme.fn.smallerThan("md")]: {
-            marginLeft: theme.spacing.xl,
-            marginRight: theme.spacing.xl,
-          },
-          [theme.fn.smallerThan("xs")]: {
-            marginLeft: 0,
-            marginRight: 0,
-          },
-        })}
+      <Grid.Container
+      // cols={3}
+      // verticalSpacing="xl"
+      // breakpoints={[
+      //   { maxWidth: "md", cols: 2 },
+      //   { maxWidth: "sm", cols: 1 },
+      // ]}
+      // sx={(theme) => ({
+      //   gap: theme.spacing.xl * 1.7,
+      //   margin: `${theme.spacing.xl * 2}px ${theme.spacing.xl * 3}px`,
+      //   [theme.fn.smallerThan("md")]: {
+      //     marginLeft: theme.spacing.xl,
+      //     marginRight: theme.spacing.xl,
+      //   },
+      //   [theme.fn.smallerThan("xs")]: {
+      //     marginLeft: 0,
+      //     marginRight: 0,
+      //   },
+      // })}
       >
         {data?.projectsConnection?.edges?.map(({ node: project }) => {
-          return <ProjectCard key={project.id} project={project} />;
+          return (
+            <Grid xs={4} key={project.id}>
+              <ProjectCard project={project} />
+            </Grid>
+          );
         })}
-      </SimpleGrid>
+      </Grid.Container>
 
-      {(data?.projectsConnection.pageInfo.hasNextPage || fetching) && (
-        <Center ref={observe}>
-          <Loader variant="bars" color="cyan" size="lg" />
-        </Center>
-      )}
+      {/* {(data?.projectsConnection.pageInfo.hasNextPage || fetching) && (
+        <Row as="div" justify="center" align="center" ref={observe}>
+          <Loading  color="primary" size="lg" />
+        </Row>
+      )} */}
     </section>
   );
 };

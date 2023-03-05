@@ -1,8 +1,8 @@
-import type { ModalProps } from "@mantine/core";
-import { Button, CopyButton } from "@mantine/core";
-import { Group, Paper } from "@mantine/core";
-import { Text } from "@mantine/core";
-import { Modal } from "@mantine/core";
+import type { ModalProps } from "@nextui-org/react";
+import { Button, CopyButton } from "@nextui-org/react";
+import { Group, Paper } from "@nextui-org/react";
+import { Text } from "@nextui-org/react";
+import { Modal } from "@nextui-org/react";
 
 import { useDrawerStyles } from "../home/FilterDrawer/drawer";
 

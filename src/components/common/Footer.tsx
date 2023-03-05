@@ -1,42 +1,49 @@
-import {
-  createStyles,
-  Footer as MantineFooter,
-  Group,
-  MediaQuery,
-  Text,
-} from "@mantine/core";
+import { Navbar, Text } from "@nextui-org/react";
+import Link from "next/link";
 
-import { FooterLinks } from "./links";
-import { useHeaderStyles } from "./styles";
-
-const useStyles = createStyles((theme) => ({
-  container: {
-    [theme.fn.smallerThan("sm")]: {
-      justifyContent: "center",
-    },
-  },
-}));
+import NavLink from "./NavLink";
 
 const Footer = () => {
-  const { classes, cx } = useStyles();
-  const { classes: headerClasses } = useHeaderStyles();
+  // const { classes, cx } = useStyles();
+  // const { classes: headerClasses } = useHeaderStyles();
 
   return (
-    <MantineFooter height={72} fixed>
-      <Group
-        position="apart"
-        align="center"
-        className={cx(headerClasses.container, classes.container)}
-      >
-        <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-          <FooterLinks />
-        </MediaQuery>
+    <Navbar variant="sticky" as="footer" css={{ bottom: 0 }}>
+      <Navbar.Content as="ul">
+        <Link href="/terms-conditions" passHref>
+          <NavLink block color="text">
+            Terms & Conditions
+          </NavLink>
+        </Link>
+        <Link href="/privacy" passHref>
+          <NavLink block color="text">
+            Privacy Policy
+          </NavLink>
+        </Link>
+      </Navbar.Content>
 
-        <Text component="p" my={0}>
+      <Navbar.Content>
+        <Text as="p" css={{ my: 0 }}>
           ©FrontendDaily 2022
         </Text>
-      </Group>
-    </MantineFooter>
+      </Navbar.Content>
+    </Navbar>
+
+    // <MantineFooter height={72} fixed>
+    //   <Group
+    //     position="apart"
+    //     align="center"
+    //     className={cx(headerClasses.container, classes.container)}
+    //   >
+    //     <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+    //       <FooterLinks />
+    //     </MediaQuery>
+
+    //     <Text component="p" my={0}>
+    //       ©FrontendDaily 2022
+    //     </Text>
+    //   </Group>
+    // </MantineFooter>
   );
 };
 

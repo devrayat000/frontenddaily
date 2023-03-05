@@ -1,10 +1,7 @@
-import type { GroupProps } from "@mantine/core";
-import { Button, Group } from "@mantine/core";
+import { type RowProps, Link, Navbar, Row } from "@nextui-org/react";
 import NextLink from "next/link";
 
-import { useHeaderStyles } from "./styles";
-
-const headerLinks = [
+export const headerLinks = [
   {
     href: "/",
     label: "Designs",
@@ -19,47 +16,67 @@ const headerLinks = [
   },
 ];
 
-export const HeaderLinks = ({ className, ...props }: GroupProps) => {
-  const { classes, cx } = useHeaderStyles();
-
+export const HeaderLinks = ({ css, ...props }: RowProps) => {
   return (
-    <Group className={cx(classes.links, className)} {...props}>
+    <Row
+      css={{
+        gap: "$md",
+        "@md": {
+          gap: "$sm",
+          ...css?.["@md"],
+        },
+        "@sm": {
+          flexDirection: "column",
+          alignItems: "stretch",
+          gap: "$lg",
+          ...css?.["@sm"],
+        },
+        ...css,
+      }}
+      {...props}
+    >
       {headerLinks.map((link) => (
-        <Button
-          key={link.href}
-          component={NextLink}
-          href={link.href}
-          variant="subtle"
-          color="gray"
-        >
-          {link.label}
-        </Button>
+        <Navbar.Item key={link.href}>
+          <NextLink href={link.href} passHref>
+            <Link block color="default">
+              {link.label}
+            </Link>
+          </NextLink>
+        </Navbar.Item>
       ))}
-    </Group>
+    </Row>
   );
 };
 
-export const FooterLinks = ({ className, ...props }: GroupProps) => {
-  const { classes, cx } = useHeaderStyles();
-
+export const FooterLinks = ({ css, ...props }: RowProps) => {
   return (
-    <Group className={cx(classes.links, className)} {...props}>
-      <Button
-        component={NextLink}
-        href="/terms-conditions"
-        variant="subtle"
-        color="gray"
-      >
-        Terms & Conditions
-      </Button>
-      <Button
-        component={NextLink}
-        href="/privacy"
-        variant="subtle"
-        color="gray"
-      >
-        Privacy Policy
-      </Button>
-    </Group>
+    <Row
+      css={{
+        gap: "$md",
+        "@md": {
+          gap: "$sm",
+          ...css?.["@md"],
+        },
+        "@sm": {
+          flexDirection: "column",
+          alignItems: "stretch",
+          gap: "$lg",
+          ...css?.["@sm"],
+        },
+        ...css,
+      }}
+      {...props}
+    >
+      <NextLink href="/terms-conditions" passHref>
+        <Link block color="secondary">
+          Terms & Conditions
+        </Link>
+      </NextLink>
+      <NextLink href="/privacy" passHref>
+        <Link block color="secondary">
+          Privacy Policy
+        </Link>
+      </NextLink>
+    </Row>
   );
 };

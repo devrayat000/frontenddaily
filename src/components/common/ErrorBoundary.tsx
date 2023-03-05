@@ -1,4 +1,4 @@
-import { Button, Stack, Text } from "@mantine/core";
+import { Button, Stack, Text } from "@nextui-org/react";
 import { GraphQLError } from "graphql";
 import { useRouter } from "next/router";
 import React from "react";

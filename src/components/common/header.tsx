@@ -1,41 +1,32 @@
-import {
-  Group,
-  Header as MantineHeader,
-  MediaQuery,
-  Text,
-} from "@mantine/core";
+import { Navbar, Text } from "@nextui-org/react";
+import Link from "next/link";
 
 import Logo from "../icons/Logo";
-import { HeaderLinks } from "./links";
-import MenuButton from "./MenuButton";
-import { useHeaderStyles } from "./styles";
+import { headerLinks } from "./links";
+import NavLink from "./NavLink";
 
 const Header = () => {
-  const { classes } = useHeaderStyles();
-
   return (
-    <MantineHeader fixed height={72}>
-      <Group position="apart" align="center" className={classes.container}>
-        <Text
-          component="span"
-          color="dark"
-          weight={600}
-          size="lg"
-          sx={(theme) => ({
-            display: "flex",
-            alignItems: "center",
-            gap: theme.spacing.sm,
-          })}
-        >
-          <Logo height={36} /> Frontend Daily
+    <Navbar variant="sticky" as="header">
+      <Navbar.Brand>
+        <Logo height={36} />
+        <Text b color="inherit" hideIn="xs">
+          Frontend Daily
         </Text>
+      </Navbar.Brand>
 
-        <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-          <HeaderLinks />
-        </MediaQuery>
-        <MenuButton />
-      </Group>
-    </MantineHeader>
+      <Navbar.Content as="ul">
+        {headerLinks.map((link) => (
+          <Navbar.Item key={link.href}>
+            <Link href={link.href} passHref>
+              <NavLink block color="text">
+                {link.label}
+              </NavLink>
+            </Link>
+          </Navbar.Item>
+        ))}
+      </Navbar.Content>
+    </Navbar>
   );
 };
 

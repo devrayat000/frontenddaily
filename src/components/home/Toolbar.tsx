@@ -1,4 +1,4 @@
-import { createStyles, Group, TextInput } from "@mantine/core";
+import { createStyles, Group, TextInput } from "@nextui-org/react";
 import { IconSearch } from "@tabler/icons";
 import _debounce from "lodash/debounce";
 import { useRouter } from "next/router";
