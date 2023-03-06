@@ -8,7 +8,7 @@ import {
   Tooltip,
   useMantineTheme,
 } from "@mantine/core";
-import { motion, useAnimationControls, useWillChange } from "framer-motion";
+import { m, useAnimationControls, useWillChange } from "framer-motion";
 import Image from "next/image";
 import NextLink from "next/link";
 import { forwardRef, useCallback } from "react";
@@ -117,7 +117,7 @@ const Projects = forwardRef<HTMLAnchorElement, ProjectsProps>(
           const Icon = frameworks[project.framework];
           return (
             <div key={project.id} className={classes.cardWrapper}>
-              <motion.div
+              <m.div
                 className={classes.cardBorder}
                 animate={api}
                 custom={i}
@@ -134,7 +134,7 @@ const Projects = forwardRef<HTMLAnchorElement, ProjectsProps>(
                 ref={ref}
               >
                 <Card.Section
-                  component={motion.figure}
+                  component={m.figure}
                   className={pclasses.figure}
                   layoutId={`project_${project.id}`}
                 >

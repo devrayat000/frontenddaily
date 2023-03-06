@@ -11,7 +11,7 @@ import {
   Title,
   TypographyStylesProvider,
 } from "@mantine/core";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -130,7 +130,7 @@ const PostPage: NextPage<Props> = ({ slug }) => {
         // grow
       >
         <Box
-          component={motion.figure}
+          component={m.figure}
           layoutId={`project_${project.id}`}
           className={cx(pclasses.figure, classes.figure)}
         >

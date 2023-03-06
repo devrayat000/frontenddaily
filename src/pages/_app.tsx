@@ -1,4 +1,5 @@
 import { DEFAULT_THEME, MantineProvider } from "@mantine/core";
+import { LazyMotion } from "framer-motion";
 import type { AppProps } from "next/app";
 import { Provider } from "urql";
 
@@ -41,7 +42,12 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
       <Shell>
         <Provider value={urqlClient}>
           <RootErrorBoundary>
-            <Component {...pageProps} />
+            <LazyMotion
+              strict
+              features={() => import("framer-motion").then((m) => m.domMax)}
+            >
+              <Component {...pageProps} />
+            </LazyMotion>
           </RootErrorBoundary>
         </Provider>
         <SocialButton />

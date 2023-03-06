@@ -8,7 +8,7 @@ import {
   IconSocial,
 } from "@tabler/icons";
 // import { animated, config, to, useSprings } from "react-spring";
-import { motion, useAnimationControls } from "framer-motion";
+import { m, useAnimationControls } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 const useStyles = createStyles((theme) => ({
@@ -84,7 +84,7 @@ const SocialButton = () => {
         return (
           <ActionIcon
             key={item.title}
-            component={motion.a}
+            component={m.a}
             href={item.href}
             title={item.title}
             rel="noreferrer"
