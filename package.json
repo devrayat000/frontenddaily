@@ -21,6 +21,7 @@
     "@radix-ui/react-toggle-group": "^1.0.0",
     "@tabler/icons": "^1.101.0",
     "@urql/exchange-graphcache": "^5.0.1",
+    "framer-motion": "^10.1.0",
     "graphql": "^16.6.0",
     "lodash": "^4.17.21",
     "next": "^13.0.2",
@@ -30,7 +31,6 @@
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-infinite-scroll-hook": "^4.0.4",
-    "react-spring": "^9.5.5",
     "urql": "^3.0.3",
     "zustand": "^4.1.4"
   },

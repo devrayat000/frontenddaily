@@ -11,6 +11,7 @@ import {
   Title,
   TypographyStylesProvider,
 } from "@mantine/core";
+import { motion } from "framer-motion";
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
@@ -128,7 +129,11 @@ const PostPage: NextPage<Props> = ({ slug }) => {
         })}
         // grow
       >
-        <Box component="figure" className={cx(pclasses.figure, classes.figure)}>
+        <Box
+          component={motion.figure}
+          layoutId={`project_${project.id}`}
+          className={cx(pclasses.figure, classes.figure)}
+        >
           {Icon && (
             <FrameworkIcon className={classes.framework} component="div">
               <Icon height={28} width={28} />

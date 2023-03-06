@@ -7,8 +7,9 @@ import {
   IconBrandTwitter,
   IconSocial,
 } from "@tabler/icons";
+// import { animated, config, to, useSprings } from "react-spring";
+import { motion, useAnimationControls } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { animated, config, to, useSprings } from "react-spring";
 
 const useStyles = createStyles((theme) => ({
   fab: {
@@ -50,12 +51,7 @@ const socialLinks = [
 const SocialButton = () => {
   const { classes } = useStyles();
   const openRef = useRef(false);
-
-  const [springs, api] = useSprings(socialLinks.length, () => ({
-    y: 0,
-    opacity: 0,
-    config: config.stiff,
-  }));
+  const api = useAnimationControls();
 
   function animate() {
     let open = (openRef.current = !openRef.current);
@@ -84,13 +80,11 @@ const SocialButton = () => {
         <IconSocial />
       </ActionIcon>
 
-      {springs.map((style, i) => {
-        const item = socialLinks[i];
-
+      {socialLinks.map((item, i) => {
         return (
           <ActionIcon
             key={item.title}
-            component={animated.a}
+            component={motion.a}
             href={item.href}
             title={item.title}
             rel="noreferrer"
@@ -100,13 +94,10 @@ const SocialButton = () => {
             color="cyan"
             variant="filled"
             className={classes.fab}
-            style={
-              {
-                zIndex: socialLinks.length - i,
-                opacity: style.opacity,
-                transform: to([style.y], (y) => `translateY(${y}px)`),
-              } as any
-            }
+            initial={{ opacity: 0 }}
+            animate={api}
+            custom={i}
+            style={{ zIndex: socialLinks.length - i }}
           >
             <item.icon />
           </ActionIcon>

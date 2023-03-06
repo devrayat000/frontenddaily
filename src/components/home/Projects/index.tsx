@@ -1,4 +1,4 @@
-import { Button, Center, Loader, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Button, Center, Loader, Stack, Text } from "@mantine/core";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import { useQuery } from "urql";
 
@@ -11,7 +11,7 @@ import type {
 } from "~/types/graphql.generated";
 import { PROJECT_LIMIT } from "~/utils/constants";
 
-import ProjectCard from "./ProjectCard";
+import ProjectsList from "./Projects";
 import { PROJECTS_QUERY } from "./query";
 
 const Projects = () => {
@@ -79,30 +79,9 @@ const Projects = () => {
 
   return (
     <section>
-      <SimpleGrid
-        cols={3}
-        verticalSpacing="xl"
-        spacing={"md"}
-        breakpoints={[
-          { maxWidth: "md", cols: 2 },
-          { maxWidth: "sm", cols: 1 },
-        ]}
-        sx={(theme) => ({
-          margin: `${theme.spacing.xl * 2}px ${theme.spacing.xl * 3}px`,
-          [theme.fn.smallerThan("md")]: {
-            marginLeft: theme.spacing.xl,
-            marginRight: theme.spacing.xl,
-          },
-          [theme.fn.smallerThan("xs")]: {
-            marginLeft: 0,
-            marginRight: 0,
-          },
-        })}
-      >
-        {data?.projectsConnection?.edges?.map(({ node: project }) => {
-          return <ProjectCard key={project.id} project={project} />;
-        })}
-      </SimpleGrid>
+      {data?.projectsConnection.edges && (
+        <ProjectsList projects={data.projectsConnection.edges} />
+      )}
 
       {(data?.projectsConnection.pageInfo.hasNextPage || fetching) && (
         <Center ref={observe}>

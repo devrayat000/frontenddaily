@@ -3,6 +3,9 @@ import { relayPagination } from "@urql/exchange-graphcache/extras";
 import { createClient, dedupExchange, fetchExchange, ssrExchange } from "urql";
 
 export const cache = cacheExchange({
+  keys: {
+    RichText: () => null,
+  },
   resolvers: {
     Query: {
       projectsConnection: relayPagination(),
