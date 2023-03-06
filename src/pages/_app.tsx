@@ -1,4 +1,3 @@
-import { DEFAULT_THEME, MantineProvider } from "@mantine/core";
 import { LazyMotion } from "framer-motion";
 import type { AppProps } from "next/app";
 import { Provider } from "urql";
@@ -7,7 +6,7 @@ import { RootErrorBoundary } from "~/components/common/ErrorBoundary";
 import AppHead from "~/components/common/Head";
 import Shell from "~/components/common/shell";
 import SocialButton from "~/components/common/SocialButton";
-import { emotionCache } from "~/styles/cache";
+import ThemeProvider from "~/components/common/ThemeProvider";
 
 import urqlClient, { ssr } from "../services/urql-client";
 
@@ -17,26 +16,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
   }
 
   return (
-    <MantineProvider
-      withCSSVariables
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        fontFamily: `Poppins, ${DEFAULT_THEME.fontFamily}`,
-        headings: {
-          fontFamily: `Poppins, ${DEFAULT_THEME.fontFamily}`,
-        },
-        primaryColor: "cyan",
-        components: {
-          Button: {
-            styles: {
-              root: { fontWeight: 500 },
-            },
-          },
-        },
-      }}
-      emotionCache={emotionCache}
-    >
+    <ThemeProvider>
       <AppHead />
 
       <Shell>
@@ -52,7 +32,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         </Provider>
         <SocialButton />
       </Shell>
-    </MantineProvider>
+    </ThemeProvider>
   );
 };
 
