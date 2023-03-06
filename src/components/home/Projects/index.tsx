@@ -82,12 +82,12 @@ const Projects = () => {
       <SimpleGrid
         cols={3}
         verticalSpacing="xl"
+        spacing={"md"}
         breakpoints={[
           { maxWidth: "md", cols: 2 },
           { maxWidth: "sm", cols: 1 },
         ]}
         sx={(theme) => ({
-          gap: theme.spacing.xl * 1.7,
           margin: `${theme.spacing.xl * 2}px ${theme.spacing.xl * 3}px`,
           [theme.fn.smallerThan("md")]: {
             marginLeft: theme.spacing.xl,

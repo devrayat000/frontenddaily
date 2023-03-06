@@ -15,11 +15,12 @@ export type ProjectCardProps = {
 
 const useStyles = createStyles((theme) => ({
   card: {
-    boxShadow: theme.shadows.sm,
-    transition: "box-shadow 0.25s ease-in, scale 0.25s ease-out",
+    borderWidth: 2,
+    // boxShadow: theme.shadows.sm,
+    // transition: "box-shadow 0.25s ease-in, scale 0.25s ease-out",
     "&:hover": {
-      scale: "1.05",
-      boxShadow: theme.shadows.md,
+      // scale: "1.05",
+      // boxShadow: theme.shadows.md,
     },
   },
 }));
@@ -42,6 +43,7 @@ const ProjectCard = forwardRef<HTMLAnchorElement, ProjectCardProps>(
         p="xl"
         radius="md"
         ref={ref}
+        withBorder
       >
         <Card.Section component="figure" className={pclasses.figure}>
           <Image
