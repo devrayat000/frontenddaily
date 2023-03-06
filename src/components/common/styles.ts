@@ -1,6 +1,11 @@
 import { createStyles } from "@mantine/core";
 
 export const useHeaderStyles = createStyles((theme) => ({
+  header: {
+    backgroundColor: theme.fn.rgba("#fff", 0.4),
+    backdropFilter: "blur(6px)",
+    boxShadow: theme.shadows.sm,
+  },
   container: {
     padding: `${theme.spacing.lg}px ${theme.spacing.xl * 2}px`,
     height: "100%",

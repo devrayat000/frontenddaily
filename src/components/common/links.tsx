@@ -1,6 +1,7 @@
 import type { GroupProps } from "@mantine/core";
 import { Button, Group } from "@mantine/core";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 
 import { useHeaderStyles } from "./styles";
 
@@ -21,6 +22,7 @@ const headerLinks = [
 
 export const HeaderLinks = ({ className, ...props }: GroupProps) => {
   const { classes, cx } = useHeaderStyles();
+  const router = useRouter();
 
   return (
     <Group className={cx(classes.links, className)} {...props}>
@@ -30,7 +32,7 @@ export const HeaderLinks = ({ className, ...props }: GroupProps) => {
           component={NextLink}
           href={link.href}
           variant="subtle"
-          color="gray"
+          color={router.pathname === link.href ? "cyan" : "dark"}
         >
           {link.label}
         </Button>
@@ -48,7 +50,7 @@ export const FooterLinks = ({ className, ...props }: GroupProps) => {
         component={NextLink}
         href="/terms-conditions"
         variant="subtle"
-        color="gray"
+        color="dark"
       >
         Terms & Conditions
       </Button>
@@ -56,7 +58,7 @@ export const FooterLinks = ({ className, ...props }: GroupProps) => {
         component={NextLink}
         href="/privacy"
         variant="subtle"
-        color="gray"
+        color="dark"
       >
         Privacy Policy
       </Button>

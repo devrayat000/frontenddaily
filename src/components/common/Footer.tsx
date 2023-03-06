@@ -22,7 +22,7 @@ const Footer = () => {
   const { classes: headerClasses } = useHeaderStyles();
 
   return (
-    <MantineFooter height={72} fixed>
+    <MantineFooter height={72} fixed className={headerClasses.header}>
       <Group
         position="apart"
         align="center"

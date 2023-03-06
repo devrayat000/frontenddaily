@@ -14,7 +14,7 @@ const Header = () => {
   const { classes } = useHeaderStyles();
 
   return (
-    <MantineHeader fixed height={72}>
+    <MantineHeader fixed height={72} className={classes.header}>
       <Group position="apart" align="center" className={classes.container}>
         <Text
           component="span"
