@@ -1,14 +1,17 @@
 import { createStyles, Group, TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons";
 import _debounce from "lodash/debounce";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 // import { useFilterStore } from "~/stores/filter";
 import FilterDrawer from "./FilterDrawer";
-import FilterToggle from "./FilterToggle";
+
+const FilterToggle = dynamic(() => import("./FilterToggle"));
 
 const useStyles = createStyles((theme, _, getRef) => {
   const inputRoot = getRef("search_input_root");
+  const dark = theme.colorScheme === "dark";
 
   return {
     container: {
@@ -40,8 +43,6 @@ const useStyles = createStyles((theme, _, getRef) => {
     inputRoot: {
       ref: inputRoot,
       width: "max(520px, 400px)",
-      willChange: "box-shadow",
-      transition: `box-shadow 0.25s ${theme.transitionTimingFunction}`,
 
       [theme.fn.smallerThan("md")]: {
         // width: "auto",
@@ -51,13 +52,10 @@ const useStyles = createStyles((theme, _, getRef) => {
       [theme.fn.smallerThan("xs")]: {
         width: "100%",
       },
-      [`&:focus, &:focus-within`]: {
-        boxShadow: `0 1px 3px ${theme.fn.rgba(theme.colors.gray[2], 0.5)}, 
-                ${theme.fn.rgba(theme.colors.gray[2], 0.5)} 0px 10px 15px -5px,
-                ${theme.fn.rgba(theme.colors.gray[2], 0.5)} 0px 7px 7px -5px`,
-      },
     },
     input: {
+      willChange: "box-shadow",
+      transition: `box-shadow 0.25s ${theme.transitionTimingFunction}`,
       "&::placeholder": {
         willChange: "opacity",
         transition: `opacity 0.25s ${theme.transitionTimingFunction}`,
@@ -65,10 +63,23 @@ const useStyles = createStyles((theme, _, getRef) => {
       "&:focus": {
         border: "none",
       },
-      [`.${inputRoot}:focus &::placeholder, .${inputRoot}:focus-within &::placeholder`]:
-        {
+      [`.${inputRoot}:focus &, .${inputRoot}:focus-within &`]: {
+        boxShadow: `0 1px 3px ${theme.fn.rgba(
+          theme.colors.gray[dark ? 9 : 2],
+          0.5
+        )}, 
+                ${theme.fn.rgba(
+                  theme.colors.gray[dark ? 9 : 2],
+                  0.5
+                )} 0px 10px 15px -5px,
+                ${theme.fn.rgba(
+                  theme.colors.gray[dark ? 9 : 2],
+                  0.5
+                )} 0px 7px 7px -5px`,
+        "&::placeholder": {
           opacity: 0,
         },
+      },
     },
   };
 });

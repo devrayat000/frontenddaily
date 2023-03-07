@@ -82,7 +82,7 @@ const PostPage: NextPage<Props> = ({ slug }) => {
     variables: { slug },
   });
 
-  const { classes, cx } = useStyles();
+  const { classes, cx, theme } = useStyles();
   const { classes: pclasses } = useProjectStyles(void 0, {
     name: "project-details",
   });
@@ -152,7 +152,7 @@ const PostPage: NextPage<Props> = ({ slug }) => {
             mt="lg"
             size="lg"
             component="time"
-            color="gray"
+            color={theme.colorScheme === "dark" ? "dimmed" : "gray"}
             dateTime={project.createdAt}
             my={0}
           >

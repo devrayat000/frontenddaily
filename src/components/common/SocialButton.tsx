@@ -8,7 +8,8 @@ import {
   IconSocial,
 } from "@tabler/icons";
 // import { animated, config, to, useSprings } from "react-spring";
-import { m, useAnimationControls } from "framer-motion";
+import type { Variant } from "framer-motion";
+import { motion, useAnimationControls, useWillChange } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 const useStyles = createStyles((theme) => ({
@@ -48,17 +49,30 @@ const socialLinks = [
   },
 ];
 
+const foldIn = {
+  open: ((i: number) => ({
+    y: (-i - 1) * 52,
+    opacity: 1,
+  })) as Variant,
+  close: {
+    y: 0,
+    opacity: 0,
+  } as Variant,
+};
+
 const SocialButton = () => {
   const { classes } = useStyles();
   const openRef = useRef(false);
   const api = useAnimationControls();
+  const willChange = useWillChange();
 
-  function animate() {
+  async function animate() {
     let open = (openRef.current = !openRef.current);
-    api.start((i) => ({
-      y: open ? (-i - 1) * 52 : 0,
-      opacity: open ? 1 : 0,
-    }));
+    try {
+      await api.start(open ? "open" : "close");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
@@ -84,7 +98,7 @@ const SocialButton = () => {
         return (
           <ActionIcon
             key={item.title}
-            component={m.a}
+            component={motion.a}
             href={item.href}
             title={item.title}
             rel="noreferrer"
@@ -94,10 +108,12 @@ const SocialButton = () => {
             color="cyan"
             variant="filled"
             className={classes.fab}
-            initial={{ opacity: 0 }}
+            initial={"close"}
+            variants={foldIn}
             animate={api}
             custom={i}
-            style={{ zIndex: socialLinks.length - i }}
+            // @ts-ignore
+            style={{ zIndex: socialLinks.length - i, willChange }}
           >
             <item.icon />
           </ActionIcon>

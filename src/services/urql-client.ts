@@ -5,6 +5,7 @@ import { createClient, dedupExchange, fetchExchange, ssrExchange } from "urql";
 export const cache = cacheExchange({
   keys: {
     RichText: () => null,
+    Portfolio_AboutContentRichText: () => null,
   },
   resolvers: {
     Query: {

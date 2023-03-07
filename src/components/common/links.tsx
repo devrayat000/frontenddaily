@@ -25,7 +25,7 @@ export const HeaderLinks = ({ className, ...props }: GroupProps) => {
   const router = useRouter();
 
   return (
-    <Group className={cx(classes.links, className)} {...props}>
+    <Group grow={false} className={cx(classes.links, className)} {...props}>
       {headerLinks.map((link) => (
         <Button
           key={link.href}

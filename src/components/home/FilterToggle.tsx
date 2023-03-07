@@ -11,29 +11,34 @@ import { frameworks } from "~/utils/frameworks";
 
 import IconAll from "../icons/all";
 
-const useStyles = createStyles((theme) => ({
-  root: {
-    display: "inline-flex",
-    borderRadius: 4,
-    border: `1px solid ${theme.colors.gray[1]}`,
-  },
-  item: {
-    all: "unset",
-    padding: "8px 12px",
-    display: "flex",
-    fontSize: 15,
-    lineHeight: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    backgroundColor: "white",
-    transition: "background-color 0.15s ease-in-out",
-    "&:hover": { backgroundColor: theme.colors.gray[0] },
-    "&[data-state=on]": {
-      backgroundColor: theme.colors.gray[1],
+const useStyles = createStyles((theme) => {
+  const dark = theme.colorScheme === "dark";
+  return {
+    root: {
+      display: "inline-flex",
+      borderRadius: 4,
+      overflow: "hidden",
+      border: dark ? "none" : `1px solid ${theme.colors.gray[1]}`,
     },
-  },
-}));
+    item: {
+      all: "unset",
+      padding: "8px 12px",
+      display: "flex",
+      fontSize: 15,
+      lineHeight: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      color: !dark ? theme.colors.dark[9] : theme.white,
+      backgroundColor: dark ? theme.colors.dark[9] : theme.white,
+      transition: "background-color 0.15s ease-in-out",
+      "&:hover": { backgroundColor: theme.colors.gray[dark ? 9 : 0] },
+      "&[data-state=on]": {
+        backgroundColor: theme.colors.gray[dark ? 8 : 1],
+      },
+    },
+  };
+});
 
 const FilterToggle = () => {
   const { classes } = useStyles();
@@ -54,7 +59,7 @@ const FilterToggle = () => {
           }}
           passHref
         >
-          <IconAll height={28} width={28} />
+          <IconAll height={28} width={28} fill="currentColor" />
         </Link>
       </ToggleItem>
 

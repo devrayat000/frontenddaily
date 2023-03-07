@@ -2,7 +2,10 @@ import { createStyles } from "@mantine/core";
 
 export const useHeaderStyles = createStyles((theme) => ({
   header: {
-    backgroundColor: theme.fn.rgba("#fff", 0.4),
+    backgroundColor: theme.fn.rgba(
+      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.white,
+      theme.colorScheme === "dark" ? 0.8 : 0.5
+    ),
     backdropFilter: "blur(6px)",
     boxShadow: theme.shadows.sm,
   },
@@ -25,6 +28,7 @@ export const useHeaderStyles = createStyles((theme) => ({
   },
   links: {
     gap: theme.spacing.md,
+    flexGrow: 0,
 
     [theme.fn.smallerThan("md")]: {
       gap: theme.spacing.sm,

@@ -6,7 +6,6 @@ import {
   Text,
   Title,
   Tooltip,
-  useMantineTheme,
 } from "@mantine/core";
 import { m, useAnimationControls, useWillChange } from "framer-motion";
 import Image from "next/image";
@@ -25,6 +24,7 @@ export type ProjectsProps = {
 
 const useStyles = createStyles((theme, _, getRef) => {
   const cardContainer = getRef("cardContainer");
+  const dark = theme.colorScheme === "dark";
 
   return {
     container: {
@@ -41,7 +41,7 @@ const useStyles = createStyles((theme, _, getRef) => {
       },
     },
     cardWrapper: {
-      backgroundColor: theme.colors.gray[2],
+      backgroundColor: theme.colors.gray[dark ? 7 : 2],
       borderRadius: theme.radius.md,
       overflow: "hidden",
       position: "relative",
@@ -75,10 +75,9 @@ const useStyles = createStyles((theme, _, getRef) => {
 
 const Projects = forwardRef<HTMLAnchorElement, ProjectsProps>(
   ({ projects }, ref) => {
-    const { classes } = useStyles();
+    const { classes, theme } = useStyles();
     const { classes: pclasses } = useProjectStyles();
     const api = useAnimationControls();
-    const theme = useMantineTheme();
     const willChange = useWillChange();
 
     const handleMouseMove = useCallback(
@@ -93,13 +92,19 @@ const Projects = forwardRef<HTMLAnchorElement, ProjectsProps>(
           return {
             background: `radial-gradient(
               400px circle at ${x}px ${y}px,
-              ${theme.fn.rgba(theme.colors.dark[9], 0.3)},
+              ${theme.fn.rgba(
+                theme.colorScheme === "dark"
+                  ? theme.colors.gray[1]
+                  : theme.colors.dark[9],
+                0.3
+              )},
               transparent 40%
             )`,
           };
         });
       },
-      []
+      // eslint-disable-next-line
+      [theme.colorScheme]
     );
 
     return (

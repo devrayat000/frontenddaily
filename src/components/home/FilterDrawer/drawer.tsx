@@ -26,11 +26,19 @@ import { TAGS_QUERY } from "./query";
 
 export const useDrawerStyles = createStyles((theme) => ({
   filter: {
-    backgroundColor: theme.colors.gray[1],
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[4]
+        : theme.colors.gray[1],
     height: 48,
     width: 48,
     "&:hover": {
-      backgroundColor: theme.fn.rgba(theme.colors.gray[1], 0.85),
+      backgroundColor: theme.fn.rgba(
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[4]
+          : theme.colors.gray[1],
+        0.85
+      ),
     },
     "& svg": {
       height: theme.spacing.xl,

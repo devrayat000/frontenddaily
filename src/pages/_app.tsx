@@ -1,14 +1,16 @@
 import { LazyMotion } from "framer-motion";
 import type { AppProps } from "next/app";
+import dynamic from "next/dynamic";
 import { Provider } from "urql";
 
 import { RootErrorBoundary } from "~/components/common/ErrorBoundary";
 import AppHead from "~/components/common/Head";
 import Shell from "~/components/common/shell";
-import SocialButton from "~/components/common/SocialButton";
 import ThemeProvider from "~/components/common/ThemeProvider";
 
 import urqlClient, { ssr } from "../services/urql-client";
+
+const SocialButton = dynamic(() => import("~/components/common/SocialButton"));
 
 const MyApp = ({ Component, pageProps }: MyAppProps) => {
   if (pageProps.ssr) {
@@ -23,7 +25,7 @@ const MyApp = ({ Component, pageProps }: MyAppProps) => {
         <Provider value={urqlClient}>
           <RootErrorBoundary>
             <LazyMotion
-              strict
+              // strict
               features={() => import("framer-motion").then((m) => m.domMax)}
             >
               <Component {...pageProps} />

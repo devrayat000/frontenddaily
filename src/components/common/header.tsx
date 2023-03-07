@@ -9,16 +9,17 @@ import Logo from "../icons/Logo";
 import { HeaderLinks } from "./links";
 import MenuButton from "./MenuButton";
 import { useHeaderStyles } from "./styles";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
-  const { classes } = useHeaderStyles();
+  const { classes, theme } = useHeaderStyles();
 
   return (
     <MantineHeader fixed height={72} className={classes.header}>
-      <Group position="apart" align="center" className={classes.container}>
+      <Group align="center" className={classes.container}>
         <Text
           component="span"
-          color="dark"
+          color={theme.colorScheme === "dark" ? "dimmed" : "dark"}
           weight={600}
           size="lg"
           sx={(theme) => ({
@@ -30,10 +31,14 @@ const Header = () => {
           <Logo height={36} /> Frontend Daily
         </Text>
 
+        <Group grow sx={{ flexGrow: 1, flexShrink: 0 }} />
+
         <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
           <HeaderLinks />
         </MediaQuery>
         <MenuButton />
+
+        <ThemeToggle />
       </Group>
     </MantineHeader>
   );

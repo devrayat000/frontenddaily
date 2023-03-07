@@ -56,11 +56,13 @@ export default function GetInTouchSimple() {
             name="name"
             variant="filled"
             error={
-              <ValidationError
-                prefix="Name"
-                field="name"
-                errors={state.errors}
-              />
+              !!state.errors.length && (
+                <ValidationError
+                  prefix="Name"
+                  field="name"
+                  errors={state.errors}
+                />
+              )
             }
           />
           <TextInput
@@ -71,11 +73,13 @@ export default function GetInTouchSimple() {
             variant="filled"
             required
             error={
-              <ValidationError
-                prefix="Email"
-                field="email"
-                errors={state.errors}
-              />
+              !!state.errors.length && (
+                <ValidationError
+                  prefix="Email"
+                  field="email"
+                  errors={state.errors}
+                />
+              )
             }
           />
         </SimpleGrid>
@@ -88,11 +92,13 @@ export default function GetInTouchSimple() {
           variant="filled"
           required
           error={
-            <ValidationError
-              prefix="Subject"
-              field="subject"
-              errors={state.errors}
-            />
+            !!state.errors.length && (
+              <ValidationError
+                prefix="Subject"
+                field="subject"
+                errors={state.errors}
+              />
+            )
           }
         />
         <Textarea
@@ -106,11 +112,13 @@ export default function GetInTouchSimple() {
           variant="filled"
           required
           error={
-            <ValidationError
-              prefix="Message"
-              field="message"
-              errors={state.errors}
-            />
+            !!state.errors.length && (
+              <ValidationError
+                prefix="Message"
+                field="message"
+                errors={state.errors}
+              />
+            )
           }
         />
 
