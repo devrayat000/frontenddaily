@@ -1,4 +1,4 @@
-type About implements Node {
+type About implements Entity & Node {
   content: Portfolio_AboutContentRichText!
 
   """The time the document was created"""
@@ -6,6 +6,16 @@ type About implements Node {
 
   """User that created this document"""
   createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -51,6 +61,16 @@ type About implements Node {
   """User that last published this document"""
   publishedBy(
     """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
     Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
@@ -64,6 +84,16 @@ type About implements Node {
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -88,6 +118,16 @@ type About implements Node {
 
   """User that last updated this document"""
   updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -182,7 +222,7 @@ input AboutManyWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -202,7 +242,7 @@ input AboutManyWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -236,7 +276,7 @@ input AboutManyWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -256,7 +296,7 @@ input AboutManyWhereInput {
   """All values that are contained in given list."""
   type_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   type_not: String
 
   """All values not containing the given string."""
@@ -290,7 +330,7 @@ input AboutManyWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -437,7 +477,7 @@ input AboutWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -457,7 +497,7 @@ input AboutWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -491,7 +531,7 @@ input AboutWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -511,7 +551,7 @@ input AboutWhereInput {
   """All values that are contained in given list."""
   type_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   type_not: String
 
   """All values not containing the given string."""
@@ -545,7 +585,7 @@ input AboutWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -586,7 +626,7 @@ type Aggregate {
 }
 
 """Asset system model"""
-type Asset implements Node {
+type Asset implements Entity & Node {
   """The time the document was created"""
   createdAt(
     """
@@ -597,6 +637,16 @@ type Asset implements Node {
 
   """User that created this document"""
   createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -648,6 +698,16 @@ type Asset implements Node {
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `imageProject` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -672,9 +732,48 @@ type Asset implements Node {
     """Decides if the current locale should be included or not"""
     includeCurrent: Boolean! = false
 
-    """Potential locales that should be returned"""
+    """
+    Potential locales that should be returned. 
+    
+    The order of locales will also override locale fall-backing behaviour in the query's subtree.
+    
+    Note any related model with localized fields in the query's subtree will be affected.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    
+    Consider using this in conjunction with forceParentLocale on the children relation fields.
+    """
     locales: [Locale!]! = [en]
   ): [Asset!]!
+  logoFramework(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `logoFramework` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `logoFramework` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: FrameworkOrderByInput
+    skip: Int
+    where: FrameworkWhereInput
+  ): [Framework!]!
 
   """The mime type of the file"""
   mimeType: String
@@ -690,6 +789,16 @@ type Asset implements Node {
   """User that last published this document"""
   publishedBy(
     """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
     Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
@@ -703,6 +812,16 @@ type Asset implements Node {
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -734,6 +853,16 @@ type Asset implements Node {
 
   """User that last updated this document"""
   updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -784,6 +913,7 @@ input AssetCreateInput {
   Inline mutations for managing document localizations excluding the default locale
   """
   localizations: AssetCreateLocalizationsInput
+  logoFramework: FrameworkCreateManyInlineInput
   mimeType: String
   size: Float
   updatedAt: DateTime
@@ -867,7 +997,7 @@ input AssetManyWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -887,7 +1017,7 @@ input AssetManyWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -907,6 +1037,9 @@ input AssetManyWhereInput {
   imageProject_every: ProjectWhereInput
   imageProject_none: ProjectWhereInput
   imageProject_some: ProjectWhereInput
+  logoFramework_every: FrameworkWhereInput
+  logoFramework_none: FrameworkWhereInput
+  logoFramework_some: FrameworkWhereInput
   publishedAt: DateTime
 
   """All values greater than the given value."""
@@ -924,7 +1057,7 @@ input AssetManyWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -950,7 +1083,7 @@ input AssetManyWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -998,6 +1131,7 @@ input AssetUpdateInput {
 
   """Manage document localizations"""
   localizations: AssetUpdateLocalizationsInput
+  logoFramework: FrameworkUpdateManyInlineInput
   mimeType: String
   size: Float
   width: Float
@@ -1119,6 +1253,14 @@ input AssetUpdateWithNestedWhereUniqueInput {
   where: AssetWhereUniqueInput!
 }
 
+"""System Asset Upload Status"""
+enum AssetUploadStatus {
+  ASSET_CREATE_PENDING
+  ASSET_ERROR_UPLOAD
+  ASSET_UPDATE_PENDING
+  ASSET_UPLOAD_COMPLETE
+}
+
 input AssetUpsertInput {
   """Create document if it didn't exist"""
   create: AssetCreateInput!
@@ -1181,7 +1323,7 @@ input AssetWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -1201,7 +1343,7 @@ input AssetWhereInput {
   """All values that are contained in given list."""
   fileName_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   fileName_not: String
 
   """All values not containing the given string."""
@@ -1229,7 +1371,7 @@ input AssetWhereInput {
   """All values that are contained in given list."""
   handle_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   handle_not: String
 
   """All values not containing the given string."""
@@ -1263,7 +1405,7 @@ input AssetWhereInput {
   """All values less than or equal the given value."""
   height_lte: Float
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   height_not: Float
 
   """All values that are not contained in given list."""
@@ -1279,7 +1421,7 @@ input AssetWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -1299,6 +1441,9 @@ input AssetWhereInput {
   imageProject_every: ProjectWhereInput
   imageProject_none: ProjectWhereInput
   imageProject_some: ProjectWhereInput
+  logoFramework_every: FrameworkWhereInput
+  logoFramework_none: FrameworkWhereInput
+  logoFramework_some: FrameworkWhereInput
   mimeType: String
 
   """All values containing the given string."""
@@ -1310,7 +1455,7 @@ input AssetWhereInput {
   """All values that are contained in given list."""
   mimeType_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   mimeType_not: String
 
   """All values not containing the given string."""
@@ -1344,7 +1489,7 @@ input AssetWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -1370,7 +1515,7 @@ input AssetWhereInput {
   """All values less than or equal the given value."""
   size_lte: Float
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   size_not: Float
 
   """All values that are not contained in given list."""
@@ -1392,7 +1537,7 @@ input AssetWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -1415,7 +1560,7 @@ input AssetWhereInput {
   """All values less than or equal the given value."""
   width_lte: Float
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   width_not: Float
 
   """All values that are not contained in given list."""
@@ -1483,6 +1628,812 @@ input ConnectPositionInput {
 
   """Connect document at first position"""
   start: Boolean
+}
+
+"""Contact Us form submitted by the end user."""
+type ContactForm implements Entity & Node {
+  """The time the document was created"""
+  createdAt: DateTime!
+
+  """User that created this document"""
+  createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [DRAFT, PUBLISHED]
+  ): [ContactForm!]!
+  email: String!
+
+  """List of ContactForm versions"""
+  history(
+    limit: Int! = 10
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+
+  """The unique identifier"""
+  id: ID!
+  message: String!
+  name: String
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt: DateTime
+
+  """User that last published this document"""
+  publishedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+  scheduledIn(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    skip: Int
+    where: ScheduledOperationWhereInput
+  ): [ScheduledOperation!]!
+
+  """System stage field"""
+  stage: Stage!
+  subject: String!
+
+  """The time the document was updated"""
+  updatedAt: DateTime!
+
+  """User that last updated this document"""
+  updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+}
+
+input ContactFormConnectInput {
+  """
+  Allow to specify document position in list of connected documents, will default to appending at end of list
+  """
+  position: ConnectPositionInput
+
+  """Document to connect"""
+  where: ContactFormWhereUniqueInput!
+}
+
+"""A connection to a list of items."""
+type ContactFormConnection {
+  aggregate: Aggregate!
+
+  """A list of edges."""
+  edges: [ContactFormEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+input ContactFormCreateInput {
+  createdAt: DateTime
+  email: String!
+  message: String!
+  name: String
+  subject: String!
+  updatedAt: DateTime
+}
+
+input ContactFormCreateManyInlineInput {
+  """Connect multiple existing ContactForm documents"""
+  connect: [ContactFormWhereUniqueInput!]
+
+  """Create and connect multiple existing ContactForm documents"""
+  create: [ContactFormCreateInput!]
+}
+
+input ContactFormCreateOneInlineInput {
+  """Connect one existing ContactForm document"""
+  connect: ContactFormWhereUniqueInput
+
+  """Create and connect one ContactForm document"""
+  create: ContactFormCreateInput
+}
+
+"""An edge in a connection."""
+type ContactFormEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: ContactForm!
+}
+
+"""Identifies documents"""
+input ContactFormManyWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContactFormWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactFormWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactFormWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: ContactFormWhereStageInput
+  documentInStages_none: ContactFormWhereStageInput
+  documentInStages_some: ContactFormWhereStageInput
+  email: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values that are contained in given list."""
+  email_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  email_not: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values not ending with the given string"""
+  email_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  email_not_in: [String]
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  message: String
+
+  """All values containing the given string."""
+  message_contains: String
+
+  """All values ending with the given string."""
+  message_ends_with: String
+
+  """All values that are contained in given list."""
+  message_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  message_not: String
+
+  """All values not containing the given string."""
+  message_not_contains: String
+
+  """All values not ending with the given string"""
+  message_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  message_not_in: [String]
+
+  """All values not starting with the given string."""
+  message_not_starts_with: String
+
+  """All values starting with the given string."""
+  message_starts_with: String
+  name: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values that are contained in given list."""
+  name_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  name_not: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values not ending with the given string"""
+  name_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  name_not_in: [String]
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  subject: String
+
+  """All values containing the given string."""
+  subject_contains: String
+
+  """All values ending with the given string."""
+  subject_ends_with: String
+
+  """All values that are contained in given list."""
+  subject_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  subject_not: String
+
+  """All values not containing the given string."""
+  subject_not_contains: String
+
+  """All values not ending with the given string"""
+  subject_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  subject_not_in: [String]
+
+  """All values not starting with the given string."""
+  subject_not_starts_with: String
+
+  """All values starting with the given string."""
+  subject_starts_with: String
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+enum ContactFormOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  email_ASC
+  email_DESC
+  id_ASC
+  id_DESC
+  message_ASC
+  message_DESC
+  name_ASC
+  name_DESC
+  publishedAt_ASC
+  publishedAt_DESC
+  subject_ASC
+  subject_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input ContactFormUpdateInput {
+  email: String
+  message: String
+  name: String
+  subject: String
+}
+
+input ContactFormUpdateManyInlineInput {
+  """Connect multiple existing ContactForm documents"""
+  connect: [ContactFormConnectInput!]
+
+  """Create and connect multiple ContactForm documents"""
+  create: [ContactFormCreateInput!]
+
+  """Delete multiple ContactForm documents"""
+  delete: [ContactFormWhereUniqueInput!]
+
+  """Disconnect multiple ContactForm documents"""
+  disconnect: [ContactFormWhereUniqueInput!]
+
+  """
+  Override currently-connected documents with multiple existing ContactForm documents
+  """
+  set: [ContactFormWhereUniqueInput!]
+
+  """Update multiple ContactForm documents"""
+  update: [ContactFormUpdateWithNestedWhereUniqueInput!]
+
+  """Upsert multiple ContactForm documents"""
+  upsert: [ContactFormUpsertWithNestedWhereUniqueInput!]
+}
+
+input ContactFormUpdateManyInput {
+  email: String
+  message: String
+  name: String
+  subject: String
+}
+
+input ContactFormUpdateManyWithNestedWhereInput {
+  """Update many input"""
+  data: ContactFormUpdateManyInput!
+
+  """Document search"""
+  where: ContactFormWhereInput!
+}
+
+input ContactFormUpdateOneInlineInput {
+  """Connect existing ContactForm document"""
+  connect: ContactFormWhereUniqueInput
+
+  """Create and connect one ContactForm document"""
+  create: ContactFormCreateInput
+
+  """Delete currently connected ContactForm document"""
+  delete: Boolean
+
+  """Disconnect currently connected ContactForm document"""
+  disconnect: Boolean
+
+  """Update single ContactForm document"""
+  update: ContactFormUpdateWithNestedWhereUniqueInput
+
+  """Upsert single ContactForm document"""
+  upsert: ContactFormUpsertWithNestedWhereUniqueInput
+}
+
+input ContactFormUpdateWithNestedWhereUniqueInput {
+  """Document to update"""
+  data: ContactFormUpdateInput!
+
+  """Unique document search"""
+  where: ContactFormWhereUniqueInput!
+}
+
+input ContactFormUpsertInput {
+  """Create document if it didn't exist"""
+  create: ContactFormCreateInput!
+
+  """Update document if it exists"""
+  update: ContactFormUpdateInput!
+}
+
+input ContactFormUpsertWithNestedWhereUniqueInput {
+  """Upsert data"""
+  data: ContactFormUpsertInput!
+
+  """Unique document search"""
+  where: ContactFormWhereUniqueInput!
+}
+
+"""
+This contains a set of filters that can be used to compare values internally
+"""
+input ContactFormWhereComparatorInput {
+  """
+  This field can be used to request to check if the entry is outdated by internal comparison
+  """
+  outdated_to: Boolean
+}
+
+"""Identifies documents"""
+input ContactFormWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContactFormWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactFormWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactFormWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: ContactFormWhereStageInput
+  documentInStages_none: ContactFormWhereStageInput
+  documentInStages_some: ContactFormWhereStageInput
+  email: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values that are contained in given list."""
+  email_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  email_not: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values not ending with the given string"""
+  email_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  email_not_in: [String]
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  message: String
+
+  """All values containing the given string."""
+  message_contains: String
+
+  """All values ending with the given string."""
+  message_ends_with: String
+
+  """All values that are contained in given list."""
+  message_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  message_not: String
+
+  """All values not containing the given string."""
+  message_not_contains: String
+
+  """All values not ending with the given string"""
+  message_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  message_not_in: [String]
+
+  """All values not starting with the given string."""
+  message_not_starts_with: String
+
+  """All values starting with the given string."""
+  message_starts_with: String
+  name: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values that are contained in given list."""
+  name_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  name_not: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values not ending with the given string"""
+  name_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  name_not_in: [String]
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  subject: String
+
+  """All values containing the given string."""
+  subject_contains: String
+
+  """All values ending with the given string."""
+  subject_ends_with: String
+
+  """All values that are contained in given list."""
+  subject_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  subject_not: String
+
+  """All values not containing the given string."""
+  subject_not_contains: String
+
+  """All values not ending with the given string"""
+  subject_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  subject_not_in: [String]
+
+  """All values not starting with the given string."""
+  subject_not_starts_with: String
+
+  """All values starting with the given string."""
+  subject_starts_with: String
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+"""
+The document in stages filter allows specifying a stage entry to cross compare the same document between different stages
+"""
+input ContactFormWhereStageInput {
+  """Logical AND on all given filters."""
+  AND: [ContactFormWhereStageInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactFormWhereStageInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactFormWhereStageInput!]
+
+  """
+  This field contains fields which can be set as true or false to specify an internal comparison
+  """
+  compareWithParent: ContactFormWhereComparatorInput
+
+  """Specify the stage to compare with"""
+  stage: Stage
+}
+
+"""References ContactForm record uniquely"""
+input ContactFormWhereUniqueInput {
+  id: ID
 }
 
 """
@@ -1558,13 +2509,714 @@ type DocumentVersion {
   stage: Stage!
 }
 
+"""An object with an ID"""
+interface Entity {
+  """The id of the object."""
+  id: ID!
+
+  """The Stage of an object"""
+  stage: Stage!
+}
+
+"""
+This enumeration holds all typenames that implement the Entity interface. Components and models implement the Entity interface.
+"""
+enum EntityTypeName {
+  About
+
+  """Asset system model"""
+  Asset
+
+  """Contact Us form submitted by the end user."""
+  ContactForm
+
+  """The framework used in the development of a project"""
+  Framework
+
+  """Project entity"""
+  Project
+
+  """Scheduled Operation system model"""
+  ScheduledOperation
+
+  """Scheduled Release system model"""
+  ScheduledRelease
+
+  """Project tags"""
+  Tag
+  TermCondition
+
+  """User system model"""
+  User
+}
+
+"""Allows to specify input to query models and components directly"""
+input EntityWhereInput {
+  """The ID of an object"""
+  id: ID!
+  locale: Locale
+  stage: Stage!
+
+  """The Type name of an object"""
+  typename: EntityTypeName!
+}
+
+"""The framework used in the development of a project"""
+type Framework implements Entity & Node {
+  """The time the document was created"""
+  createdAt: DateTime!
+
+  """User that created this document"""
+  createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+
+  """Get the document in other stages"""
+  documentInStages(
+    """Decides if the current stage should be included or not"""
+    includeCurrent: Boolean! = false
+
+    """
+    Decides if the documents should match the parent documents locale or should use the fallback order defined in the tree
+    """
+    inheritLocale: Boolean! = false
+
+    """Potential stages that should be returned"""
+    stages: [Stage!]! = [DRAFT, PUBLISHED]
+  ): [Framework!]!
+
+  """List of Framework versions"""
+  history(
+    limit: Int! = 10
+    skip: Int! = 0
+
+    """
+    This is optional and can be used to fetch the document version history for a specific stage instead of the current one
+    """
+    stageOverride: Stage
+  ): [Version!]!
+
+  """The unique identifier"""
+  id: ID!
+  logo(
+    """
+    Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
+    
+    Note that `logo` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `logo` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): Asset!
+  name: String!
+
+  """The time the document was published. Null on documents in draft stage."""
+  publishedAt: DateTime
+
+  """User that last published this document"""
+  publishedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+  scheduledIn(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    skip: Int
+    where: ScheduledOperationWhereInput
+  ): [ScheduledOperation!]!
+
+  """System stage field"""
+  stage: Stage!
+
+  """The time the document was updated"""
+  updatedAt: DateTime!
+
+  """User that last updated this document"""
+  updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+  ): User
+}
+
+input FrameworkConnectInput {
+  """
+  Allow to specify document position in list of connected documents, will default to appending at end of list
+  """
+  position: ConnectPositionInput
+
+  """Document to connect"""
+  where: FrameworkWhereUniqueInput!
+}
+
+"""A connection to a list of items."""
+type FrameworkConnection {
+  aggregate: Aggregate!
+
+  """A list of edges."""
+  edges: [FrameworkEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+input FrameworkCreateInput {
+  cm7qrq9jv0gox07o154402eht: ProjectCreateManyInlineInput
+  createdAt: DateTime
+  logo: AssetCreateOneInlineInput!
+  name: String!
+  updatedAt: DateTime
+}
+
+input FrameworkCreateManyInlineInput {
+  """Connect multiple existing Framework documents"""
+  connect: [FrameworkWhereUniqueInput!]
+
+  """Create and connect multiple existing Framework documents"""
+  create: [FrameworkCreateInput!]
+}
+
+input FrameworkCreateOneInlineInput {
+  """Connect one existing Framework document"""
+  connect: FrameworkWhereUniqueInput
+
+  """Create and connect one Framework document"""
+  create: FrameworkCreateInput
+}
+
+"""An edge in a connection."""
+type FrameworkEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Framework!
+}
+
+"""Identifies documents"""
+input FrameworkManyWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FrameworkWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FrameworkWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FrameworkWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: FrameworkWhereStageInput
+  documentInStages_none: FrameworkWhereStageInput
+  documentInStages_some: FrameworkWhereStageInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  logo: AssetWhereInput
+  name: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values that are contained in given list."""
+  name_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  name_not: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values not ending with the given string"""
+  name_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  name_not_in: [String]
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
 """Project frameworks"""
-enum Framework {
+enum FrameworkOld {
   Next
   React
   Remix
   Svelte
   Vanilla
+}
+
+enum FrameworkOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  publishedAt_ASC
+  publishedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input FrameworkUpdateInput {
+  cm7qrq9jv0gox07o154402eht: ProjectUpdateManyInlineInput
+  logo: AssetUpdateOneInlineInput
+  name: String
+}
+
+input FrameworkUpdateManyInlineInput {
+  """Connect multiple existing Framework documents"""
+  connect: [FrameworkConnectInput!]
+
+  """Create and connect multiple Framework documents"""
+  create: [FrameworkCreateInput!]
+
+  """Delete multiple Framework documents"""
+  delete: [FrameworkWhereUniqueInput!]
+
+  """Disconnect multiple Framework documents"""
+  disconnect: [FrameworkWhereUniqueInput!]
+
+  """
+  Override currently-connected documents with multiple existing Framework documents
+  """
+  set: [FrameworkWhereUniqueInput!]
+
+  """Update multiple Framework documents"""
+  update: [FrameworkUpdateWithNestedWhereUniqueInput!]
+
+  """Upsert multiple Framework documents"""
+  upsert: [FrameworkUpsertWithNestedWhereUniqueInput!]
+}
+
+input FrameworkUpdateManyInput {
+  """No fields in updateMany data input"""
+  _: String
+}
+
+input FrameworkUpdateManyWithNestedWhereInput {
+  """Update many input"""
+  data: FrameworkUpdateManyInput!
+
+  """Document search"""
+  where: FrameworkWhereInput!
+}
+
+input FrameworkUpdateOneInlineInput {
+  """Connect existing Framework document"""
+  connect: FrameworkWhereUniqueInput
+
+  """Create and connect one Framework document"""
+  create: FrameworkCreateInput
+
+  """Delete currently connected Framework document"""
+  delete: Boolean
+
+  """Disconnect currently connected Framework document"""
+  disconnect: Boolean
+
+  """Update single Framework document"""
+  update: FrameworkUpdateWithNestedWhereUniqueInput
+
+  """Upsert single Framework document"""
+  upsert: FrameworkUpsertWithNestedWhereUniqueInput
+}
+
+input FrameworkUpdateWithNestedWhereUniqueInput {
+  """Document to update"""
+  data: FrameworkUpdateInput!
+
+  """Unique document search"""
+  where: FrameworkWhereUniqueInput!
+}
+
+input FrameworkUpsertInput {
+  """Create document if it didn't exist"""
+  create: FrameworkCreateInput!
+
+  """Update document if it exists"""
+  update: FrameworkUpdateInput!
+}
+
+input FrameworkUpsertWithNestedWhereUniqueInput {
+  """Upsert data"""
+  data: FrameworkUpsertInput!
+
+  """Unique document search"""
+  where: FrameworkWhereUniqueInput!
+}
+
+"""
+This contains a set of filters that can be used to compare values internally
+"""
+input FrameworkWhereComparatorInput {
+  """
+  This field can be used to request to check if the entry is outdated by internal comparison
+  """
+  outdated_to: Boolean
+}
+
+"""Identifies documents"""
+input FrameworkWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FrameworkWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FrameworkWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FrameworkWhereInput!]
+
+  """Contains search across all appropriate fields."""
+  _search: String
+  createdAt: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  createdAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime]
+  createdBy: UserWhereInput
+  documentInStages_every: FrameworkWhereStageInput
+  documentInStages_none: FrameworkWhereStageInput
+  documentInStages_some: FrameworkWhereStageInput
+  id: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID]
+
+  """Any other value that exists and is not equal to the given value."""
+  id_not: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values not ending with the given string"""
+  id_not_ends_with: ID
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID]
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+  logo: AssetWhereInput
+  name: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values that are contained in given list."""
+  name_in: [String]
+
+  """Any other value that exists and is not equal to the given value."""
+  name_not: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values not ending with the given string"""
+  name_not_ends_with: String
+
+  """All values that are not contained in given list."""
+  name_not_in: [String]
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+  publishedAt: DateTime
+
+  """All values greater than the given value."""
+  publishedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  publishedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  publishedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  publishedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  publishedAt_not_in: [DateTime]
+  publishedBy: UserWhereInput
+  scheduledIn_every: ScheduledOperationWhereInput
+  scheduledIn_none: ScheduledOperationWhereInput
+  scheduledIn_some: ScheduledOperationWhereInput
+  updatedAt: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """Any other value that exists and is not equal to the given value."""
+  updatedAt_not: DateTime
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime]
+  updatedBy: UserWhereInput
+}
+
+"""
+The document in stages filter allows specifying a stage entry to cross compare the same document between different stages
+"""
+input FrameworkWhereStageInput {
+  """Logical AND on all given filters."""
+  AND: [FrameworkWhereStageInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FrameworkWhereStageInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FrameworkWhereStageInput!]
+
+  """
+  This field contains fields which can be set as true or false to specify an internal comparison
+  """
+  compareWithParent: FrameworkWhereComparatorInput
+
+  """Specify the stage to compare with"""
+  stage: Stage
+}
+
+"""References Framework record uniquely"""
+input FrameworkWhereUniqueInput {
+  id: ID
+  name: String
 }
 
 scalar Hex
@@ -1646,6 +3298,12 @@ type Mutation {
   """Create one asset"""
   createAsset(data: AssetCreateInput!): Asset @deprecated(reason: "Asset mutations will be overhauled soon")
 
+  """Create one contactForm"""
+  createContactForm(data: ContactFormCreateInput!): ContactForm
+
+  """Create one framework"""
+  createFramework(data: FrameworkCreateInput!): Framework
+
   """Create one project"""
   createProject(data: ProjectCreateInput!): Project
 
@@ -1669,6 +3327,22 @@ type Mutation {
     """Document to delete"""
     where: AssetWhereUniqueInput!
   ): Asset
+
+  """
+  Delete one contactForm from _all_ existing stages. Returns deleted document.
+  """
+  deleteContactForm(
+    """Document to delete"""
+    where: ContactFormWhereUniqueInput!
+  ): ContactForm
+
+  """
+  Delete one framework from _all_ existing stages. Returns deleted document.
+  """
+  deleteFramework(
+    """Document to delete"""
+    where: FrameworkWhereUniqueInput!
+  ): Framework
 
   """Delete many About documents"""
   deleteManyAbouts(
@@ -1705,6 +3379,42 @@ type Mutation {
     """Documents to delete"""
     where: AssetManyWhereInput
   ): AssetConnection!
+
+  """Delete many ContactForm documents"""
+  deleteManyContactForms(
+    """Documents to delete"""
+    where: ContactFormManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyContactFormsConnection)")
+
+  """Delete many ContactForm documents, return deleted documents"""
+  deleteManyContactFormsConnection(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to delete"""
+    where: ContactFormManyWhereInput
+  ): ContactFormConnection!
+
+  """Delete many Framework documents"""
+  deleteManyFrameworks(
+    """Documents to delete"""
+    where: FrameworkManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (deleteManyFrameworksConnection)")
+
+  """Delete many Framework documents, return deleted documents"""
+  deleteManyFrameworksConnection(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to delete"""
+    where: FrameworkManyWhereInput
+  ): FrameworkConnection!
 
   """Delete many Project documents"""
   deleteManyProjects(
@@ -1823,6 +3533,24 @@ type Mutation {
     withDefaultLocale: Boolean = true
   ): Asset
 
+  """Publish one contactForm"""
+  publishContactForm(
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: ContactFormWhereUniqueInput!
+  ): ContactForm
+
+  """Publish one framework"""
+  publishFramework(
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: FrameworkWhereUniqueInput!
+  ): Framework
+
   """Publish many About documents"""
   publishManyAbouts(
     """Stages to publish documents to"""
@@ -1894,6 +3622,60 @@ type Mutation {
     """Whether to include the default locale when publishBase is true"""
     withDefaultLocale: Boolean = true
   ): AssetConnection!
+
+  """Publish many ContactForm documents"""
+  publishManyContactForms(
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: ContactFormManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyContactFormsConnection)")
+
+  """Publish many ContactForm documents"""
+  publishManyContactFormsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+    last: Int
+    skip: Int
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: ContactFormManyWhereInput
+  ): ContactFormConnection!
+
+  """Publish many Framework documents"""
+  publishManyFrameworks(
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: FrameworkManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (publishManyFrameworksConnection)")
+
+  """Publish many Framework documents"""
+  publishManyFrameworksConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stage to find matching documents in"""
+    from: Stage = DRAFT
+    last: Int
+    skip: Int
+
+    """Stages to publish documents to"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage to be published"""
+    where: FrameworkManyWhereInput
+  ): FrameworkConnection!
 
   """Publish many Project documents"""
   publishManyProjects(
@@ -2046,6 +3828,40 @@ type Mutation {
     withDefaultLocale: Boolean = true
   ): Asset
 
+  """Schedule to publish one contactForm"""
+  schedulePublishContactForm(
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: ContactFormWhereUniqueInput!
+  ): ContactForm
+
+  """Schedule to publish one framework"""
+  schedulePublishFramework(
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Publishing target stage"""
+    to: [Stage!]! = [PUBLISHED]
+
+    """Document to publish"""
+    where: FrameworkWhereUniqueInput!
+  ): Framework
+
   """Schedule to publish one project"""
   schedulePublishProject(
     """
@@ -2146,6 +3962,44 @@ type Mutation {
   ): Asset
 
   """
+  Unpublish one contactForm from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  scheduleUnpublishContactForm(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Document to unpublish"""
+    where: ContactFormWhereUniqueInput!
+  ): ContactForm
+
+  """
+  Unpublish one framework from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  scheduleUnpublishFramework(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """
+    Release at point in time, will create new release containing this operation
+    """
+    releaseAt: DateTime
+
+    """Optionally attach this scheduled operation to an existing release"""
+    releaseId: String
+
+    """Document to unpublish"""
+    where: FrameworkWhereUniqueInput!
+  ): Framework
+
+  """
   Unpublish one project from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
   """
   scheduleUnpublishProject(
@@ -2234,6 +4088,28 @@ type Mutation {
     where: AssetWhereUniqueInput!
   ): Asset
 
+  """
+  Unpublish one contactForm from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishContactForm(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Document to unpublish"""
+    where: ContactFormWhereUniqueInput!
+  ): ContactForm
+
+  """
+  Unpublish one framework from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only.
+  """
+  unpublishFramework(
+    """Stages to unpublish document from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Document to unpublish"""
+    where: FrameworkWhereUniqueInput!
+  ): Framework
+
   """Unpublish many About documents"""
   unpublishManyAbouts(
     """Stages to unpublish documents from"""
@@ -2303,6 +4179,64 @@ type Mutation {
     """Identifies documents in draft stage"""
     where: AssetManyWhereInput
   ): AssetConnection!
+
+  """Unpublish many ContactForm documents"""
+  unpublishManyContactForms(
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage"""
+    where: ContactFormManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyContactFormsConnection)")
+
+  """
+  Find many ContactForm documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManyContactFormsConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+    last: Int
+    skip: Int
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Identifies documents in draft stage"""
+    where: ContactFormManyWhereInput
+  ): ContactFormConnection!
+
+  """Unpublish many Framework documents"""
+  unpublishManyFrameworks(
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+
+    """Identifies documents in each stage"""
+    where: FrameworkManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (unpublishManyFrameworksConnection)")
+
+  """
+  Find many Framework documents that match criteria in specified stage and unpublish from target stages
+  """
+  unpublishManyFrameworksConnection(
+    after: ID
+    before: ID
+    first: Int
+
+    """Stages to unpublish documents from"""
+    from: [Stage!]! = [PUBLISHED]
+    last: Int
+    skip: Int
+
+    """Stage to find matching documents in"""
+    stage: Stage = DRAFT
+
+    """Identifies documents in draft stage"""
+    where: FrameworkManyWhereInput
+  ): FrameworkConnection!
 
   """Unpublish many Project documents"""
   unpublishManyProjects(
@@ -2430,6 +4364,12 @@ type Mutation {
   """Update one asset"""
   updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset
 
+  """Update one contactForm"""
+  updateContactForm(data: ContactFormUpdateInput!, where: ContactFormWhereUniqueInput!): ContactForm
+
+  """Update one framework"""
+  updateFramework(data: FrameworkUpdateInput!, where: FrameworkWhereUniqueInput!): Framework
+
   """Update many abouts"""
   updateManyAbouts(
     """Updates to document content"""
@@ -2477,6 +4417,54 @@ type Mutation {
     """Documents to apply update on"""
     where: AssetManyWhereInput
   ): AssetConnection!
+
+  """Update many contactForms"""
+  updateManyContactForms(
+    """Updates to document content"""
+    data: ContactFormUpdateManyInput!
+
+    """Documents to apply update on"""
+    where: ContactFormManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyContactFormsConnection)")
+
+  """Update many ContactForm documents"""
+  updateManyContactFormsConnection(
+    after: ID
+    before: ID
+
+    """Updates to document content"""
+    data: ContactFormUpdateManyInput!
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to apply update on"""
+    where: ContactFormManyWhereInput
+  ): ContactFormConnection!
+
+  """Update many frameworks"""
+  updateManyFrameworks(
+    """Updates to document content"""
+    data: FrameworkUpdateManyInput!
+
+    """Documents to apply update on"""
+    where: FrameworkManyWhereInput
+  ): BatchPayload! @deprecated(reason: "Please use the new paginated many mutation (updateManyFrameworksConnection)")
+
+  """Update many Framework documents"""
+  updateManyFrameworksConnection(
+    after: ID
+    before: ID
+
+    """Updates to document content"""
+    data: FrameworkUpdateManyInput!
+    first: Int
+    last: Int
+    skip: Int
+
+    """Documents to apply update on"""
+    where: FrameworkManyWhereInput
+  ): FrameworkConnection!
 
   """Update many projects"""
   updateManyProjects(
@@ -2567,6 +4555,12 @@ type Mutation {
 
   """Upsert one asset"""
   upsertAsset(upsert: AssetUpsertInput!, where: AssetWhereUniqueInput!): Asset
+
+  """Upsert one contactForm"""
+  upsertContactForm(upsert: ContactFormUpsertInput!, where: ContactFormWhereUniqueInput!): ContactForm
+
+  """Upsert one framework"""
+  upsertFramework(upsert: FrameworkUpsertInput!, where: FrameworkWhereUniqueInput!): Framework
 
   """Upsert one project"""
   upsertProject(upsert: ProjectUpsertInput!, where: ProjectWhereUniqueInput!): Project
@@ -4847,12 +6841,22 @@ enum Portfolio_VisitorProvider {
 }
 
 """Project entity"""
-type Project implements Node {
+type Project implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
   """User that created this document"""
   createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -4878,7 +6882,37 @@ type Project implements Node {
     """Potential stages that should be returned"""
     stages: [Stage!]! = [DRAFT, PUBLISHED]
   ): [Project!]!
-  framework: Framework!
+
+  """Frameworks per project"""
+  frameworks(
+    after: String
+    before: String
+    first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `frameworks` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+    last: Int
+
+    """
+    Allows to optionally override locale filtering behaviour in the query's subtree.
+    
+    Note that `frameworks` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
+    """
+    locales: [Locale!]
+    orderBy: FrameworkOrderByInput
+    skip: Int
+    where: FrameworkWhereInput
+  ): [Framework!]!
 
   """List of Project versions"""
   history(
@@ -4895,10 +6929,20 @@ type Project implements Node {
   id: ID!
   image(
     """
+    Sets the locale of the parent document as the first locale in the fallback locales in the query's subtree.
+    
+    Note that `image` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
-    Note that `image` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
-    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    Note that `image` will be affected directly by this argument, as well as any other related models with localized fields in the query's subtree.
+    The first locale matching the provided list will be returned, localized entries that do not have the provided locale defined will be filtered out.
     
     This argument will overwrite any existing locale filtering defined in the query's tree for the subtree.
     """
@@ -4911,6 +6955,16 @@ type Project implements Node {
 
   """User that last published this document"""
   publishedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -4925,6 +6979,16 @@ type Project implements Node {
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -4950,6 +7014,16 @@ type Project implements Node {
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `tags` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -4972,6 +7046,16 @@ type Project implements Node {
 
   """User that last updated this document"""
   updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -5008,7 +7092,7 @@ type ProjectConnection {
 input ProjectCreateInput {
   createdAt: DateTime
   description: RichTextAST
-  framework: Framework!
+  frameworks: FrameworkCreateManyInlineInput
   image: AssetCreateOneInlineInput!
   preview: String!
   slug: String!
@@ -5073,7 +7157,7 @@ input ProjectManyWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -5082,16 +7166,9 @@ input ProjectManyWhereInput {
   documentInStages_every: ProjectWhereStageInput
   documentInStages_none: ProjectWhereStageInput
   documentInStages_some: ProjectWhereStageInput
-  framework: Framework
-
-  """All values that are contained in given list."""
-  framework_in: [Framework]
-
-  """All values that are not equal to given value."""
-  framework_not: Framework
-
-  """All values that are not contained in given list."""
-  framework_not_in: [Framework]
+  frameworks_every: FrameworkWhereInput
+  frameworks_none: FrameworkWhereInput
+  frameworks_some: FrameworkWhereInput
   id: ID
 
   """All values containing the given string."""
@@ -5103,7 +7180,7 @@ input ProjectManyWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -5132,7 +7209,7 @@ input ProjectManyWhereInput {
   """All values that are contained in given list."""
   preview_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   preview_not: String
 
   """All values not containing the given string."""
@@ -5166,7 +7243,7 @@ input ProjectManyWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -5186,7 +7263,7 @@ input ProjectManyWhereInput {
   """All values that are contained in given list."""
   slug_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   slug_not: String
 
   """All values not containing the given string."""
@@ -5214,7 +7291,7 @@ input ProjectManyWhereInput {
   """All values that are contained in given list."""
   sourceCode_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   sourceCode_not: String
 
   """All values not containing the given string."""
@@ -5245,7 +7322,7 @@ input ProjectManyWhereInput {
   """All values that are contained in given list."""
   title_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   title_not: String
 
   """All values not containing the given string."""
@@ -5279,7 +7356,7 @@ input ProjectManyWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -5290,8 +7367,6 @@ input ProjectManyWhereInput {
 enum ProjectOrderByInput {
   createdAt_ASC
   createdAt_DESC
-  framework_ASC
-  framework_DESC
   id_ASC
   id_DESC
   preview_ASC
@@ -5310,7 +7385,7 @@ enum ProjectOrderByInput {
 
 input ProjectUpdateInput {
   description: RichTextAST
-  framework: Framework
+  frameworks: FrameworkUpdateManyInlineInput
   image: AssetUpdateOneInlineInput
   preview: String
   slug: String
@@ -5346,7 +7421,6 @@ input ProjectUpdateManyInlineInput {
 
 input ProjectUpdateManyInput {
   description: RichTextAST
-  framework: Framework
   preview: String
   sourceCode: String
   title: String
@@ -5444,7 +7518,7 @@ input ProjectWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -5453,16 +7527,9 @@ input ProjectWhereInput {
   documentInStages_every: ProjectWhereStageInput
   documentInStages_none: ProjectWhereStageInput
   documentInStages_some: ProjectWhereStageInput
-  framework: Framework
-
-  """All values that are contained in given list."""
-  framework_in: [Framework]
-
-  """All values that are not equal to given value."""
-  framework_not: Framework
-
-  """All values that are not contained in given list."""
-  framework_not_in: [Framework]
+  frameworks_every: FrameworkWhereInput
+  frameworks_none: FrameworkWhereInput
+  frameworks_some: FrameworkWhereInput
   id: ID
 
   """All values containing the given string."""
@@ -5474,7 +7541,7 @@ input ProjectWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -5503,7 +7570,7 @@ input ProjectWhereInput {
   """All values that are contained in given list."""
   preview_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   preview_not: String
 
   """All values not containing the given string."""
@@ -5537,7 +7604,7 @@ input ProjectWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -5557,7 +7624,7 @@ input ProjectWhereInput {
   """All values that are contained in given list."""
   slug_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   slug_not: String
 
   """All values not containing the given string."""
@@ -5585,7 +7652,7 @@ input ProjectWhereInput {
   """All values that are contained in given list."""
   sourceCode_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   sourceCode_not: String
 
   """All values not containing the given string."""
@@ -5616,7 +7683,7 @@ input ProjectWhereInput {
   """All values that are contained in given list."""
   title_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   title_not: String
 
   """All values not containing the given string."""
@@ -5650,7 +7717,7 @@ input ProjectWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -5818,6 +7885,139 @@ type Query {
     stage: Stage! = PUBLISHED
     where: AssetWhereInput
   ): AssetConnection!
+
+  """Retrieve a single contactForm"""
+  contactForm(
+    """
+    Defines which locales should be returned.
+    
+    Note that `ContactForm` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    stage: Stage! = PUBLISHED
+    where: ContactFormWhereUniqueInput!
+  ): ContactForm
+
+  """Retrieve document version"""
+  contactFormVersion(where: VersionWhereInput!): DocumentVersion
+
+  """Retrieve multiple contactForms"""
+  contactForms(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `ContactForm` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: ContactFormOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: ContactFormWhereInput
+  ): [ContactForm!]!
+
+  """Retrieve multiple contactForms using the Relay connection interface"""
+  contactFormsConnection(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `ContactForm` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: ContactFormOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: ContactFormWhereInput
+  ): ContactFormConnection!
+
+  """Fetches an object given its ID"""
+  entities(
+    """Defines which locales to query for"""
+    locales: [Locale!]
+
+    """The where parameters to query components"""
+    where: [EntityWhereInput!]!
+  ): [Entity!]
+
+  """Retrieve a single framework"""
+  framework(
+    """
+    Defines which locales should be returned.
+    
+    Note that `Framework` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    stage: Stage! = PUBLISHED
+    where: FrameworkWhereUniqueInput!
+  ): Framework
+
+  """Retrieve document version"""
+  frameworkVersion(where: VersionWhereInput!): DocumentVersion
+
+  """Retrieve multiple frameworks"""
+  frameworks(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Framework` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: FrameworkOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: FrameworkWhereInput
+  ): [Framework!]!
+
+  """Retrieve multiple frameworks using the Relay connection interface"""
+  frameworksConnection(
+    after: String
+    before: String
+    first: Int
+    last: Int
+
+    """
+    Defines which locales should be returned.
+    
+    Note that `Framework` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument may be overwritten by another locales definition in a relational child field, this will effectively use the overwritten argument for the affected query's subtree.
+    """
+    locales: [Locale!]! = [en]
+    orderBy: FrameworkOrderByInput
+    skip: Int
+    stage: Stage! = PUBLISHED
+    where: FrameworkWhereInput
+  ): FrameworkConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -6249,11 +8449,21 @@ type RichText {
 scalar RichTextAST
 
 """Scheduled Operation system model"""
-type ScheduledOperation implements Node {
+type ScheduledOperation implements Entity & Node {
   affectedDocuments(
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `affectedDocuments` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -6273,6 +8483,16 @@ type ScheduledOperation implements Node {
 
   """User that created this document"""
   createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -6313,6 +8533,16 @@ type ScheduledOperation implements Node {
   """User that last published this document"""
   publishedBy(
     """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
     Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
@@ -6330,6 +8560,16 @@ type ScheduledOperation implements Node {
 
   """The release this operation is scheduled for"""
   release(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `release` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -6353,6 +8593,16 @@ type ScheduledOperation implements Node {
   """User that last updated this document"""
   updatedBy(
     """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
     Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
@@ -6364,7 +8614,7 @@ type ScheduledOperation implements Node {
   ): User
 }
 
-union ScheduledOperationAffectedDocument = About | Asset | Project | Tag | TermCondition
+union ScheduledOperationAffectedDocument = About | Asset | ContactForm | Framework | Project | Tag | TermCondition
 
 input ScheduledOperationConnectInput {
   """
@@ -6436,7 +8686,7 @@ input ScheduledOperationManyWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -6453,7 +8703,7 @@ input ScheduledOperationManyWhereInput {
   """All values that are contained in given list."""
   description_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   description_not: String
 
   """All values not containing the given string."""
@@ -6481,7 +8731,7 @@ input ScheduledOperationManyWhereInput {
   """All values that are contained in given list."""
   errorMessage_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   errorMessage_not: String
 
   """All values not containing the given string."""
@@ -6509,7 +8759,7 @@ input ScheduledOperationManyWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -6543,19 +8793,30 @@ input ScheduledOperationManyWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
   publishedAt_not_in: [DateTime]
   publishedBy: UserWhereInput
+
+  """All values containing the given json path."""
+  rawPayload_json_path_exists: String
+
+  """
+  Recursively tries to find the provided JSON scalar value inside the field.
+  It does use an exact match when comparing values.
+  If you pass `null` as value the filter will be ignored. 
+  Note: This filter fails if you try to look for a non scalar JSON value!
+  """
+  rawPayload_value_recursive: Json
   release: ScheduledReleaseWhereInput
   status: ScheduledOperationStatus
 
   """All values that are contained in given list."""
   status_in: [ScheduledOperationStatus]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   status_not: ScheduledOperationStatus
 
   """All values that are not contained in given list."""
@@ -6577,7 +8838,7 @@ input ScheduledOperationManyWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -6662,7 +8923,7 @@ input ScheduledOperationWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -6679,7 +8940,7 @@ input ScheduledOperationWhereInput {
   """All values that are contained in given list."""
   description_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   description_not: String
 
   """All values not containing the given string."""
@@ -6707,7 +8968,7 @@ input ScheduledOperationWhereInput {
   """All values that are contained in given list."""
   errorMessage_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   errorMessage_not: String
 
   """All values not containing the given string."""
@@ -6735,7 +8996,7 @@ input ScheduledOperationWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -6769,19 +9030,30 @@ input ScheduledOperationWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
   publishedAt_not_in: [DateTime]
   publishedBy: UserWhereInput
+
+  """All values containing the given json path."""
+  rawPayload_json_path_exists: String
+
+  """
+  Recursively tries to find the provided JSON scalar value inside the field.
+  It does use an exact match when comparing values.
+  If you pass `null` as value the filter will be ignored. 
+  Note: This filter fails if you try to look for a non scalar JSON value!
+  """
+  rawPayload_value_recursive: Json
   release: ScheduledReleaseWhereInput
   status: ScheduledOperationStatus
 
   """All values that are contained in given list."""
   status_in: [ScheduledOperationStatus]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   status_not: ScheduledOperationStatus
 
   """All values that are not contained in given list."""
@@ -6803,7 +9075,7 @@ input ScheduledOperationWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -6817,12 +9089,22 @@ input ScheduledOperationWhereUniqueInput {
 }
 
 """Scheduled Release system model"""
-type ScheduledRelease implements Node {
+type ScheduledRelease implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
   """User that created this document"""
   createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -6868,6 +9150,16 @@ type ScheduledRelease implements Node {
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `operations` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -6889,6 +9181,16 @@ type ScheduledRelease implements Node {
 
   """User that last published this document"""
   publishedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -6917,6 +9219,16 @@ type ScheduledRelease implements Node {
 
   """User that last updated this document"""
   updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -7015,7 +9327,7 @@ input ScheduledReleaseManyWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7032,7 +9344,7 @@ input ScheduledReleaseManyWhereInput {
   """All values that are contained in given list."""
   description_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   description_not: String
 
   """All values not containing the given string."""
@@ -7060,7 +9372,7 @@ input ScheduledReleaseManyWhereInput {
   """All values that are contained in given list."""
   errorMessage_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   errorMessage_not: String
 
   """All values not containing the given string."""
@@ -7088,7 +9400,7 @@ input ScheduledReleaseManyWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -7107,11 +9419,11 @@ input ScheduledReleaseManyWhereInput {
   id_starts_with: ID
   isActive: Boolean
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   isActive_not: Boolean
   isImplicit: Boolean
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   isImplicit_not: Boolean
   operations_every: ScheduledOperationWhereInput
   operations_none: ScheduledOperationWhereInput
@@ -7133,7 +9445,7 @@ input ScheduledReleaseManyWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7156,7 +9468,7 @@ input ScheduledReleaseManyWhereInput {
   """All values less than or equal the given value."""
   releaseAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   releaseAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7166,7 +9478,7 @@ input ScheduledReleaseManyWhereInput {
   """All values that are contained in given list."""
   status_in: [ScheduledReleaseStatus]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   status_not: ScheduledReleaseStatus
 
   """All values that are not contained in given list."""
@@ -7182,7 +9494,7 @@ input ScheduledReleaseManyWhereInput {
   """All values that are contained in given list."""
   title_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   title_not: String
 
   """All values not containing the given string."""
@@ -7216,7 +9528,7 @@ input ScheduledReleaseManyWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7380,7 +9692,7 @@ input ScheduledReleaseWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7397,7 +9709,7 @@ input ScheduledReleaseWhereInput {
   """All values that are contained in given list."""
   description_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   description_not: String
 
   """All values not containing the given string."""
@@ -7425,7 +9737,7 @@ input ScheduledReleaseWhereInput {
   """All values that are contained in given list."""
   errorMessage_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   errorMessage_not: String
 
   """All values not containing the given string."""
@@ -7453,7 +9765,7 @@ input ScheduledReleaseWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -7472,11 +9784,11 @@ input ScheduledReleaseWhereInput {
   id_starts_with: ID
   isActive: Boolean
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   isActive_not: Boolean
   isImplicit: Boolean
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   isImplicit_not: Boolean
   operations_every: ScheduledOperationWhereInput
   operations_none: ScheduledOperationWhereInput
@@ -7498,7 +9810,7 @@ input ScheduledReleaseWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7521,7 +9833,7 @@ input ScheduledReleaseWhereInput {
   """All values less than or equal the given value."""
   releaseAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   releaseAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7531,7 +9843,7 @@ input ScheduledReleaseWhereInput {
   """All values that are contained in given list."""
   status_in: [ScheduledReleaseStatus]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   status_not: ScheduledReleaseStatus
 
   """All values that are not contained in given list."""
@@ -7547,7 +9859,7 @@ input ScheduledReleaseWhereInput {
   """All values that are contained in given list."""
   title_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   title_not: String
 
   """All values not containing the given string."""
@@ -7581,7 +9893,7 @@ input ScheduledReleaseWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7610,12 +9922,22 @@ enum SystemDateTimeFieldVariation {
 }
 
 """Project tags"""
-type Tag implements Node {
+type Tag implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
   """User that created this document"""
   createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -7661,6 +9983,16 @@ type Tag implements Node {
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `projects` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -7683,6 +10015,16 @@ type Tag implements Node {
   """User that last published this document"""
   publishedBy(
     """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
     Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
@@ -7696,6 +10038,16 @@ type Tag implements Node {
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -7720,6 +10072,16 @@ type Tag implements Node {
 
   """User that last updated this document"""
   updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -7816,7 +10178,7 @@ input TagManyWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7836,7 +10198,7 @@ input TagManyWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -7864,7 +10226,7 @@ input TagManyWhereInput {
   """All values that are contained in given list."""
   name_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   name_not: String
 
   """All values not containing the given string."""
@@ -7901,7 +10263,7 @@ input TagManyWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -7921,7 +10283,7 @@ input TagManyWhereInput {
   """All values that are contained in given list."""
   slug_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   slug_not: String
 
   """All values not containing the given string."""
@@ -7955,7 +10317,7 @@ input TagManyWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8106,7 +10468,7 @@ input TagWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8126,7 +10488,7 @@ input TagWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -8154,7 +10516,7 @@ input TagWhereInput {
   """All values that are contained in given list."""
   name_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   name_not: String
 
   """All values not containing the given string."""
@@ -8191,7 +10553,7 @@ input TagWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8211,7 +10573,7 @@ input TagWhereInput {
   """All values that are contained in given list."""
   slug_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   slug_not: String
 
   """All values not containing the given string."""
@@ -8245,7 +10607,7 @@ input TagWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8282,7 +10644,7 @@ input TagWhereUniqueInput {
   slug: String
 }
 
-type TermCondition implements Node {
+type TermCondition implements Entity & Node {
   content: Portfolio_RichText!
 
   """The time the document was created"""
@@ -8290,6 +10652,16 @@ type TermCondition implements Node {
 
   """User that created this document"""
   createdBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `createdBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -8335,6 +10707,16 @@ type TermCondition implements Node {
   """User that last published this document"""
   publishedBy(
     """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
+    """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
     Note that `publishedBy` is a model without localized fields and will not be affected directly by this argument, however the locales will be passed on to any relational fields in the query's subtree for filtering.
@@ -8348,6 +10730,16 @@ type TermCondition implements Node {
     after: String
     before: String
     first: Int
+
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `scheduledIn` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
     last: Int
 
     """
@@ -8372,6 +10764,16 @@ type TermCondition implements Node {
 
   """User that last updated this document"""
   updatedBy(
+    """
+    Sets the locale of the resolved parent document as the only locale in the query's subtree.
+    
+    Note that `updatedBy` is a model without localized fields and will not be affected directly by this argument, however the locale will be passed on to any relational fields in the query's subtree for filtering.
+    For related models with localized fields in the query's subtree, the first locale matching the provided list of locales will be returned, entries with non matching locales will be filtered out.
+    
+    This argument will affect any existing locale filtering defined in the query's tree for the subtree.
+    """
+    forceParentLocale: Boolean
+
     """
     Allows to optionally override locale filtering behaviour in the query's subtree.
     
@@ -8466,7 +10868,7 @@ input TermConditionManyWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8486,7 +10888,7 @@ input TermConditionManyWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -8520,7 +10922,7 @@ input TermConditionManyWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8540,7 +10942,7 @@ input TermConditionManyWhereInput {
   """All values that are contained in given list."""
   type_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   type_not: String
 
   """All values not containing the given string."""
@@ -8574,7 +10976,7 @@ input TermConditionManyWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8721,7 +11123,7 @@ input TermConditionWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8741,7 +11143,7 @@ input TermConditionWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -8775,7 +11177,7 @@ input TermConditionWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8795,7 +11197,7 @@ input TermConditionWhereInput {
   """All values that are contained in given list."""
   type_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   type_not: String
 
   """All values not containing the given string."""
@@ -8829,7 +11231,7 @@ input TermConditionWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -8874,7 +11276,7 @@ input UnpublishLocaleInput {
 }
 
 """User system model"""
-type User implements Node {
+type User implements Entity & Node {
   """The time the document was created"""
   createdAt: DateTime!
 
@@ -8995,7 +11397,7 @@ input UserManyWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -9014,7 +11416,7 @@ input UserManyWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -9033,14 +11435,14 @@ input UserManyWhereInput {
   id_starts_with: ID
   isActive: Boolean
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   isActive_not: Boolean
   kind: UserKind
 
   """All values that are contained in given list."""
   kind_in: [UserKind]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   kind_not: UserKind
 
   """All values that are not contained in given list."""
@@ -9056,7 +11458,7 @@ input UserManyWhereInput {
   """All values that are contained in given list."""
   name_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   name_not: String
 
   """All values not containing the given string."""
@@ -9084,7 +11486,7 @@ input UserManyWhereInput {
   """All values that are contained in given list."""
   picture_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   picture_not: String
 
   """All values not containing the given string."""
@@ -9118,7 +11520,7 @@ input UserManyWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -9140,7 +11542,7 @@ input UserManyWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -9227,7 +11629,7 @@ input UserWhereInput {
   """All values less than or equal the given value."""
   createdAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   createdAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -9246,7 +11648,7 @@ input UserWhereInput {
   """All values that are contained in given list."""
   id_in: [ID]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   id_not: ID
 
   """All values not containing the given string."""
@@ -9265,14 +11667,14 @@ input UserWhereInput {
   id_starts_with: ID
   isActive: Boolean
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   isActive_not: Boolean
   kind: UserKind
 
   """All values that are contained in given list."""
   kind_in: [UserKind]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   kind_not: UserKind
 
   """All values that are not contained in given list."""
@@ -9288,7 +11690,7 @@ input UserWhereInput {
   """All values that are contained in given list."""
   name_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   name_not: String
 
   """All values not containing the given string."""
@@ -9316,7 +11718,7 @@ input UserWhereInput {
   """All values that are contained in given list."""
   picture_in: [String]
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   picture_not: String
 
   """All values not containing the given string."""
@@ -9350,7 +11752,7 @@ input UserWhereInput {
   """All values less than or equal the given value."""
   publishedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   publishedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -9372,7 +11774,7 @@ input UserWhereInput {
   """All values less than or equal the given value."""
   updatedAt_lte: DateTime
 
-  """All values that are not equal to given value."""
+  """Any other value that exists and is not equal to the given value."""
   updatedAt_not: DateTime
 
   """All values that are not contained in given list."""
@@ -9433,6 +11835,8 @@ enum _FilterKind {
   gt
   gte
   in
+  json_path_exists
+  json_value_recursive
   lt
   lte
   not_contains
@@ -9445,6 +11849,11 @@ enum _FilterKind {
   relational_some
   search
   starts_with
+  union_empty
+  union_every
+  union_none
+  union_single
+  union_some
 }
 
 enum _MutationInputFieldKind {

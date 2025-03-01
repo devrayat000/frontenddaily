@@ -6,10 +6,14 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-// import { useFilterStore } from "~/stores/filter";
-import { frameworks } from "~/utils/frameworks";
-
 import IconAll from "../icons/all";
+import { useQuery } from "urql";
+import { FRAMEWORKS_QUERY } from "./FilterDrawer/query";
+import {
+  FrameworksQuery,
+  FrameworksQueryVariables,
+} from "~/types/graphql.generated";
+import Image from "next/image";
 
 const useStyles = createStyles((theme) => {
   const dark = theme.colorScheme === "dark";
@@ -43,6 +47,10 @@ const useStyles = createStyles((theme) => {
 const FilterToggle = () => {
   const { classes } = useStyles();
   const { framework, ...rest } = useRouter().query;
+  const [{ data }] = useQuery<FrameworksQuery, FrameworksQueryVariables>({
+    query: FRAMEWORKS_QUERY,
+    variables: {},
+  });
 
   return (
     <ToggleGroupRoot
@@ -63,19 +71,29 @@ const FilterToggle = () => {
         </Link>
       </ToggleItem>
 
-      {Object.entries(frameworks).map(([framework, Icon]) => (
-        <Tooltip key={framework} label={framework} withArrow transition="pop">
-          <ToggleItem value={framework} className={classes.item} asChild>
+      {data?.frameworks.map((framework) => (
+        <Tooltip
+          key={framework.id}
+          label={framework.name}
+          withArrow
+          transition="pop"
+        >
+          <ToggleItem value={framework.name} className={classes.item} asChild>
             <Link
               href={{
                 query: {
                   ...rest,
-                  framework,
+                  framework: framework.name,
                 },
               }}
               passHref
             >
-              <Icon height={28} width={28} />
+              <Image
+                src={framework.logo.url}
+                alt={framework.name}
+                height={28}
+                width={28}
+              />
             </Link>
           </ToggleItem>
         </Tooltip>

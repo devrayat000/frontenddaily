@@ -9,7 +9,14 @@ export const SIMPLE_PROJECT_FRAGMENT = gql`
       id
       url
     }
-    framework
+    frameworks {
+      id
+      name
+      logo {
+        id
+        url
+      }
+    }
     createdAt
   }
 `;

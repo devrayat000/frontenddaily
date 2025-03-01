@@ -8,3 +8,16 @@ export const TAGS_QUERY = gql`
     }
   }
 `;
+
+export const FRAMEWORKS_QUERY = gql`
+  query Frameworks($orderBy: FrameworkOrderByInput = name_ASC) {
+    frameworks(orderBy: $orderBy) {
+      id
+      name
+      logo {
+        id
+        url
+      }
+    }
+  }
+`;

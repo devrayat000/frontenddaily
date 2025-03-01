@@ -31,7 +31,6 @@ import type {
   ProjectQueryVariables,
 } from "~/types/graphql.generated";
 import { formatDate } from "~/utils/datetime";
-import { frameworks } from "~/utils/frameworks";
 import { getUrl } from "~/utils/getUrl";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
@@ -92,7 +91,6 @@ const PostPage: NextPage<Props> = ({ slug }) => {
   }
 
   const project = data.project;
-  const Icon = frameworks[project.framework];
 
   return (
     <Container fluid>
@@ -134,11 +132,35 @@ const PostPage: NextPage<Props> = ({ slug }) => {
           layoutId={`project_${project.id}`}
           className={cx(pclasses.figure, classes.figure)}
         >
-          {Icon && (
-            <FrameworkIcon className={classes.framework} component="div">
-              <Icon height={28} width={28} />
-            </FrameworkIcon>
-          )}
+          <Group position="right" sx={{ zIndex: 10, position: "relative" }}>
+            <Group
+              spacing={"xl"}
+              sx={(theme) => ({
+                backgroundColor:
+                  theme.colorScheme === "light"
+                    ? theme.white
+                    : theme.colors.dark[7],
+                borderRadius: theme.radius.sm,
+                border: `1px solid ${
+                  theme.colors[
+                    theme.colorScheme === "light" ? "gray" : "dark"
+                  ][3]
+                }`,
+              })}
+              p="xs"
+            >
+              {project.frameworks.map((framework) => (
+                <FrameworkIcon key={framework.id} component="div">
+                  <Image
+                    src={framework.logo.url}
+                    alt={framework.name}
+                    height={28}
+                    width={28}
+                  />
+                </FrameworkIcon>
+              ))}
+            </Group>
+          </Group>
           <Image src={project.image.url} alt={project.title} fill />
         </Box>
 

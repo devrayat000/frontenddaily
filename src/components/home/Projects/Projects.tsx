@@ -16,7 +16,6 @@ import FrameworkIcon from "~/components/common/FrameworkIcon";
 import { useProjectStyles } from "~/styles/project";
 import type { ProjectsQuery } from "~/types/graphql.generated";
 import { formatDate } from "~/utils/datetime";
-import { frameworks } from "~/utils/frameworks";
 
 export type ProjectsProps = {
   projects: ProjectsQuery["projectsConnection"]["edges"];
@@ -119,7 +118,6 @@ const Projects = forwardRef<HTMLAnchorElement, ProjectsProps>(
         onMouseMove={handleMouseMove}
       >
         {projects.map(({ node: project }, i) => {
-          const Icon = frameworks[project.framework];
           return (
             <div key={project.id} className={classes.cardWrapper}>
               <m.div
@@ -135,7 +133,7 @@ const Projects = forwardRef<HTMLAnchorElement, ProjectsProps>(
                 as={`/projects/${project.slug}`}
                 title={project.title}
                 className={classes.card}
-                p="xl"
+                p="sm"
                 ref={ref}
               >
                 <Card.Section
@@ -152,32 +150,38 @@ const Projects = forwardRef<HTMLAnchorElement, ProjectsProps>(
                 </Card.Section>
 
                 <article>
+                  <Title order={3} size="h4" weight={600}>
+                    {project.title}
+                  </Title>
                   <Group position="apart" align="flex-start" noWrap>
-                    <Title order={3} size="h4" weight={600}>
-                      {project.title}
-                    </Title>
+                    <Text
+                      size="md"
+                      component="time"
+                      dateTime={project.createdAt}
+                    >
+                      {formatDate(project.createdAt)}
+                    </Text>
 
-                    {Icon && (
-                      <Tooltip
-                        label={project.framework}
-                        withArrow
-                        transition="pop"
-                      >
-                        <FrameworkIcon>
-                          <Icon height={28} width={28} />
-                        </FrameworkIcon>
-                      </Tooltip>
-                    )}
+                    <Group spacing={4}>
+                      {project.frameworks.map((framework) => (
+                        <Tooltip
+                          key={framework.id}
+                          label={framework.name}
+                          withArrow
+                          transition="pop"
+                        >
+                          <FrameworkIcon>
+                            <Image
+                              src={framework.logo.url}
+                              alt={framework.name}
+                              height={14}
+                              width={14}
+                            />
+                          </FrameworkIcon>
+                        </Tooltip>
+                      ))}
+                    </Group>
                   </Group>
-
-                  <Text
-                    mt="lg"
-                    size="md"
-                    component="time"
-                    dateTime={project.createdAt}
-                  >
-                    {formatDate(project.createdAt)}
-                  </Text>
                 </article>
               </Card>
             </div>

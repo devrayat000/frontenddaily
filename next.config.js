@@ -7,7 +7,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 const config = {
   reactStrictMode: true,
   images: {
-    domains: ["media.graphassets.com"],
+    domains: ["media.graphassets.com", "ap-south-1.graphassets.com"],
   },
   experimental: {
     newNextLinkBehavior: true,

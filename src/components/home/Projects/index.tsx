@@ -24,7 +24,12 @@ const Projects = () => {
     query: PROJECTS_QUERY,
     variables: {
       where: {
-        framework: framework !== "all" ? (framework as Framework) : undefined,
+        frameworks_some:
+          framework !== "all" && framework !== undefined
+            ? {
+                name: framework as string,
+              }
+            : undefined,
         _search: search || undefined,
         tags_some: tags?.length === 0 ? undefined : { name_in: tags },
       },
