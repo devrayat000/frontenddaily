@@ -1,5 +1,5 @@
 import { createStyles, Group, TextInput } from "@mantine/core";
-import { IconSearch } from "@tabler/icons";
+import { IconSearch } from "@tabler/icons-react";
 import _debounce from "lodash/debounce";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";

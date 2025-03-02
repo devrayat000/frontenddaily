@@ -1,5 +1,5 @@
 import { ActionIcon } from "@mantine/core";
-import { IconShare } from "@tabler/icons";
+import { IconShare } from "@tabler/icons-react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 

@@ -1,0 +1,54 @@
+.header {
+  position: fixed;
+  height: 4.5rem;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--mantine-shadow-sm);
+
+  @mixin light {
+    background-color: color-mix(
+      in srgb,
+      var(--mantine-color-white),
+      transparent 50%
+    );
+  }
+
+  @mixin dark {
+    background-color: color-mix(
+      in srgb,
+      var(--mantine-color-dark-5),
+      transparent 80%
+    );
+  }
+}
+
+.container {
+  height: 100%;
+  padding: var(--mantine-spacing-lg) calc(var(--mantine-spacing-xl) * 2);
+
+  @mixin smaller-than $mantine-breakpoint-md {
+    padding: var(--mantine-spacing-lg) calc(var(--mantine-spacing-xl) * 1.5);
+  }
+
+  @mixin smaller-than $mantine-breakpoint-sm {
+    padding: var(--mantine-spacing-lg) var(--mantine-spacing-xl);
+  }
+
+  @mixin smaller-than $mantine-breakpoint-xs {
+    padding: var(--mantine-spacing-lg) var(--mantine-spacing-lg);
+  }
+}
+
+.title {
+  color: light-dark(
+    var(--mantine-color-dark-text),
+    var(--mantine-color-dimmed)
+  );
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-sm);
+}
+
+.gap {
+  flex: 1;
+}

@@ -9,7 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { IconX } from "@tabler/icons";
+import { IconX } from "@tabler/icons-react";
 import _groubBy from "lodash/groupBy";
 import _head from "lodash/head";
 import { memo, Suspense, useMemo } from "react";

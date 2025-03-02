@@ -1,6 +1,6 @@
 import type { ActionIconProps } from "@mantine/core";
 import { ActionIcon, Indicator } from "@mantine/core";
-import { IconAdjustmentsHorizontal } from "@tabler/icons";
+import { IconAdjustmentsHorizontal } from "@tabler/icons-react";
 import dynamic from "next/dynamic";
 // import { useRouter } from "next/router";
 import { useState } from "react";

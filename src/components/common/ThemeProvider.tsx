@@ -1,4 +1,6 @@
-import type { ColorScheme } from "@mantine/core";
+"use client";
+
+import type {} from "@mantine/core";
 import {
   ColorSchemeProvider,
   DEFAULT_THEME,

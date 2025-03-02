@@ -7,7 +7,7 @@ import {
   Title,
   Tooltip,
 } from "@mantine/core";
-import { m, useAnimationControls, useWillChange } from "framer-motion";
+import { m, useAnimationControls, useWillChange } from "motion/react";
 import Image from "next/image";
 import NextLink from "next/link";
 import { forwardRef, useCallback } from "react";

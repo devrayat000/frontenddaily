@@ -1,4 +1,6 @@
-import { ActionIcon, createStyles } from "@mantine/core";
+"use client";
+
+import { ActionIcon } from "@mantine/core";
 import {
   IconBrandDribbble,
   IconBrandFacebook,
@@ -6,20 +8,13 @@ import {
   IconBrandLinkedin,
   IconBrandTwitter,
   IconSocial,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 // import { animated, config, to, useSprings } from "react-spring";
-import type { Variant } from "framer-motion";
-import { motion, useAnimationControls, useWillChange } from "framer-motion";
-import { useEffect, useRef } from "react";
+import type { Variants } from "motion/react";
+import { motion, useAnimationControls, useWillChange } from "motion/react";
+import { useEffect, useState } from "react";
 
-const useStyles = createStyles((theme) => ({
-  fab: {
-    position: "fixed",
-    right: 24,
-    bottom: "calc(var(--mantine-footer-height, 0px) + 24px)",
-    boxShadow: theme.shadows.md,
-  },
-}));
+import classes from "./styles.module.css";
 
 const socialLinks = [
   {
@@ -50,29 +45,23 @@ const socialLinks = [
 ];
 
 const foldIn = {
-  open: ((i: number) => ({
+  open: (i: number) => ({
     y: (-i - 1) * 52,
     opacity: 1,
-  })) as Variant,
+  }),
   close: {
     y: 0,
     opacity: 0,
-  } as Variant,
-};
+  },
+} satisfies Variants;
 
 const SocialButton = () => {
-  const { classes } = useStyles();
-  const openRef = useRef(false);
   const api = useAnimationControls();
   const willChange = useWillChange();
+  const [state, setState] = useState<"open" | "close">("close");
 
-  async function animate() {
-    let open = (openRef.current = !openRef.current);
-    try {
-      await api.start(open ? "open" : "close");
-    } catch (error) {
-      console.log(error);
-    }
+  function animate() {
+    setState((prev) => (prev === "open" ? "close" : "open"));
   }
 
   useEffect(() => {
@@ -89,7 +78,6 @@ const SocialButton = () => {
         variant="filled"
         className={classes.fab}
         onClick={animate}
-        sx={{ zIndex: socialLinks.length + 10 }}
       >
         <IconSocial />
       </ActionIcon>
@@ -110,7 +98,7 @@ const SocialButton = () => {
             className={classes.fab}
             initial={"close"}
             variants={foldIn}
-            animate={api}
+            animate={state}
             custom={i}
             // @ts-ignore
             style={{ zIndex: socialLinks.length - i, willChange }}

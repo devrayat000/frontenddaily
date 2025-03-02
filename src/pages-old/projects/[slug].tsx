@@ -11,7 +11,7 @@ import {
   Title,
   TypographyStylesProvider,
 } from "@mantine/core";
-import { m } from "framer-motion";
+import { m } from "motion/react";
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,

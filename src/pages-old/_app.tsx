@@ -1,4 +1,4 @@
-import { LazyMotion } from "framer-motion";
+import { LazyMotion } from "motion/react";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { Provider } from "urql";
@@ -10,7 +10,7 @@ import ThemeProvider from "~/components/common/ThemeProvider";
 
 import urqlClient, { ssr } from "../services/urql-client";
 
-const SocialButton = dynamic(() => import("~/components/common/SocialButton"));
+const SocialButton = dynamic(() => import("~/components/common/social-button"));
 
 const MyApp = ({ Component, pageProps }: MyAppProps) => {
   if (pageProps.ssr) {
@@ -42,6 +42,6 @@ export default MyApp;
 
 type MyAppProps<P = {}> = AppProps<P> & {
   pageProps: {
-    ssr?: ReturnType<typeof ssr["extractData"]>;
+    ssr?: ReturnType<(typeof ssr)["extractData"]>;
   };
 };

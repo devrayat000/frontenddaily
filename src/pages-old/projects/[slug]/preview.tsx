@@ -13,7 +13,7 @@ import {
   IconDeviceMobile,
   IconDeviceTablet,
   IconExternalLink,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,

@@ -1,0 +1,20 @@
+.links {
+  gap: var(--mantine-spacing-md);
+  flex-grow: 0;
+
+  @mixin smaller-than $mantine-breakpoint-md {
+    gap: var(--mantine-spacing-sm);
+  }
+
+  @mixin smaller-than $mantine-breakpoint-sm {
+    gap: var(--mantine-spacing-lg);
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.lgLinks {
+  @mixin smaller-than $mantine-breakpoint-sm {
+    display: none;
+  }
+}

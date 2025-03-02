@@ -12,6 +12,7 @@ const config = {
   experimental: {
     newNextLinkBehavior: true,
     scrollRestoration: true,
+    optimizePackageImports: ["@mantine/core", "@mantine/hooks"],
   },
   // async rewrites() {
   //   return [

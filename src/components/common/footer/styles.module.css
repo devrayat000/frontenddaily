@@ -1,0 +1,5 @@
+.container {
+  @mixin smaller-than $mantine-breakpoint-sm {
+    justify-content: center;
+  }
+}
